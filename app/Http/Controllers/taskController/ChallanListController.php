@@ -14,7 +14,7 @@ use DB;
 class ChallanListController extends Controller
 {
     public function challanListView(){
-        $challanDetails = DB::table('Mxp_multipleChallan')
+        $challanDetails = DB::table('mxp_multiplechallan')
             ->groupBy('challan_id')
             ->orderBy('id','DESC')
             ->paginate(15);
@@ -25,9 +25,9 @@ class ChallanListController extends Controller
     public function showChallanReport(Request $request){
 //        $this->print_me($request->cid);
         $headerValue = DB::table("mxp_header")->where('header_type',11)->get();
-        $multipleChallan = DB::select(" select * from Mxp_multipleChallan where challan_id ='".$request->cid."'");
-        $buyerDetails = DB::table("mxp_bookingBuyer_details")->where('booking_order_id',$request->bid)->get();
-        $footerData = DB::select("select * from mxp_reportFooter");
+        $multipleChallan = DB::select(" select * from mxp_multiplechallan where challan_id ='".$request->cid."'");
+        $buyerDetails = DB::table("mxp_bookingbuyer_details")->where('booking_order_id',$request->bid)->get();
+        $footerData = DB::select("select * from mxp_reportfooter");
 
         return view('maxim.challan.challanBoxingPage',
             [
@@ -40,7 +40,7 @@ class ChallanListController extends Controller
 
     public function getChallanListByChallanId(Request $request){
 
-        $challanList = DB::table('Mxp_multipleChallan')
+        $challanList = DB::table('mxp_multiplechallan')
             ->where('challan_id', 'like', '%'.$request->challan_id.'%')
             ->groupBy('challan_id')
             ->orderBy('id','DESC')
@@ -51,7 +51,7 @@ class ChallanListController extends Controller
 
     public function getChallanListBySearch(Request $request){
 
-        $challanList = DB::table('Mxp_multipleChallan');
+        $challanList = DB::table('mxp_multiplechallan');
         $checkValidation = false;
 
         if($request->booking_id_search != '')
