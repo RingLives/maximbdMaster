@@ -18,7 +18,7 @@ class AddFieldPiTable extends Migration
             $table->string('p_id')->nullable()->after('job_no');
             $table->string('oos_number')->nullable()->after('item_description');
             $table->string('is_type')->nullable()->after('sku');
-            $table->string('style')->nullable()->after('item_description');
+            $table->string('style')->nullable()->after('item_description'); 
         });
     }
 
