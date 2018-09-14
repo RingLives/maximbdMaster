@@ -28,19 +28,19 @@ DELIMITER $$
 --
 DROP PROCEDURE IF EXISTS `getBookinAndBuyerDeatils`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getBookinAndBuyerDeatils` (IN `booking_order_id` VARCHAR(247))  NO SQL
-SELECT mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code ORDER BY id ASC$$
+SELECT mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code ORDER BY id ASC$$
 
 DROP PROCEDURE IF EXISTS `getProductSizeQuantity`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProductSizeQuantity` (IN `product_code` VARCHAR(247), IN `order_id` VARCHAR(247))  select mo.item_code,mo.oss,mo.style, mp.unit_price, mp.weight_qty, mp.erp_code, GROUP_CONCAT(mo.item_size) as item_size, GROUP_CONCAT(mo.quantity) as quantity, mo.order_id from mxp_order mo INNER JOIN mxp_product mp on(mo.item_code = mp.product_code) where mo.item_code = product_code AND mo.order_id = order_id GROUP by mo.item_code$$
 
 DROP PROCEDURE IF EXISTS `getProductSizeQuantitybyPrice`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProductSizeQuantitybyPrice` (IN `booking_order_id` VARCHAR(100))  NO SQL
-SELECT mb.erp_code,mb.item_code,mb.item_price,mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) INNER JOIN mxp_product mp on( mb.item_code = mp.product_code) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code$$
+SELECT mb.erp_code,mb.item_code,mb.item_price,mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) INNER JOIN mxp_product mp on( mb.item_code = mp.product_code) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code$$
 
 DROP PROCEDURE IF EXISTS `getProductSizeQuantityWithConcat`$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getProductSizeQuantityWithConcat` (IN `product_code` VARCHAR(247))  NO SQL
 SELECT mp.erp_code,mp.product_id,mp.unit_price,mp.product_name,mp.others_color,mp.product_description ,GROUP_CONCAT(mps.product_size order by product_size) as size,GROUP_CONCAT(mgs.color_name) as color   FROM mxp_product mp 
-LEFT JOIN mxp_productSize mps ON (mps.product_code = mp.product_code)
+LEFT JOIN mxp_productsize mps ON (mps.product_code = mp.product_code)
 LEFT JOIN mxp_gmts_color mgs ON (mgs.item_code = mps.product_code)
 WHERE mp.product_code = product_code and mp.status = 1 GROUP BY mps.product_code, mgs.item_code$$
 
@@ -176,7 +176,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (241, '2018_06_23_094814_create_booking_challan_table', 28),
 (246, '2018_05_07_060534_create_mxp_ipo_table', 29),
 (247, '2018_06_23_131029_create_booking_multiple_challan_table', 29),
-(248, '2018_07_10_081809_create_mxp_MRF_table', 29),
+(248, '2018_07_10_081809_create_mxp_mrf_table', 29),
 (249, '2018_07_17_093951_create_vendor_prices_table', 30),
 (250, '2018_07_17_103743_create_mxp_task_table', 30),
 (251, '2018_07_18_123833_create_mxp_task_role_table', 30),
@@ -189,8 +189,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (258, '2018_07_24_073844_create_create_mxp_items_qnty_by_booking_challans_table', 33),
 (259, '2018_07_27_121336_update_getProductSizeQuantityWithConcat_store_porceduer', 34),
 (260, '2018_07_23_064442_add_product_type_column_at_mxp_product_table', 35),
-(261, '2018_07_23_081335_add_supplier_id_mxp_MRF_table', 35),
-(262, '2018_07_23_103343_add_booking_status_column_at_mxp_bookingBuyer_details', 35),
+(261, '2018_07_23_081335_add_supplier_id_mxp_mrf_table', 35),
+(262, '2018_07_23_103343_add_booking_status_column_at_mxp_bookingbuyer_details', 35),
 (263, '2018_07_30_070914_create_mxp_purchase_orders_table', 36);
 
 -- --------------------------------------------------------
