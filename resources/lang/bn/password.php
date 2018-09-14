@@ -2,7 +2,7 @@
 
 return [
 
-'company_name' => 'বিডি ম্যাক্সিম অনলাইন',
+'company_name' => 'ম্যাক্সিম অর্ডার ম্যানেজমেন্ট সিস্টেম',
 'login_label' => 'লগ ইন',
 'register_label' => 'নিবন্ধন করুন',
 'validationerror_woops' => 'উপস!',
@@ -283,5 +283,7 @@ return [
 'add_product_status' => 'Product Status',
 'ipo_increase_percentage' => 'Increase Percentage',
 'mxp_menu_booking_view_details' => 'Booking Details',
+'mxp_menu_permission_task_assign' => 'টাস্ক অ্যাসাইন',
+'mxp_menu_vendor_list' => 'বিক্রেতা',
 
 ];

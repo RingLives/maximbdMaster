@@ -47,8 +47,7 @@ class TaskController extends Controller {
 			if($taskType == 'booking'){
 				$taskType = 'Create Booking';
 			}else{
-
-			$taskType = 'Create FSC Booking';
+				$taskType = 'Create FSC Booking';
 			}
 
 			$buyerDetails = DB::table('mxp_party')
@@ -59,7 +58,7 @@ class TaskController extends Controller {
 				->get();
 			return view('maxim.orderInput.orderInputIndex', compact('buyerDetails'))->with(['taskType' => $taskType]);
 
-		} elseif ($taskType === 'PI') {
+		} elseif ($taskType === 'PI' || $taskType === 'FSC PI') {
 
 			// $formatTypes = '1002';
 			// // $formatTypes = $request->piFormat;
@@ -79,13 +78,20 @@ class TaskController extends Controller {
 
 			// $bookingDetails = DB::select('call getBookinAndBuyerDeatils("' . $request->bookingId . '")');
 
-			
-			$bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as abc,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = "' . $request->bookingId . '" GROUP BY mb.item_code ORDER BY mb.id ASC');
-			// $this->print_me($bookingDetails);
-			return view('maxim.pi_format.pi_generate_page',compact('bookingDetails'));
+			if($taskType == 'PI'){
+				$is_type = 'non_fsc';
+				$bookingDetails = $this->getNonfscBookingValue($request->bookingId);
+			}else if($taskType == 'FSC PI'){
+				$is_type = 'fsc';
+				$bookingDetails = $this->getFscBookingValue($request->bookingId);
+			}
+
+
+			// $this->print_me($is_Type);
+
+			return view('maxim.pi_format.pi_generate_page',compact('bookingDetails','is_type'));
 
 		} elseif ($taskType === 'IPO') {
-
 
 				$validMessages = [
 					'bookingId.required' => 'Booking Id is required.',
@@ -313,4 +319,18 @@ class TaskController extends Controller {
 		return isset($bookingQuantityDetails[0]->item_quantity) ? $bookingQuantityDetails[0]->item_quantity : 0;
 
 	}
+
+
+	public function getNonfscBookingValue($booking_order_id){
+		$bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as abc,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE  mb.is_pi_type = "unstage" and mb.booking_order_id = "' . $booking_order_id . '"  GROUP BY mb.item_code ORDER BY mb.id ASC');
+
+		return $bookingDetails;
+	}
+	public function getFscBookingValue($booking_order_id){
+		$bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as abc,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE  mb.is_pi_type = "unstage" and mb.booking_order_id = "' . $booking_order_id . '" GROUP BY mb.item_code ORDER BY mb.id ASC');
+
+		return $bookingDetails;
+	}
+
+
 }

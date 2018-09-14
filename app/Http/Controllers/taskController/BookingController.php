@@ -150,6 +150,7 @@ class BookingController extends Controller
         // $insertBooking->poCatNo           = $request->poCatNo;
         $insertBooking->season_code       = $request->season_code;
         $insertBooking->is_type           = $request->is_type;
+        $insertBooking->is_pi_type        = 'unstage';
         $insertBooking->save();
    		}
 

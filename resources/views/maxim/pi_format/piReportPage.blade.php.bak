@@ -1,10 +1,10 @@
 @extends('maxim.layouts.layouts')
 @section('title','PI Maxim')
 @section('print-body')
-<?php
-// print_r("<pre>");
-// print_r($buyerDetails);
-// print_r("</pre>");
+<?php 
+	// print_r("<pre>");
+	// print_r($bookingDetails);
+	// print_r("</pre>");
 	$objectConvertController = new App\Http\Controllers\Source\ConverterText();
 ?>
 <center>
@@ -17,7 +17,7 @@
 			@if($value->logo_allignment === "left")
 				@if(!empty($value->logo))
 					<div class="pull-left">
-						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
+						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
 					</div>
 				@endif
 			@endif
@@ -32,7 +32,7 @@
 			@if($value->logo_allignment === "right")
 				@if(!empty($value->logo))
 					<div class="pull-right">
-						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
+						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
 					</div>
 				@endif
 			@endif
@@ -41,21 +41,26 @@
 @endforeach
 <div class="row header-bottom">
 	<div class="col-md-12 header-bottom-b">
-		<span>PROFORMA INVOICE</span>
+		<span>PROFORM INVOICE</span>
 	</div>
 </div>
 
 <div class="row body-top">
 	<div class="col-md-8 col-sm-8 col-xs-7 body-list">
-
-		<ul>
-			<li>Buyer : {{$buyerDetails->buyer_name}}</li>
-			<li>Company Name  : {{$buyerDetails->Company_name}}</li>
-			<li>Address : {{$buyerDetails->address_part1_invoice}}</li>
-			<li> {{$buyerDetails->address_part2_invoice}}</li>
-			<li>{{($formatTypes == 1001 )?'Contact ' :'Attn' }} : {{$buyerDetails->attention_invoice}}</li>
-			<li>{{($formatTypes == 1001 )?'Contact No ' :'Cell No' }} : {{$buyerDetails->mobile_invoice}}</li>
-		</ul>
+		@php($is=0)
+		@foreach($bookingDetails as $Details)
+			@for($is;$is <= 0;$is++)
+				<ul>
+					<li>Buyer : {{$Details->buyer_name}}</li>
+					<li>Company Name  : {{$Details->Company_name}}</li>
+					<li>Address : {{$Details->address_part1_invoice}}</li>
+					<li> {{$Details->address_part2_invoice}}
+					</li>
+					<li>{{($formatTypes == 1001 )?'Contact ' :'Attn' }} : {{$Details->attention_invoice}}</li>
+					<li>{{($formatTypes == 1001 )?'Contact No ' :'Cell No' }} : {{$Details->mobile_invoice}}</li>
+				</ul>
+			@endfor
+		@endforeach
 	</div>
 	
 	<div class="col-md-4 col-sm-4 col-xs-5 valueGenarate">
@@ -66,7 +71,7 @@
 					<tr>
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> PI No: {{$details->booking_order_id}} </p>
+								<p style="padding-left :5px;"> PI No : {{$details->booking_order_id}} </p>
 							</div>
 						</td>
 					</tr>
@@ -74,28 +79,26 @@
 						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
 						<td width="50%">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> Date: {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
+								<p style="padding-left :5px;"> Date : {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
 							</div>
 						</td>
 					</tr>
-					@if($is_type == 'fsc')
-					<!-- <tr>
-						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
-						<td width="50%">
-							<div style="text-align: right;">
-								<p style="padding-left :5px;">FSC-MIX</p>
-							</div>
-						</td>
-					</tr> -->
-					<tr>
-						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
-						<td width="50%">
-							<div style="text-align: right;">
-								<p style="padding-left :5px;">FSC-C121666</p>
-							</div>
-						</td>
-					</tr>
-					@endif
+						<tr>
+							<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
+							<td width="50%">
+								<div style="text-align: right;">
+									<p style="padding-left :5px;">FSC-MIX</p>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
+							<td width="50%">
+								<div style="text-align: right;">
+									<p style="padding-left :5px;">FSC-C121666</p>
+								</div>
+							</td>
+						</tr>		
 				</table>
 			@endfor
 		@endforeach		
@@ -108,70 +111,88 @@
 		<p>We take the Plasure in issuing PROFORM INVOICE for the following article (s) on the terms and conditions set forth here under :</p>
 	</div>
 </div>
+<?php
+	$ih = 0;
+	$totalUsdAmount = 0;
+	$totalAllqnty = 0;
+	$picate = [];
+
+	$countTotalspan = 0;
+	if($formatTypes == 1001){
+		$countTotalspan = 5;
+	}else{
+		$countTotalspan = 5;
+	}
+	$rr = 0;
+	foreach($bookingDetails as $Details){
+		$picate[$rr][] = $Details->poCatNo;
+		$picate[$rr][] = $Details->item_code;
+		$rr++;
+	}
+
+	$BDTandUSD = 0;
+
+	// print_r("<pre>");
+	// print_r($picate);
+	// print_r("</pre>");
+?>
 <table class="table table-bordered">
 	<thead>
 	    <tr>
-	    	<th>Job No</th>
-	    	<th>PO/Cat No. </th>
-	    	<th>OOS No. </th>
-	    	<th>Item code</th>
-	    	<th>ERP Code</th>
-	    	<th>GMTS/Item Color</th>
-	        <th>Item Descreption</th>
-	        <th>Style</th>
-	        <th>Item Size</th>
-	        <th>Qty / Pcs</th>
-	        <th>Unit Price / Pcs</th>
-	        <th>USD Amount / USD</th>
+	    	@if(1001 == $formatTypes)
+	    	@else
+	    		<th width="">SL</th>
+	    	@endif
+	    	<th width="">PO / NO </th>
+	    	<th width="19%">Item code</th>
+	    	<th width="15%">Item no/ERP</th>
+	    	@if(1001 == $formatTypes)
+	    		<th width="">Color</th>
+	    	@endif
+	        <th width="">Descreption</th>
+	        <th width="">Qty / Pcs</th>
+	        <th width="">Unit Price / Pcs</th>
+	        <th width="15%">USD Amount / USD</th>
 	    </tr>
 	</thead>
 	<tbody>
-		<?php 
-			$itemcodestatus = ''; 
-			$totalUsdAmount = 0;
-		?>
-		@foreach($bookingDetails as $detailsValue)
-		<?php 
-			$jobId = (8 - strlen($detailsValue->job_no));
+		@php($j=1)
+		@foreach ($bookingDetails as $Details)
+			<?php
+				$gmtsquantity = explode(',', $Details->quantity);
+				$totalQntyValue = 0;
+				foreach ($gmtsquantity as $qtyValue) {
+					$totalQntyValue = $totalQntyValue + $qtyValue;
+				}
+				$totalPrice = $totalQntyValue * $Details->item_price;
 
-			$totalQtyAmt = $detailsValue->item_quantity * $detailsValue->item_price;
-			$totalUsdAmount += $totalQtyAmt;
-		?>
-		<tr>
-			<td>{{ str_repeat('0',$jobId) }}{{ $detailsValue->job_no}}</td>
-			<td>{{ $detailsValue->poCatNo }}</td>
-			<td>{{ $detailsValue->oos_number }}</td>
-			@if($itemcodestatus != $detailsValue->item_code)
-		    	<td width="10%" rowspan="">
-		    		<div>{{$detailsValue->item_code}}</div>
-		    	</td>
-		    @else
-		    <td></td>
-	    	@endif
+				$totalAllqnty = $totalAllqnty + $totalQntyValue;
+				$totalUsdAmount = $totalUsdAmount + $totalPrice;
+				
+				// print_r("<pre>");
+				// print_r($Details);
+				// print_r("</pre>");
+			?>
 
-	    	@if($itemcodestatus != $detailsValue->item_code)
-		    	<td width="18%" rowspan="">
-		    		{{ $detailsValue->erp_code }}
-		    	</td>
-		    @else
-		    <td></td>
-	    	@endif
-			<td>{{ $detailsValue->gmts_color }}</td>
-			<td>{{ $detailsValue->item_description }}</td>
-			<td>
-				{{ $detailsValue->style }}
-				<br>
-				{{ ($is_type == 'fsc')? '( FSC-MIX )':'' }}
-			</td>
-			<td>{{ $detailsValue->item_size }}</td>
-			<td>{{ $detailsValue->item_quantity}}</td>
-			<td>{{(!empty($detailsValue->item_price)? '$'.$detailsValue->item_price: '')}}</td>
-			<td>{{(!empty($detailsValue->item_quantity)? '$'. $totalQtyAmt: '')}}</td>
-		</tr>
-			<?php $itemcodestatus = $detailsValue->item_code; ?>
+			<tr>
+				@if(1001 == $formatTypes)
+	    		@else
+					<td>{{$j++}}</td>
+				@endif
+				<td>{{$Details->poCatNo}}</td>
+				<td width="19%">{{$Details->item_code}}</td>
+				<td width="15%">{{$Details->erp_code}}</td>
+				@if(1001 == $formatTypes)
+					<td>Color</td>
+				@endif
+				<td>{{$Details->item_description}}</td>
+				<td>{{$totalQntyValue}}</td>
+				<td>{{(!empty($Details->item_price)? '$'.$Details->item_price: '')}}</td>
+				<td>{{(!empty($totalPrice)? '$'.$totalPrice: '')}}</td>
+			</tr>
 		@endforeach		
 			<tr>
-				<td colspan="9"> <center><span style="font-weight: bold; font-size: 18px;">TOTAL QTY:</span></center></td>
+				<td colspan="{{$countTotalspan}}"> <center>{{(1003 == $formatTypes)?'TOTAL QTY & VALUE':'Total'}}</center></td>
 				<td>{{$totalAllqnty}}</td>
 				<td></td>
 				<td>{{(!empty($totalUsdAmount)? '$'.$totalUsdAmount: '')}}</td>
@@ -205,7 +226,7 @@
 
 						<?php }else{?>
 
-						<span>1. TOTAL AMOUNT : USD : {{$amountInWordUsd}} And {{$fractionInWordUSD}} Cents USD Only</span>
+						<span>1. TOTAL AMOUNT : USD : {{$amountInWordUsd}} And {{$fractionInWordUSD}} Cents BDT Only</span>
 
 						<?php }?>
 					</div>
