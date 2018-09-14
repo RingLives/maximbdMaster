@@ -159,7 +159,7 @@ return [
 'product_brand_label' => 'Brand',
 'product_erp_code_label' => 'ERP Code',
 'product_unit_price_label' => 'Unit Price',
-'product_weight_qty_label' => 'Weight Qty',
+'product_weight_qty_label' => 'Unit',
 'product_weight_amt_label' => 'Weight Amt',
 'product_description1_label' => 'Description 1',
 'product_description2_label' => 'Description 2',
@@ -269,8 +269,8 @@ return [
 'mxp_menu_production' => 'Production',
 'mxp_menu_booking' => 'Booking List',
 'mxp_menu_booking_list' => 'Booking List',
-'add_product_label' => 'Add Item',
-'update_product_label' => 'Update Item',
+'add_product_label' => 'Add Item Maintenance',
+'update_product_label' => 'Update Item maintenance',
 'others_color_label' => 'Others Color',
 'new_mrf_create_label' => 'New MRF Create',
 'create_button_lable' => 'Create',
@@ -283,6 +283,5 @@ return [
 'add_product_status' => 'Product Status',
 'ipo_increase_percentage' => 'Increase Percentage',
 'mxp_menu_booking_view_details' => 'Booking Details',
-'mxp_menu_permission_task_assign'=> 'Task Assign',
-'mxp_menu_vendor_list'=> 'Vendor',
+
 ];

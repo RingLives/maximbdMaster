@@ -20,7 +20,7 @@
 			@if($value->logo_allignment == "left")
 				@if(!empty($value->logo))
 					<div class="pull-left">
-						<img src="/upload/58906.png" height="50px" width="150px" />
+						<img src="/upload/58906.png" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -35,7 +35,7 @@
 			@if($value->logo_allignment == "right")
 				@if(!empty($value->logo))
 					<div class="pull-right">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -60,7 +60,7 @@
 				<div class="pull-right">
 					<ul>
 						<li>Booking No: {{$details->booking_order_id}}</li>
-						<li>Request Delivery Date: {{Carbon\Carbon::parse($details->shipmentDate)->format('d-m-Y')}}</li>
+						<li>Requested Delivery Date: {{Carbon\Carbon::parse($details->shipmentDate)->format('d-m-Y')}}</li>
 					</ul>
 				@if($details->is_type == 'fsc')
 					<ul style="border: 1px solid #ddd;padding: 5px; width:90%;float: right;">
@@ -68,7 +68,7 @@
 							<span style="padding-left: 5px; font-weight: bold;">FSC-MIX</span>
 						</li>
 						<li>
-							<span style="padding-left: 5px; font-weight: bold;">License Code : FSC-C121666</span>
+							<span style="padding-left: 5px; font-weight: bold;">License Code: FSC-C121666</span>
 						</li>
 					</ul>
 				@endif
@@ -82,7 +82,7 @@
 <div class="row body-top">
 	<div class="col-md-8 col-sm-8 col-xs-7 body-list">
 		<ul>
-			<li style="font-weight: bold;">Buyer : {{$getBuyerName}}</li>
+			<li style="font-weight: bold;">Buyer: {{$getBuyerName}}</li>
 		</ul>
 	</div>
 	<div class="col-md-4 col-sm-4 col-xs-5">
@@ -128,15 +128,25 @@
 				    		<div>{{$details->erp_code}}</div>
 				    	</td>
 			    	@endif
-			    	<!-- <td width="15%">{{$details->item_code}}</td> -->
-			    	<td width="15%">{{$details->oos_number}}</td>
+
+                    @if($itemcodestatus != $details->item_code)
+                        <td width="15%" rowspan="{{count($quantity)}}">
+                            <div>{{$details->item_code}}</div>
+                        </td>
+                    @endif
+
+
+                <!-- <td width="15%">{{$details->item_code}}</td> -->
+			    	{{--<td width="15%">{{$details->item_code}}</td>--}}
 			    	<td width="15%">{{$details->season_code}}</td>
+			    	<td width="15%">{{$details->oos_number}}</td>
 			    	<td width="15%">{{$details->style}}</td>
-			    	@if($itemcodestatus != $details->item_code)
-				    	<td width="15%" rowspan="{{count($quantity)}}">
-				    		<div>{{$details->item_code}}</div>
-				    	</td>
-			    	@endif
+			    	{{--@if($itemcodestatus != $details->item_code)--}}
+				    	{{--<td width="15%" rowspan="{{count($quantity)}}">--}}
+				    		{{--<div>{{$details->style}}</div>--}}
+				    	{{--</td>--}}
+			    	{{--@endif--}}
+
 			    	<!-- <td>{{$details->poCatNo}}</td> -->
 			    	@if($itemcodestatus != $details->item_code)
 				    	<td rowspan="{{count($quantity)}}">
@@ -167,9 +177,10 @@
 <table class="table table-bordered">
 	<tr>
 		<td>
-			<span class="pull-right" style="font-weight: bold; padding-right: 20px;">Booking Total Qty : {{$TotalBookingQty}}
+			<span class="pull-right" style="font-weight: bold; font-size:18px;">Booking Total Qty: {{$TotalBookingQty}}
 			</span>
 		</td>
+		<td style="width: 4%;"></td>
 	</tr>	
 </table>
 @foreach ($footerData as $value)

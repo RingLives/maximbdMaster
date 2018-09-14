@@ -312,8 +312,8 @@ class ChallanController extends Controller
 //          $this->print_me($count);
         $id = "M-CHA" . "-";
         $date = date('dmY');
-        $MultipleChallanUniqueID = $id . $date . "-" . $companySortName . "-" . $count;
-        $MultipleCheckingUniqueID = $id . $date . "-" . $companySortName . "-" . $count;
+        $MultipleChallanUniqueID = $date . "-" . $companySortName . "-" . $count;
+//        $MultipleCheckingUniqueID = $id . $date . "-" . $companySortName . "-" . $count;
 
         /** End this code only for Challan increment id genarate **/
 

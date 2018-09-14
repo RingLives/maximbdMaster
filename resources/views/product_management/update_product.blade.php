@@ -28,18 +28,29 @@ trans('others.update_product_label'))
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="form-group">
+                                        <label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>
+                                        <div class="col-md-6">
+                                            <select class="form-control " name="p_brand" required value="">
+                                                <option value="{{$data->brand}}">{{$data->brand}}</option>
+                                                @foreach($brands as $brand)
+                                                    <option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-4 control-label">{{ trans('others.product_code_label') }}</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control  input_required" name="p_code" value="{{$data->product_code}}">
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">{{ trans('others.product_name_label') }}</label>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" name="p_name" value="{{$data->product_name}}">
-                                        </div>
-                                    </div>                         
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-md-4 control-label">{{ trans('others.product_name_label') }}</label>--}}
+                                        {{--<div class="col-md-6">--}}
+                                            {{--<input type="text" class="form-control" name="p_name" value="{{$data->product_name}}">--}}
+                                        {{--</div>--}}
+                                    {{--</div>                         --}}
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">{{ trans('others.product_description_label') }}</label>
@@ -48,19 +59,9 @@ trans('others.update_product_label'))
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>
-                                       <div class="col-md-6">
-                                            <select class="form-control " name="p_brand" required value="">                   
-                                                 <option value="{{$data->brand}}">{{$data->brand}}</option>
-                                                 @foreach($brands as $brand)
-                                                 <option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>
-                                                 @endforeach 
-                                            </select>
-                                        </div>
-                                    </div>   
 
-                                                                    {{--Add Color MultiSelect Box--}}
+
+                                    {{--Add Color MultiSelect Box--}}
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Color</label>
                                         <div class="col-md-6">
@@ -192,22 +193,22 @@ trans('others.update_product_label'))
                                         {{--</div>--}}
                                     {{--</div>--}}
 
-                                    <div class="form-group">
-                                        <label class="col-md-4 control-label">{{ trans('others.product_type_label') }}</label>
-                                        <div class="col-sm-6">
-                                            <div class="select">
-                                                <select class="form-control" type="select" name="product_type" >
-                                                    @if($data->product_type == 'MRF')
-                                                        <option  value="MRF" >MRF</option>
-                                                        <option value="IPO" >IPO</option>
-                                                    @else
-                                                        <option value="IPO" >IPO</option>
-                                                        <option  value="MRF" >MRF</option>
-                                                    @endif
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-md-4 control-label">{{ trans('others.product_type_label') }}</label>--}}
+                                        {{--<div class="col-sm-6">--}}
+                                            {{--<div class="select">--}}
+                                                {{--<select class="form-control" type="select" name="product_type" >--}}
+                                                    {{--@if($data->product_type == 'MRF')--}}
+                                                        {{--<option  value="MRF" >MRF</option>--}}
+                                                        {{--<option value="IPO" >IPO</option>--}}
+                                                    {{--@else--}}
+                                                        {{--<option value="IPO" >IPO</option>--}}
+                                                        {{--<option  value="MRF" >MRF</option>--}}
+                                                    {{--@endif--}}
+                                                {{--</select>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
 
                                     <div class="form-group ipo_increase_percentage" style="display: none;">
                                         <label class="col-md-4 control-label">{{ trans('others.ipo_increase_percentage') }}</label>
