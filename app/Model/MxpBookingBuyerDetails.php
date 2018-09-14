@@ -10,7 +10,7 @@ use App\Model\MxpBooking;
 
 class MxpBookingBuyerDetails extends Model
 {
-    protected $table = "mxp_bookingBuyer_details";
+    protected $table = "mxp_bookingbuyer_details";
 
     protected $fillable = [
     			'user_id',
