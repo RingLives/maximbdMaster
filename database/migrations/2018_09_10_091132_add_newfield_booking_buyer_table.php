@@ -13,7 +13,7 @@ class AddNewfieldBookingBuyerTable extends Migration
      */
     public function up()
     {
-        Schema::table('mxp_bookingBuyer_details', function (Blueprint $table) {
+        Schema::table('mxp_bookingbuyer_details', function (Blueprint $table) {
             $table->string('shipmentDate')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddNewfieldBookingBuyerTable extends Migration
      */
     public function down()
     {
-        Schema::table('mxp_bookingBuyer_details', function (Blueprint $table) {
+        Schema::table('mxp_bookingbuyer_details', function (Blueprint $table) {
             $table->dropColumn('shipmentDate');
         });
     }
