@@ -1,6 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading',
-trans('others.add_product_label'))
+@section('page_heading',trans('others.add_product_label'))
 @section('section')
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 		  rel="stylesheet">
@@ -41,6 +40,34 @@ trans('others.add_product_label'))
                             <div class="row">
                             	<div class="col-sm-12 col-md-6">
 
+									{{--Add Product Brand Select Box--}}
+
+									<div class="form-group">
+										<label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>
+										<div class="col-md-6">
+
+											<div class="product-brand-list" style="width:80%; float: left;">
+												<select class="form-control brand-list" name="p_brand" value="" style="width: 95% !important;">
+													<option value="{{old('p_brand')}}">{{(!empty(old('p_brand'))) ? old('p_brand') :"Choose Brand"}}</option>
+
+													@foreach($brands as $brand)
+														<option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>
+													@endforeach
+												</select>
+											</div>
+
+											<div class="add-brand-btn" style="width:20%; float: left; padding-top: 5px;">
+												<a class="hand-cursor"  data-toggle="modal" data-target="#addBrandModal">
+													<i class="material-icons">
+														add_circle_outline
+													</i>
+												</a>
+
+											</div>
+										</div>
+									</div>
+
+									{{--End Add Product Brand Select Box--}}
 
                             		<div class="form-group">
 		                                <label class="col-md-4 control-label">{{ trans('others.product_code_label') }}</label>
@@ -49,12 +76,12 @@ trans('others.add_product_label'))
 		                                </div>
 		                            </div>
 
-		                            <div class="form-group">
-		                                <label class="col-md-4 control-label">{{ trans('others.product_name_label') }}</label>
-		                                <div class="col-md-6">
-		                                    <input type="text" class="form-control" name="p_name" value="{{old('p_name')}}" placeholder="Item Name">
-		                                </div>
-		                            </div>
+		                            {{--<div class="form-group">--}}
+		                                {{--<label class="col-md-4 control-label">{{ trans('others.product_name_label') }}</label>--}}
+		                                {{--<div class="col-md-6">--}}
+		                                    {{--<input type="text" class="form-control" name="p_name" value="{{old('p_name')}}" placeholder="Item Name">--}}
+		                                {{--</div>--}}
+		                            {{--</div>--}}
 
                          
 
@@ -196,7 +223,7 @@ trans('others.add_product_label'))
                             		<div class="form-group">
 		                                <label class="col-md-4 control-label">{{ trans('others.product_weight_qty_label') }}</label>
 		                                <div class="col-md-6">
-		                                    <input type="text" class="form-control" name="p_weight_qty" value="{{old('p_weight_qty')}}" placeholder="Weight QTY">
+		                                    <input type="text" class="form-control" name="p_weight_qty" value="{{old('p_weight_qty')}}" placeholder="{{ trans('others.product_weight_qty_label') }}">
 		                                </div>
 		                            </div>
 
@@ -207,17 +234,17 @@ trans('others.add_product_label'))
 		                                </div>
 		                            </div>
 
-									<div class="form-group">
-										<label class="col-md-4 control-label">{{ trans('others.product_type_label') }}</label>
-										<div class="col-sm-6">
-											<div class="select">
-												<select class="form-control" type="select" name="product_type" >
-													<option  value="MRF" >MRF</option>
-													<option value="IPO" >IPO</option>
-												</select>
-											</div>
-										</div>
-									</div>
+									{{--<div class="form-group">--}}
+										{{--<label class="col-md-4 control-label">{{ trans('others.product_type_label') }}</label>--}}
+										{{--<div class="col-sm-6">--}}
+											{{--<div class="select">--}}
+												{{--<select class="form-control" type="select" name="product_type" >--}}
+													{{--<option  value="MRF" >MRF</option>--}}
+													{{--<option value="IPO" >IPO</option>--}}
+												{{--</select>--}}
+											{{--</div>--}}
+										{{--</div>--}}
+									{{--</div>--}}
 
 									<div class="form-group ipo_increase_percentage" style="display: none;">
 										<label class="col-md-4 control-label">{{ trans('others.ipo_increase_percentage') }}</label>

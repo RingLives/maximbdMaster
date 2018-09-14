@@ -14,7 +14,7 @@
 			@if($value->logo_allignment === "left")
 				@if(!empty($value->logo))
 					<div class="pull-left">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -29,7 +29,7 @@
 			@if($value->logo_allignment === "right")
 				@if(!empty($value->logo))
 					<div class="pull-right">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -48,13 +48,13 @@
 		@foreach($bookingDetails as $Details)
 			@for($is;$is <= 0;$is++)
 				<ul>
-					<li>Buyer : {{$Details->buyer_name}}</li>
-					<li>Company Name  : {{$Details->Company_name}}</li>
-					<li>Address : {{$Details->address_part1_invoice}}</li>
+					<li>Buyer: {{$Details->buyer_name}}</li>
+					<li>Company Name: {{$Details->Company_name}}</li>
+					<li>Address: {{$Details->address_part1_invoice}}</li>
 					<li> {{$Details->address_part2_invoice}}
 					</li>
-					<li>{{($formatTypes == 1001 )?'Contact ' :'Attn' }} : {{$Details->attention_invoice}}</li>
-					<li>{{($formatTypes == 1001 )?'Contact No ' :'Cell No' }} : {{$Details->mobile_invoice}}</li>
+					<li>{{($formatTypes == 1001 )?'Contact ' :'Attn' }}: {{$Details->attention_invoice}}</li>
+					<li>{{($formatTypes == 1001 )?'Contact No ' :'Cell No' }}: {{$Details->mobile_invoice}}</li>
 				</ul>
 			@endfor
 		@endforeach
@@ -68,7 +68,7 @@
 					<tr>
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> PI No : {{$details->booking_order_id}} </p>
+								<p style="padding-left :5px;"> PI No: {{$details->booking_order_id}} </p>
 							</div>
 						</td>
 					</tr>
@@ -76,7 +76,7 @@
 						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
 						<td width="50%">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> Date : {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
+								<p style="padding-left :5px;"> Date: {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
 							</div>
 						</td>
 					</tr>
