@@ -14,10 +14,11 @@ class AddNewFieldMxpBookingTable extends Migration
     public function up()
     {
         Schema::table('mxp_booking', function (Blueprint $table) {
-            $table->string('season_code')->nullable();
-            $table->string('oos_number')->nullable();
-            $table->string('style')->nullable();
-            $table->string('is_type')->nullable();
+            // $table->string('season_code')->nullable();
+            // $table->string('oos_number')->nullable();
+            // $table->string('style')->nullable();
+            // $table->string('is_type')->nullable();
+            $table->string('is_pi_type')->nullable();
         });
     }
 
@@ -29,7 +30,7 @@ class AddNewFieldMxpBookingTable extends Migration
     public function down()
     {
         Schema::table('mxp_booking', function (Blueprint $table) {
-            $table->dropColumn(['session_no', 'oos_number', 'style','is_type']);
+            // $table->dropColumn(['session_no', 'oos_number', 'style','is_type']);
         });
     }
 }
