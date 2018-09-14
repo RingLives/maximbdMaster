@@ -11,7 +11,7 @@ class CreateMxpMRFTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		Schema::create('mxp_MRF_table', function (Blueprint $table) {
+		Schema::create('mxp_mrf_table', function (Blueprint $table) {
 			$table->increments('id');
 			$table->integer('user_id');
 			$table->string('mrf_id');
@@ -44,6 +44,6 @@ class CreateMxpMRFTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::dropIfExists('mxp_MRF_table');
+		Schema::dropIfExists('mxp_mrf_table');
 	}
 }
