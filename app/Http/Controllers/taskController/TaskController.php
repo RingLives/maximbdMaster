@@ -25,7 +25,7 @@ class TaskController extends Controller {
 	public function getItemCode() {
 		$results = array();
 		$productDetails = DB::select("SELECT mp.product_code FROM mxp_product mp
-        LEFT JOIN mxp_productSize mps ON (mps.product_code = mp.product_code)
+        LEFT JOIN mxp_productsize mps ON (mps.product_code = mp.product_code)
         LEFT JOIN mxp_gmts_color mgs ON (mgs.item_code = mps.product_code) GROUP BY mps.product_code, mgs.item_code");
 		if (isset($productDetails) && !empty($productDetails)) {
 			foreach ($productDetails as $itemKey => $itemValue) {
@@ -71,7 +71,7 @@ class TaskController extends Controller {
 			// 	return \Redirect()->Route('dashboard_view');
 			// }
 
-			// $footerData = DB::select("select * from mxp_reportFooter");
+			// $footerData = DB::select("select * from mxp_reportfooter");
 
 			// return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails', 'footerData', 'formatTypes'));
 
@@ -80,7 +80,7 @@ class TaskController extends Controller {
 			// $bookingDetails = DB::select('call getBookinAndBuyerDeatils("' . $request->bookingId . '")');
 
 			
-			$bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as abc,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = "' . $request->bookingId . '" GROUP BY mb.item_code ORDER BY mb.id ASC');
+			$bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as abc,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = "' . $request->bookingId . '" GROUP BY mb.item_code ORDER BY mb.id ASC');
 			// $this->print_me($bookingDetails);
 			return view('maxim.pi_format.pi_generate_page',compact('bookingDetails'));
 
@@ -106,7 +106,7 @@ class TaskController extends Controller {
 				if (empty($ipoValue)) {
 					return \Redirect()->Route('dashboard_view');
 				}
-				$buyerDetails = DB::table("mxp_bookingBuyer_details")
+				$buyerDetails = DB::table("mxp_bookingbuyer_details")
 									->where('booking_order_id', $request->bookingId)
 									->get();
 
@@ -155,7 +155,7 @@ class TaskController extends Controller {
 			$bookingDetails = DB::select("SELECT * FROM mxp_booking_challan WHERE booking_order_id = '" . $request->bookingId . "' GROUP BY item_code");
 			// self::print_me($bookingDetails);
 
-			$buyerDetails = DB::select("SELECT * FROM mxp_bookingBuyer_details WHERE booking_order_id = '" . $request->bookingId . "'");
+			$buyerDetails = DB::select("SELECT * FROM mxp_bookingbuyer_details WHERE booking_order_id = '" . $request->bookingId . "'");
 
 			if (empty($bookingDetails)) {
 				StatusMessage::create('empty_booking_data', 'This booking Id does not show any result . Please check booking Id !');
@@ -163,7 +163,7 @@ class TaskController extends Controller {
 				return \Redirect()->Route('dashboard_view');
 			}
 
-			$MrfDetails = DB::select("select * from mxp_MRF_table where booking_order_id = '" . $request->bookingId . "' GROUP BY mrf_id");
+			$MrfDetails = DB::select("select * from mxp_mrf_table where booking_order_id = '" . $request->bookingId . "' GROUP BY mrf_id");
 //            return $bookingDetails;
 			return view('maxim.mrf.mrf', compact('bookingDetails', 'MrfDetails', 'booking_order_id', 'suppliers'));
 
@@ -245,7 +245,7 @@ class TaskController extends Controller {
 			$bookingDetails = $bookingIdList;
 //            $this->print_me($bookingIdList);
 
-			$buyerDetails = DB::select("SELECT * FROM mxp_bookingBuyer_details WHERE booking_order_id = '" . $bookedId . "'");
+			$buyerDetails = DB::select("SELECT * FROM mxp_bookingbuyer_details WHERE booking_order_id = '" . $bookedId . "'");
 
 			if (empty($bookingDetails)) {
 				StatusMessage::create('empty_booking_data', 'This booking Id does not show any result . Please check booking Id !');
@@ -253,7 +253,7 @@ class TaskController extends Controller {
 				return \Redirect()->Route('dashboard_view');
 			}
 
-			$challanHistory = DB::table('Mxp_multipleChallan')
+			$challanHistory = DB::table('mxp_multiplechallan')
 				->where('checking_id',$bookedId)
 				->get();
 
@@ -271,7 +271,7 @@ class TaskController extends Controller {
 				return \Redirect()->Route('dashboard_view');
 			}
 
-			$footerData = DB::select("select * from mxp_reportFooter");
+			$footerData = DB::select("select * from mxp_reportfooter");
 
 			return view('maxim.bill_copy.bill_report', compact('companyInfo', 'bookingDetails', 'footerData', 'conversion_rate'));
 
