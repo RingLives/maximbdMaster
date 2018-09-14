@@ -119,7 +119,7 @@
             <td>Order Date</td>
             <!-- <td>OOS Number</td> -->
             <!-- Shipment Date repalce to Request Date-->
-            <td>Request Delivery Date</td>
+            <td>Requested Delivery Date</td>
             <!-- <td>PO/Cat NO</td> -->
             <td>Season Code</td>
           </tr>
@@ -170,8 +170,8 @@
   <div style="padding-top: 20px;"></div>
 
 
-  <!-- <div class="table-responsive"> -->
-    <table class="table-striped" id="filed_increment">
+  <div class="table-responsive">
+    <table class="table-striped " style="overflow-y: scroll;" id="filed_increment">
       <thead>
         <tr>
           <th width="10%">PO/Cat No</th>
@@ -215,7 +215,7 @@
             </div>
           </td>
           <td>
-            <div class="form-group">
+            <div class="form-group" style="    width: 200px !important;">
               <input type="text" name="erp[]" class="form-control erpNo" id="erpNo" readonly = "true">
               <!-- <select name="erp[]" class="form-control erpNo" id="erpNo" readonly = "true"> -->
               </select>
@@ -231,7 +231,7 @@
           <!--end -->
 
           <td>
-            <div class="form-group">
+            <div class="form-group" style="    width: 145px !important;">
               <select name="item_gmts_color[]" class="form-control itemGmtsColor" id="itemGmtsColor" readonly="true"></select>
             </div>
           </td>
@@ -244,9 +244,6 @@
             </div>
           </td>
 
-          
-
-          
 
           <!-- Style -->
           <td>
@@ -278,7 +275,7 @@
         </tr>
       </tbody>
     </table>
-  <!-- </div> -->
+   </div>
 
 
 

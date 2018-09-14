@@ -14,7 +14,7 @@
 			@if($value->logo_allignment == "left")
 				@if(!empty($value->logo))
 					<div class="pull-left">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}"  height="40px" width="150px" style="margin-top:  15px;"/>
 					</div>
 				@endif
 			@endif
@@ -29,7 +29,7 @@
 			@if($value->logo_allignment == "right")
 				@if(!empty($value->logo))
 					<div class="pull-right">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -49,12 +49,12 @@
 					@foreach($buyerDetails as $Details)
 					@for($i;$i <= 0;$i++)
 						<ul>
-							<li>Buyer : {{$Details->buyer_name}}</li>
-							<li>Sold To : {{$Details->Company_name}}</li>
+							<li>Buyer: {{$Details->buyer_name}}</li>
+							<li>Sold To: {{$Details->Company_name}}</li>
 							<li>{{$Details->address_part1_invoice}}
 						{{$Details->address_part2_invoice}}</li>
-							<li>Atten : {{$Details->attention_invoice}}</li>
-							<li>Cell : {{$Details->mobile_invoice}}</li>
+							<li>Atten: {{$Details->attention_invoice}}</li>
+							<li>Cell: {{$Details->mobile_invoice}}</li>
 						</ul>
 					@endfor
 					@endforeach
@@ -69,7 +69,7 @@
 						
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> Date : {{Carbon\Carbon::now()->format('Y-m-d')}}</p>
+								<p style="padding-left :5px;"> Date: {{Carbon\Carbon::now()->format('Y-m-d')}}</p>
 							</div>
 						</td>
 					</tr>
@@ -77,14 +77,14 @@
 						
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> Challan no :{{$billdata->challan_id}}</p>
+								<p style="padding-left :5px;"> Challan no: {{$billdata->challan_id}}</p>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;">Booking order No :{{$billdata->checking_ids_of_challan}}  </p>
+								<p style="padding-left :5px;">Booking order No: {{$billdata->checking_ids_of_challan}}  </p>
 
 								<!-- {{Carbon\Carbon::parse($billdata->created_at)->format('dmY')}}: -->
 							</div>

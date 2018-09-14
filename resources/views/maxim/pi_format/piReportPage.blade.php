@@ -17,7 +17,7 @@
 			@if($value->logo_allignment === "left")
 				@if(!empty($value->logo))
 					<div class="pull-left">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -32,7 +32,7 @@
 			@if($value->logo_allignment === "right")
 				@if(!empty($value->logo))
 					<div class="pull-right">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -47,6 +47,7 @@
 
 <div class="row body-top">
 	<div class="col-md-8 col-sm-8 col-xs-7 body-list">
+
 		<ul>
 			<li>Buyer : {{$buyerDetails->buyer_name}}</li>
 			<li>Company Name  : {{$buyerDetails->Company_name}}</li>
@@ -65,7 +66,7 @@
 					<tr>
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> PI No : {{$details->booking_order_id}} </p>
+								<p style="padding-left :5px;"> PI No: {{$details->booking_order_id}} </p>
 							</div>
 						</td>
 					</tr>
@@ -73,7 +74,7 @@
 						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
 						<td width="50%">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> Date : {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
+								<p style="padding-left :5px;"> Date: {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
 							</div>
 						</td>
 					</tr>
