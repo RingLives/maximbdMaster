@@ -13,7 +13,7 @@ class AddSupplierIdMxpMRFTable extends Migration
      */
     public function up()
     {
-        Schema::table('mxp_MRF_table', function ($table){
+        Schema::table('mxp_mrf_table', function ($table){
            $table->integer('supplier_id')->after('mrf_id')->nullable();
         });
     }
