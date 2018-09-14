@@ -19,7 +19,7 @@ class PageFooterController extends Controller
 
 
     public function pageFooterView(){
-    	$footers = DB::select("SELECT * FROM mxp_pageFooter");
+    	$footers = DB::select("SELECT * FROM mxp_pagefooter");
     	return view('page_management.footer.page_footer_list',compact('footers'));
     }
     public function addFooterView(){
