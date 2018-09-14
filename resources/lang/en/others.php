@@ -2,7 +2,7 @@
 
 return [
 
-'company_name' => 'BD Maxim Online',
+'company_name' => 'Maxim Order Management System',
 'login_label' => 'Log In',
 'register_label' => 'Registration',
 'validationerror_woops' => 'Whoops!',
@@ -283,6 +283,7 @@ return [
 'add_product_status' => 'Product Status',
 'ipo_increase_percentage' => 'Increase Percentage',
 'mxp_menu_booking_view_details' => 'Booking Details',
-'mxp_menu_permission_task_assign'=> 'Task Assign',
-'mxp_menu_vendor_list'=> 'Vendor',
+'mxp_menu_permission_task_assign' => 'Task Assign',
+'mxp_menu_vendor_list' => 'Vendor',
+
 ];
