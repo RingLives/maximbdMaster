@@ -13,7 +13,7 @@ class AddBookingStatusColumnAtMxpBookingBuyerDetails extends Migration
      */
     public function up()
     {
-        Schema::table('mxp_bookingBuyer_details', function($table){
+        Schema::table('mxp_bookingbuyer_details', function($table){
             $table->string('booking_status')->after('fax_delivery')->nullable();
             $table->integer('is_complete')->after('fax_delivery');
         });
