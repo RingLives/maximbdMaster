@@ -200,14 +200,14 @@ class BookingController extends Controller
       $bookingReport = DB::select('call getBookinAndBuyerDeatils("'.$customid.'")');
       
       // $bookingReport = DB::table('mxp_booking as mb')
-      //     ->join('mxp_bookingBuyer_details as mbd','mb.booking_order_id','mbd.booking_order_id')
+      //     ->join('mxp_bookingbuyer_details as mbd','mb.booking_order_id','mbd.booking_order_id')
       //     ->where('booking_order_id',$customid)
       //     ->get();
 
       $is_type = $request->is_type;
 
       $gmtsOrSizeGroup = DB::select("SELECT gmts_color,GROUP_CONCAT(item_size) as itemSize,GROUP_CONCAT(item_quantity) as quantity from mxp_booking WHERE booking_order_id = '".$customid."' GROUP BY gmts_color");
-      $footerData = DB::select("select * from mxp_reportFooter");
+      $footerData = DB::select("select * from mxp_reportfooter");
       return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','footerData','is_type'));
     }
 

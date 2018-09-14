@@ -17,7 +17,7 @@ class IpoController extends Controller
 {
   public function ipoReportView(Request $request){
     $headerValue = DB::table("mxp_header")->where('header_type',11)->get();
-    $buyerDetails = DB::table("mxp_bookingBuyer_details")->where('booking_order_id',$request->bid)->get();
+    $buyerDetails = DB::table("mxp_bookingbuyer_details")->where('booking_order_id',$request->bid)->get();
     $footerData =[];
     $ipoDetails = DB::table("mxp_ipo")->where([['ipo_id', $request->ipoid],['booking_order_id',$request->bid]])->get();
     return view('maxim.ipo.ipoBillPage', [
@@ -279,7 +279,7 @@ class IpoController extends Controller
       }
 
       $headerValue = DB::table("mxp_header")->where('header_type',11)->get();
-      $buyerDetails = DB::table("mxp_bookingBuyer_details")->where('booking_order_id',$booking_order_id)->get();
+      $buyerDetails = DB::table("mxp_bookingbuyer_details")->where('booking_order_id',$booking_order_id)->get();
       $footerData =[];
       $ipoDetails = DB::table("mxp_ipo")->where('ipo_id', $ipo_id)->get();
 

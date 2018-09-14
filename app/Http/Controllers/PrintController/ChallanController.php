@@ -47,7 +47,7 @@ class ChallanController extends Controller
       $sentBillId = DB::select("select * from mxp_challan where bill_id= '".$request->challan_invo_no."' group by item_code");
 
 
-      $multipleChallanList = DB::select("select * from Mxp_multipleChallan where bill_id= '".$request->challan_invo_no."' group by challan_id");
+      $multipleChallanList = DB::select("select * from mxp_multiplechallan where bill_id= '".$request->challan_invo_no."' group by challan_id");
 
       return view('print_file.challan.index',
         [
@@ -73,13 +73,13 @@ class ChallanController extends Controller
 
         return redirect()->back()->withInput($request->input())->withErrors($validator->messages());
       }
-      $multipleChallan = DB::select("select * from Mxp_multipleChallan where bill_id= '".$request->challan_invo_nos."' and challan_id= '".$request->challan_id."'");
+      $multipleChallan = DB::select("select * from mxp_multiplechallan where bill_id= '".$request->challan_invo_nos."' and challan_id= '".$request->challan_id."'");
 
       if (empty($multipleChallan)) {
 
         return \Redirect()->Route('challan_boxing_list_view');
       }
-      $footerData = DB::select("select * from mxp_reportFooter");
+      $footerData = DB::select("select * from mxp_reportfooter");
       $headerValue = DB::select("select * from mxp_header");
 
       return view('print_file.challan.challanBoxingPage',
@@ -134,7 +134,7 @@ class ChallanController extends Controller
       }
       // this code only for Challan increment id genarate
 
-      $maxIncrement = DB::select("select max(incrementValue) from Mxp_multipleChallan group by incrementValue");
+      $maxIncrement = DB::select("select max(incrementValue) from mxp_multiplechallan group by incrementValue");
         if(sizeof($maxIncrement) == 0){
             $number = 0;
         }else{
@@ -236,9 +236,9 @@ class ChallanController extends Controller
       }
 
       $headerValue = DB::select("select * from mxp_header");
-      $multipleChallan = DB::select(" select * from Mxp_multipleChallan where challan_id ='".$MultipleChallanUniqueID."'");
+      $multipleChallan = DB::select(" select * from mxp_multiplechallan where challan_id ='".$MultipleChallanUniqueID."'");
 
-      $footerData = DB::select("select * from mxp_reportFooter");
+      $footerData = DB::select("select * from mxp_reportfooter");
 
       return view('print_file.challan.challanBoxingPage',
         [

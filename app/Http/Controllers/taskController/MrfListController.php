@@ -17,7 +17,7 @@ use DB;
 class MrfListController extends Controller
 {
     public function mrfListView(){
-        $bookingList = DB::table('mxp_MRF_table')
+        $bookingList = DB::table('mxp_mrf_table')
             ->where('user_id',Auth::user()->user_id)
             ->groupBy('mrf_id')
             ->orderBy('id','DESC')
@@ -26,16 +26,16 @@ class MrfListController extends Controller
     }
 
     public function showMrfReport(Request $request){
-        $mrfDeatils = DB::table('mxp_MRF_table')->where('mrf_id',$request->mid)->get();
+        $mrfDeatils = DB::table('mxp_mrf_table')->where('mrf_id',$request->mid)->get();
         $headerValue = DB::table("mxp_header")->where('header_type',11)->get();
-        $buyerDetails = DB::table("mxp_bookingBuyer_details")->where('booking_order_id',$request->bid)->get();
+        $buyerDetails = DB::table("mxp_bookingbuyer_details")->where('booking_order_id',$request->bid)->get();
         $footerData =[];
         return view('maxim.mrf.mrfReportFile',compact('mrfDeatils','headerValue','buyerDetails','footerData'));
     }
 
     public function getMrfListByMrfId(Request $request){
 
-        $mrfList = DB::table('mxp_MRF_table')
+        $mrfList = DB::table('mxp_mrf_table')
             ->where('mrf_id', 'like', '%'.$request->mrf_id.'%')
             ->groupBy('mrf_id')
             ->orderBy('id','DESC')
@@ -46,7 +46,7 @@ class MrfListController extends Controller
 
     public function getMrfListBySearch(Request $request){
 
-        $mrfList = DB::table('mxp_MRF_table');
+        $mrfList = DB::table('mxp_mrf_table');
         $checkValidation = false;
 
         if($request->booking_id_search != '')

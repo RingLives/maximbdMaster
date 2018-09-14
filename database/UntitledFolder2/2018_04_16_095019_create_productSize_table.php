@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePageFooterTable extends Migration
+class CreateProductSizeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePageFooterTable extends Migration
      */
     public function up()
     {
-        Schema::create('mxp_pageFooter', function (Blueprint $table) {
-            $table->increments('footer_id');
+        Schema::create('mxp_productsize', function (Blueprint $table) {
+            $table->increments('proSize_id');
             $table->integer('user_id');
-            $table->string('title');
+            $table->string('product_code');
+            $table->string('product_size');
             $table->string('status');
             $table->string('action');
             $table->timestamps();
@@ -30,6 +31,6 @@ class CreatePageFooterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mxp_pageFooter');
+        Schema::dropIfExists('mxp_productsize');
     }
 }

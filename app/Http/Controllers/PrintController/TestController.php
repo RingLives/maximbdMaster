@@ -95,7 +95,7 @@ class TestController extends Controller
 
         // checking if product exists in product table 
 
-         $sizes = DB::select("select product_code, product_size as size from mxp_productSize");
+         $sizes = DB::select("select product_code, product_size as size from mxp_productsize");
         foreach ($sizes as $key => $value) {
                 $sizes2[$key][0]=$value->product_code;
                 $sizes2[$key][1]=$value->size;

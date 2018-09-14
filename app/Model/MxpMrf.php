@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MxpMrf extends Model
 {
-    protected $table = "mxp_MRF_table";
+    protected $table = "mxp_mrf_table";
 
     protected $fillable = [
     			'user_id',

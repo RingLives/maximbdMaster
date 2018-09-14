@@ -41,7 +41,7 @@ class PurchaseOrderController extends Controller
           group_concat(mrf.matarial) as matarial, group_concat(mrf.item_price) as item_price, 
           group_concat(mrf.gmts_color) as gmts_color, group_concat(mrf.mrf_quantity) as item_quantity, 
           group_concat(msp.supplier_price) as supplier_price, group_concat(mp.unit_price) as unit_price, 
-          group_concat(mp.product_id) as product_id FROM mxp_MRF_table mrf LEFT JOIN mxp_product mp 
+          group_concat(mp.product_id) as product_id FROM mxp_mrf_table mrf LEFT JOIN mxp_product mp 
           ON(mrf.item_code = mp.product_code AND mrf.erp_code = mp.erp_code) LEFT JOIN 
           mxp_supplier_prices msp ON(mp.product_id = msp.product_id AND msp.supplier_id = ';
 
@@ -128,7 +128,7 @@ class PurchaseOrderController extends Controller
               group_concat(total_amount) as total_amounts from mxp_purchase_orders where po_no = " '.
             $datas[0].'" group by booking_order_id');
         $headerValue = DB::table("mxp_header")->where('header_type',11)->get();
-        $footerData = DB::select("select * from mxp_reportFooter");
+        $footerData = DB::select("select * from mxp_reportfooter");
 
         $purchaseOrders[] = $getPurchaseOrders;
 

@@ -13,7 +13,7 @@ class CreateMultipleChallanTable extends Migration
      */
     public function up()
     {
-        Schema::create('Mxp_multipleChallan', function (Blueprint $table) {
+        Schema::create('mxp_multiplechallan', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('challan_id')->nullable(true);
@@ -47,6 +47,6 @@ class CreateMultipleChallanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Mxp_multipleChallan');
+        Schema::dropIfExists('mxp_multiplechallan');
     }
 }

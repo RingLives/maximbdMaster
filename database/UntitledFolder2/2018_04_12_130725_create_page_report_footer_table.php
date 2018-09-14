@@ -13,7 +13,7 @@ class CreatePageReportFooterTable extends Migration
      */
     public function up()
     {
-        Schema::create('mxp_reportFooter', function (Blueprint $table) {
+        Schema::create('mxp_reportfooter', function (Blueprint $table) {
             $table->increments('re_footer_id');
             $table->integer('user_id');
             $table->string('reportName');
@@ -41,6 +41,6 @@ class CreatePageReportFooterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mxp_reportFooter');
+        Schema::dropIfExists('mxp_reportfooter');
     }
 }

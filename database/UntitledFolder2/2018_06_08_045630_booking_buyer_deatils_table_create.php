@@ -13,7 +13,7 @@ class BookingBuyerDeatilsTableCreate extends Migration
      */
     public function up()
     {
-        Schema::create('mxp_bookingBuyer_details', function (Blueprint $table) {
+        Schema::create('mxp_bookingbuyer_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
             $table->string('booking_order_id');
@@ -43,6 +43,6 @@ class BookingBuyerDeatilsTableCreate extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('mxp_bookingBuyer_details');
+         Schema::dropIfExists('mxp_bookingbuyer_details');
     }
 }

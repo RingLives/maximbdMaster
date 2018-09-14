@@ -28,7 +28,7 @@ class BookingListController extends Controller
 
     public function bookingListView(){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details')
+        $bookingList = DB::table('mxp_bookingbuyer_details')
             ->where('is_complete', 0)
             ->groupBy('booking_order_id')
             ->orderBy('id','DESC')
@@ -58,7 +58,7 @@ class BookingListController extends Controller
 
     public function bookingListReport(){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details')
+        $bookingList = DB::table('mxp_bookingbuyer_details')
             ->where('is_complete', 0)
             ->groupBy('booking_order_id')
             ->orderBy('id','DESC')
@@ -121,7 +121,7 @@ class BookingListController extends Controller
 
     public function getBookingReportListByBookingId(Request $request){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details')
+        $bookingList = DB::table('mxp_bookingbuyer_details')
             ->where('booking_order_id', 'like', '%'.$request->booking_id.'%')
             ->orderBy('id','DESC')
             ->get();
@@ -139,7 +139,7 @@ class BookingListController extends Controller
 
     public function getBookingListByBookingId(Request $request){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details')
+        $bookingList = DB::table('mxp_bookingbuyer_details')
             ->where('booking_order_id', 'like', '%'.$request->booking_id.'%')
             ->orderBy('id','DESC')
             ->get();
@@ -149,7 +149,7 @@ class BookingListController extends Controller
 
     public function getBookingListBySearch(Request $request){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details');
+        $bookingList = DB::table('mxp_bookingbuyer_details');
         $checkValidation = false;
 
         if($request->buyer_name_search != '')
@@ -195,7 +195,7 @@ class BookingListController extends Controller
 
     public function getBookingListbookSearch(Request $request){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details');
+        $bookingList = DB::table('mxp_bookingbuyer_details');
         $checkValidation = false;
 
         if($request->buyer_name_search != '')
@@ -255,7 +255,7 @@ class BookingListController extends Controller
         if (empty($ipoValue)) {
             return \Redirect()->Route('dashboard_view');
         }
-        $buyerDetails = DB::table("mxp_bookingBuyer_details")
+        $buyerDetails = DB::table("mxp_bookingbuyer_details")
             ->where('booking_order_id', $request->booking_id)
             ->get();
 
@@ -291,7 +291,7 @@ class BookingListController extends Controller
 
             $bookingDetails = DB::select("SELECT * FROM mxp_booking_challan WHERE booking_order_id = '".$request->booking_id."' GROUP BY item_code");
 
-            $buyerDetails = DB::select("SELECT * FROM mxp_bookingBuyer_details WHERE booking_order_id = '".$request->booking_id."'");
+            $buyerDetails = DB::select("SELECT * FROM mxp_bookingbuyer_details WHERE booking_order_id = '".$request->booking_id."'");
 
             if(empty($bookingDetails)){
                 StatusMessage::create('empty_booking_data', 'This booking id empty value !');
@@ -299,7 +299,7 @@ class BookingListController extends Controller
                 return \Redirect()->Route('booking_list_view');
             }
 
-            $MrfDetails = DB::select("select * from mxp_MRF_table where booking_order_id = '".$request->booking_id."' GROUP BY mrf_id");
+            $MrfDetails = DB::select("select * from mxp_mrf_table where booking_order_id = '".$request->booking_id."' GROUP BY mrf_id");
 
             return view('maxim.mrf.mrf',compact('bookingDetails','MrfDetails','booking_order_id', 'suppliers'));
     }

@@ -15,7 +15,7 @@ class BookingListController extends Controller
 {
     public function bookingListView(){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details')
+        $bookingList = DB::table('mxp_bookingbuyer_details')
             ->where('is_complete', 0)
             ->groupBy('booking_order_id')
             ->orderBy('id','DESC')
@@ -36,7 +36,7 @@ class BookingListController extends Controller
 
     public function getBookingListByBookingId(Request $request){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details')
+        $bookingList = DB::table('mxp_bookingbuyer_details')
             ->where('booking_order_id', 'like', '%'.$request->booking_id.'%')
             ->orderBy('id','DESC')
             ->get();
@@ -46,7 +46,7 @@ class BookingListController extends Controller
 
     public function getBookingListBySearch(Request $request){
 
-        $bookingList = DB::table('mxp_bookingBuyer_details');
+        $bookingList = DB::table('mxp_bookingbuyer_details');
         $checkValidation = false;
 
         if($request->buyer_name_search != '')

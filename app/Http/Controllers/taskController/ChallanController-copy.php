@@ -150,7 +150,7 @@ class ChallanController extends Controller
       /** this code only for Challan increment id genarate **/
 
       $companySortName = '';
-      $buyerDetails = DB::table("mxp_bookingBuyer_details")->where('booking_order_id',$booking_order_id)->get();
+      $buyerDetails = DB::table("mxp_bookingbuyer_details")->where('booking_order_id',$booking_order_id)->get();
       foreach ($buyerDetails as $getSortCname) {
           $companySortName = $getSortCname->C_sort_name;
       }
@@ -192,7 +192,7 @@ class ChallanController extends Controller
     	$headerValue = DB::select("select * from mxp_header");
     	$multipleChallan = DB::table('mxp_booking_multipleChallan')->where('challan_id',$MultipleChallanUniqueID)->get();
       // self::print_me($buyerDetails);
-    	$footerData = DB::select("select * from mxp_reportFooter");
+    	$footerData = DB::select("select * from mxp_reportfooter");
 
     	return view('maxim.challan.challanBoxingPage',
         [

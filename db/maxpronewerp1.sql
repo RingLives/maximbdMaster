@@ -27,16 +27,16 @@ DELIMITER $$
 -- Procedures
 --
 CREATE PROCEDURE `getBookinAndBuyerDeatils` (IN `booking_order_id` VARCHAR(247))  NO SQL
-SELECT mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code ORDER BY id ASC$$
+SELECT mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code ORDER BY id ASC$$
 
 CREATE PROCEDURE `getProductSizeQuantity` (IN `product_code` VARCHAR(247), IN `order_id` VARCHAR(247))  select mo.item_code,mo.oss,mo.style, mp.unit_price, mp.weight_qty, mp.erp_code, GROUP_CONCAT(mo.item_size) as item_size, GROUP_CONCAT(mo.quantity) as quantity, mo.order_id from mxp_order mo INNER JOIN mxp_product mp on(mo.item_code = mp.product_code) where mo.item_code = product_code AND mo.order_id = order_id GROUP by mo.item_code$$
 
 CREATE PROCEDURE `getProductSizeQuantitybyPrice` (IN `booking_order_id` VARCHAR(100))  NO SQL
-SELECT mb.erp_code,mb.item_code,mb.item_price,mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingBuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) INNER JOIN mxp_product mp on( mb.item_code = mp.product_code) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code$$
+SELECT mb.erp_code,mb.item_code,mb.item_price,mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity, mbd.* from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) INNER JOIN mxp_product mp on( mb.item_code = mp.product_code) WHERE mb.booking_order_id = booking_order_id GROUP BY mb.item_code$$
 
 CREATE PROCEDURE `getProductSizeQuantityWithConcat` (IN `product_code` VARCHAR(247))  NO SQL
 SELECT mp.erp_code,mp.product_id,mp.unit_price,mp.product_name,mp.others_color,mp.product_description ,GROUP_CONCAT(mps.product_size order by product_size) as size,GROUP_CONCAT(mgs.color_name) as color   FROM mxp_product mp 
-LEFT JOIN mxp_productSize mps ON (mps.product_code = mp.product_code)
+LEFT JOIN mxp_productsize mps ON (mps.product_code = mp.product_code)
 LEFT JOIN mxp_gmts_color mgs ON (mgs.item_code = mps.product_code)
 WHERE mp.product_code = product_code and mp.status = 1 GROUP BY mps.product_code, mgs.item_code$$
 
@@ -158,7 +158,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (241, '2018_06_23_094814_create_booking_challan_table', 28),
 (246, '2018_05_07_060534_create_mxp_ipo_table', 29),
 (247, '2018_06_23_131029_create_booking_multiple_challan_table', 29),
-(248, '2018_07_10_081809_create_mxp_MRF_table', 29),
+(248, '2018_07_10_081809_create_mxp_mrf_table', 29),
 (249, '2018_07_17_093951_create_vendor_prices_table', 30),
 (250, '2018_07_17_103743_create_mxp_task_table', 30),
 (251, '2018_07_18_123833_create_mxp_task_role_table', 30),
@@ -171,8 +171,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (258, '2018_07_24_073844_create_create_mxp_items_qnty_by_booking_challans_table', 33),
 (259, '2018_07_27_121336_update_getProductSizeQuantityWithConcat_store_porceduer', 34),
 (260, '2018_07_23_064442_add_product_type_column_at_mxp_product_table', 35),
-(261, '2018_07_23_081335_add_supplier_id_mxp_MRF_table', 35),
-(262, '2018_07_23_103343_add_booking_status_column_at_mxp_bookingBuyer_details', 35),
+(261, '2018_07_23_081335_add_supplier_id_mxp_mrf_table', 35),
+(262, '2018_07_23_103343_add_booking_status_column_at_mxp_bookingbuyer_details', 35),
 (263, '2018_07_30_070914_create_mxp_purchase_orders_table', 36);
 
 -- --------------------------------------------------------
@@ -609,10 +609,10 @@ INSERT INTO `mxp_booking` (`id`, `user_id`, `booking_order_id`, `erp_code`, `ite
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mxp_bookingBuyer_details`
+-- Table structure for table `mxp_bookingbuyer_details`
 --
 
-CREATE TABLE `mxp_bookingBuyer_details` (
+CREATE TABLE `mxp_bookingbuyer_details` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `booking_order_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -638,10 +638,10 @@ CREATE TABLE `mxp_bookingBuyer_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `mxp_bookingBuyer_details`
+-- Dumping data for table `mxp_bookingbuyer_details`
 --
 
-INSERT INTO `mxp_bookingBuyer_details` (`id`, `user_id`, `booking_order_id`, `Company_name`, `C_sort_name`, `buyer_name`, `address_part1_invoice`, `address_part2_invoice`, `attention_invoice`, `mobile_invoice`, `telephone_invoice`, `fax_invoice`, `address_part1_delivery`, `address_part2_delivery`, `attention_delivery`, `mobile_delivery`, `telephone_delivery`, `fax_delivery`, `is_complete`, `booking_status`, `created_at`, `updated_at`) VALUES
+INSERT INTO `mxp_bookingbuyer_details` (`id`, `user_id`, `booking_order_id`, `Company_name`, `C_sort_name`, `buyer_name`, `address_part1_invoice`, `address_part2_invoice`, `attention_invoice`, `mobile_invoice`, `telephone_invoice`, `fax_invoice`, `address_part1_delivery`, `address_part2_delivery`, `attention_delivery`, `mobile_delivery`, `telephone_delivery`, `fax_delivery`, `is_complete`, `booking_status`, `created_at`, `updated_at`) VALUES
 (1, 49, 'INVO-23062018-Mi-0001', 'Maxpro It', 'Mi', 'Ostin\'s', 'Section -1', 'Section-2', 'md Hanif', '01792828282', NULL, NULL, 'Section-1', 'Section-2', 'Md hanif', '01792828282', NULL, NULL, 0, NULL, '2018-06-23 06:18:01', '2018-06-23 06:18:01'),
 (2, 49, 'INVO-23062018-CSF-0002', 'CSF GARMENTS (PVT.) LTD', 'CSF', 'REGATTA', 'DELUXE HOUSE #3 (3rd-6th floor)', '209/227, KULGAON, BALUCHARA, CHITTAGAON-4214,BANGLADESH', 'Mr. Mohibul', '+8801984464601', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-06-23 07:20:39', '2018-06-23 07:20:39'),
 (3, 49, 'INVO-23062018-CSF-0003', 'CSF GARMENTS (PVT.) LTD', 'CSF', 'REGATTA', 'DELUXE HOUSE #3 (3rd-6th floor)', '209/227, KULGAON, BALUCHARA, CHITTAGAON-4214,BANGLADESH', 'Mr. Mohibul', '+8801984464601', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, '2018-06-23 07:24:55', '2018-06-23 07:24:55'),
@@ -1575,10 +1575,10 @@ INSERT INTO `mxp_menu` (`menu_id`, `name`, `route_name`, `description`, `parent_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mxp_MRF_table`
+-- Table structure for table `mxp_mrf_table`
 --
 
-CREATE TABLE `mxp_MRF_table` (
+CREATE TABLE `mxp_mrf_table` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `mrf_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1606,10 +1606,10 @@ CREATE TABLE `mxp_MRF_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `mxp_MRF_table`
+-- Dumping data for table `mxp_mrf_table`
 --
 
-INSERT INTO `mxp_MRF_table` (`id`, `user_id`, `mrf_id`, `supplier_id`, `booking_order_id`, `erp_code`, `item_code`, `item_size`, `item_description`, `item_quantity`, `item_price`, `matarial`, `gmts_color`, `others_color`, `orderDate`, `orderNo`, `shipmentDate`, `poCatNo`, `status`, `action`, `created_at`, `updated_at`, `mrf_quantity`, `mrf_person_name`) VALUES
+INSERT INTO `mxp_mrf_table` (`id`, `user_id`, `mrf_id`, `supplier_id`, `booking_order_id`, `erp_code`, `item_code`, `item_size`, `item_description`, `item_quantity`, `item_price`, `matarial`, `gmts_color`, `others_color`, `orderDate`, `orderNo`, `shipmentDate`, `poCatNo`, `status`, `action`, `created_at`, `updated_at`, `mrf_quantity`, `mrf_person_name`) VALUES
 (34, 49, 'MRF-12072018-0001', 1, 'INVO-12072018-CSF-0006', '04-OST2LSLTA001X-01', '2L.SL-TA.001', 'EU L CN 175/96A,EU M CN 170/92M,EU S CN 165/88A', NULL, '95,100,105', '0.002', NULL, NULL, NULL, '2018-07-12', '12', '2018-07-12', '111111', NULL, 'create', '2018-07-12 05:24:38', '2018-07-12 05:24:38', '1,2,3', 'www'),
 (35, 49, 'MRF-12072018-0002', 1, 'INVO-12072018-CSF-0006', '04-OST2LSLTA001X-01', '2L.SL-TA.001', 'EU L CN 175/96A,EU M CN 170/92M,EU S CN 165/88A', NULL, '94,99,104', '0.002', NULL, NULL, NULL, '2018-07-12', '12', '2018-07-19', '111111', NULL, 'create', '2018-07-12 05:31:17', '2018-07-12 05:31:17', '1,1,1', 'maxim'),
 (36, 49, 'MRF-12072018-0003', 1, 'INVO-12072018-CSF-0006', '04-OST2LSLTA001X-01', '2L.SL-TA.001', 'EU L CN 175/96A,EU M CN 170/92M,EU S CN 165/88A', NULL, '93,98,103', '0.002', NULL, NULL, NULL, '2018-07-12', '12', '2018-07-19', '111111', NULL, 'create', '2018-07-12 05:31:57', '2018-07-12 05:31:57', '1,1,1', 'maxim'),
@@ -1684,10 +1684,10 @@ INSERT INTO `mxp_MRF_table` (`id`, `user_id`, `mrf_id`, `supplier_id`, `booking_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Mxp_multipleChallan`
+-- Table structure for table `mxp_multiplechallan`
 --
 
-CREATE TABLE `Mxp_multipleChallan` (
+CREATE TABLE `mxp_multiplechallan` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `challan_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1715,10 +1715,10 @@ CREATE TABLE `Mxp_multipleChallan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Mxp_multipleChallan`
+-- Dumping data for table `mxp_multiplechallan`
 --
 
-INSERT INTO `Mxp_multipleChallan` (`id`, `user_id`, `challan_id`, `checking_id`, `bill_id`, `erp_code`, `item_code`, `oss`, `style`, `item_size`, `quantity`, `unit_price`, `total_price`, `party_id`, `name_buyer`, `name`, `sort_name`, `address`, `attention_invoice`, `mobile_invoice`, `incrementValue`, `status`, `created_at`, `updated_at`) VALUES
+INSERT INTO `mxp_multiplechallan` (`id`, `user_id`, `challan_id`, `checking_id`, `bill_id`, `erp_code`, `item_code`, `oss`, `style`, `item_size`, `quantity`, `unit_price`, `total_price`, `party_id`, `name_buyer`, `name`, `sort_name`, `address`, `attention_invoice`, `mobile_invoice`, `incrementValue`, `status`, `created_at`, `updated_at`) VALUES
 (41, 49, 'CHA-20180705--001', 'CHK-20180705--001', NULL, '04-0ST2LMLTA001X-01', '2L.ML-TA.001', NULL, NULL, 'EF L CN 175/96A,EF M CN 170/92M', '10,10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '001', 'create', '2018-07-05 06:18:27', '2018-07-05 06:18:27'),
 (42, 49, 'CHA-20180705--001', 'CHK-20180705--001', NULL, '04-OST2LSLTA001X-01', '2L.SL-TA.001', NULL, NULL, 'EU L CN 175/96A,EU M CN 170/92M', '10,10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '001', 'create', '2018-07-05 06:18:28', '2018-07-05 06:18:28'),
 (43, 49, 'CHA-20180706--002', 'CHK-20180706--002', NULL, '04-OST2LSLTA001X-01', '2L.SL-TA.001', NULL, NULL, 'EU L CN 175/96A,EU M CN 170/92M,EU S CN 165/88A', '10,12,13', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '002', 'create', '2018-07-06 06:18:46', '2018-07-06 06:18:46'),
@@ -1901,7 +1901,7 @@ INSERT INTO `Mxp_multipleChallan` (`id`, `user_id`, `challan_id`, `checking_id`,
 (220, 49, 'M-CHA-26072018-CSF-0175', 'BK-26072018-CSF-0079', NULL, '05-OST2LHTCR001X-02', '2L.SLT-TA.001', NULL, NULL, 'EG L KN 175/96,EG L CN 175/96A', '5,0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'create', '2018-07-26 05:06:16', '2018-07-26 05:06:16'),
 (221, 49, 'M-CHA-26072018-CSF-0175', 'BK-26072018-CSF-0077', NULL, 'X-C0-C-32-E', 'CTO00029 ( ZK011A ) : PLASTIC TOGGOLE BEADS', NULL, NULL, 'ANTIQUE BRASS', '0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'create', '2018-07-26 05:06:16', '2018-07-26 05:06:16'),
 (222, 49, 'M-CHA-26072018-CSF-0175', 'BK-26072018-CSF-0079', NULL, 'X-C0-C-32-E', 'CTO00029 ( ZK011A ) : PLASTIC TOGGOLE BEADS', NULL, NULL, 'ANTIQUE BRASS', '10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'create', '2018-07-26 05:06:16', '2018-07-26 05:06:16');
-INSERT INTO `Mxp_multipleChallan` (`id`, `user_id`, `challan_id`, `checking_id`, `bill_id`, `erp_code`, `item_code`, `oss`, `style`, `item_size`, `quantity`, `unit_price`, `total_price`, `party_id`, `name_buyer`, `name`, `sort_name`, `address`, `attention_invoice`, `mobile_invoice`, `incrementValue`, `status`, `created_at`, `updated_at`) VALUES
+INSERT INTO `mxp_multiplechallan` (`id`, `user_id`, `challan_id`, `checking_id`, `bill_id`, `erp_code`, `item_code`, `oss`, `style`, `item_size`, `quantity`, `unit_price`, `total_price`, `party_id`, `name_buyer`, `name`, `sort_name`, `address`, `attention_invoice`, `mobile_invoice`, `incrementValue`, `status`, `created_at`, `updated_at`) VALUES
 (223, 49, 'M-CHA-26072018-CSF-0183', 'BK-26072018-CSF-0076', NULL, '21-OST2LHTCR001X-02', '2L.HT-CR.001', NULL, NULL, 'SSS,WWWW', '0,5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'create', '2018-07-26 05:07:40', '2018-07-26 05:07:40'),
 (224, 49, 'M-CHA-26072018-CSF-0183', 'BK-26072018-CSF-0077', NULL, '21-OST2LHTCR001X-02', '2L.HT-CR.001', NULL, NULL, 'SSS,WWWW', '0,10', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'create', '2018-07-26 05:07:40', '2018-07-26 05:07:40'),
 (225, 49, 'M-CHA-26072018-CSF-0183', 'BK-26072018-CSF-0078', NULL, '21-OST2LHTCR001X-02', '2L.HT-CR.001', NULL, NULL, 'SSS,SSS', '5,0', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'create', '2018-07-26 05:07:40', '2018-07-26 05:07:40'),
@@ -2077,10 +2077,10 @@ CREATE TABLE `mxp_order_input` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mxp_pageFooter`
+-- Table structure for table `mxp_pagefooter`
 --
 
-CREATE TABLE `mxp_pageFooter` (
+CREATE TABLE `mxp_pagefooter` (
   `footer_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2217,10 +2217,10 @@ INSERT INTO `mxp_product` (`product_id`, `user_id`, `product_code`, `product_nam
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mxp_productSize`
+-- Table structure for table `mxp_productsize`
 --
 
-CREATE TABLE `mxp_productSize` (
+CREATE TABLE `mxp_productsize` (
   `proSize_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2232,10 +2232,10 @@ CREATE TABLE `mxp_productSize` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `mxp_productSize`
+-- Dumping data for table `mxp_productsize`
 --
 
-INSERT INTO `mxp_productSize` (`proSize_id`, `user_id`, `product_code`, `product_size`, `status`, `action`, `created_at`, `updated_at`) VALUES
+INSERT INTO `mxp_productsize` (`proSize_id`, `user_id`, `product_code`, `product_size`, `status`, `action`, `created_at`, `updated_at`) VALUES
 (1, 49, '2L.SL-TA.001', 'EU L CN 175/96A', '0', 'update', '2018-04-25 11:22:44', '2018-05-22 23:39:44'),
 (2, 49, '2L.SL-TA.001', 'EU M CN 170/92M', '1', 'create', '2018-04-25 11:22:53', '2018-04-25 11:22:53'),
 (3, 49, '2L.SL-TA.001', 'EU S CN 165/88A', '1', 'create', '2018-04-25 11:22:59', '2018-04-25 11:22:59'),
@@ -2443,10 +2443,10 @@ INSERT INTO `mxp_purchase_orders` (`po_id`, `po_no`, `booking_order_id`, `shipme
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mxp_reportFooter`
+-- Table structure for table `mxp_reportfooter`
 --
 
-CREATE TABLE `mxp_reportFooter` (
+CREATE TABLE `mxp_reportfooter` (
   `re_footer_id` int(10) UNSIGNED NOT NULL,
   `user_id` int(11) NOT NULL,
   `reportName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2468,10 +2468,10 @@ CREATE TABLE `mxp_reportFooter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `mxp_reportFooter`
+-- Dumping data for table `mxp_reportfooter`
 --
 
-INSERT INTO `mxp_reportFooter` (`re_footer_id`, `user_id`, `reportName`, `description_1`, `description_2`, `description_3`, `description_4`, `description_5`, `siginingPerson_1`, `siginingPersonSeal_1`, `siginingSignature_1`, `siginingPerson_2`, `siginingSignature_2`, `siginingPersonSeal_2`, `status`, `created_at`, `updated_at`, `action`) VALUES
+INSERT INTO `mxp_reportfooter` (`re_footer_id`, `user_id`, `reportName`, `description_1`, `description_2`, `description_3`, `description_4`, `description_5`, `siginingPerson_1`, `siginingPersonSeal_1`, `siginingSignature_1`, `siginingPerson_2`, `siginingSignature_2`, `siginingPersonSeal_2`, `status`, `created_at`, `updated_at`, `action`) VALUES
 (2, 49, 'challan report', '', '', '', '', '', '', NULL, NULL, '', NULL, NULL, '1', '2018-04-17 00:14:14', '2018-06-22 23:01:12', 'create');
 
 -- --------------------------------------------------------
@@ -4013,9 +4013,9 @@ ALTER TABLE `mxp_booking`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mxp_bookingBuyer_details`
+-- Indexes for table `mxp_bookingbuyer_details`
 --
-ALTER TABLE `mxp_bookingBuyer_details`
+ALTER TABLE `mxp_bookingbuyer_details`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4091,15 +4091,15 @@ ALTER TABLE `mxp_menu`
   ADD PRIMARY KEY (`menu_id`);
 
 --
--- Indexes for table `mxp_MRF_table`
+-- Indexes for table `mxp_mrf_table`
 --
-ALTER TABLE `mxp_MRF_table`
+ALTER TABLE `mxp_mrf_table`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `Mxp_multipleChallan`
+-- Indexes for table `mxp_multiplechallan`
 --
-ALTER TABLE `Mxp_multipleChallan`
+ALTER TABLE `mxp_multiplechallan`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -4115,9 +4115,9 @@ ALTER TABLE `mxp_order_input`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mxp_pageFooter`
+-- Indexes for table `mxp_pagefooter`
 --
-ALTER TABLE `mxp_pageFooter`
+ALTER TABLE `mxp_pagefooter`
   ADD PRIMARY KEY (`footer_id`);
 
 --
@@ -4145,9 +4145,9 @@ ALTER TABLE `mxp_product`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `mxp_productSize`
+-- Indexes for table `mxp_productsize`
 --
-ALTER TABLE `mxp_productSize`
+ALTER TABLE `mxp_productsize`
   ADD PRIMARY KEY (`proSize_id`);
 
 --
@@ -4157,9 +4157,9 @@ ALTER TABLE `mxp_purchase_orders`
   ADD PRIMARY KEY (`po_id`);
 
 --
--- Indexes for table `mxp_reportFooter`
+-- Indexes for table `mxp_reportfooter`
 --
-ALTER TABLE `mxp_reportFooter`
+ALTER TABLE `mxp_reportfooter`
   ADD PRIMARY KEY (`re_footer_id`);
 
 --
@@ -4257,9 +4257,9 @@ ALTER TABLE `mxp_booking`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=318;
 
 --
--- AUTO_INCREMENT for table `mxp_bookingBuyer_details`
+-- AUTO_INCREMENT for table `mxp_bookingbuyer_details`
 --
-ALTER TABLE `mxp_bookingBuyer_details`
+ALTER TABLE `mxp_bookingbuyer_details`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
@@ -4335,15 +4335,15 @@ ALTER TABLE `mxp_menu`
   MODIFY `menu_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
--- AUTO_INCREMENT for table `mxp_MRF_table`
+-- AUTO_INCREMENT for table `mxp_mrf_table`
 --
-ALTER TABLE `mxp_MRF_table`
+ALTER TABLE `mxp_mrf_table`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
--- AUTO_INCREMENT for table `Mxp_multipleChallan`
+-- AUTO_INCREMENT for table `mxp_multiplechallan`
 --
-ALTER TABLE `Mxp_multipleChallan`
+ALTER TABLE `mxp_multiplechallan`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=325;
 
 --
@@ -4359,9 +4359,9 @@ ALTER TABLE `mxp_order_input`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `mxp_pageFooter`
+-- AUTO_INCREMENT for table `mxp_pagefooter`
 --
-ALTER TABLE `mxp_pageFooter`
+ALTER TABLE `mxp_pagefooter`
   MODIFY `footer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -4389,9 +4389,9 @@ ALTER TABLE `mxp_product`
   MODIFY `product_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `mxp_productSize`
+-- AUTO_INCREMENT for table `mxp_productsize`
 --
-ALTER TABLE `mxp_productSize`
+ALTER TABLE `mxp_productsize`
   MODIFY `proSize_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
@@ -4401,9 +4401,9 @@ ALTER TABLE `mxp_purchase_orders`
   MODIFY `po_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=379;
 
 --
--- AUTO_INCREMENT for table `mxp_reportFooter`
+-- AUTO_INCREMENT for table `mxp_reportfooter`
 --
-ALTER TABLE `mxp_reportFooter`
+ALTER TABLE `mxp_reportfooter`
   MODIFY `re_footer_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
