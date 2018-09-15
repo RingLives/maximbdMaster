@@ -87,6 +87,7 @@ ul li {
   }
   .valueGenarate table tr td p{
     font-weight: bold;
+      margin-top: 5px;
   }
   .mainBody table thead>th{
     align: center;

@@ -13,7 +13,7 @@ use Auth;
 use DB;
 use App\Model\MxpBookingBuyerDetails;
 use App\Model\MxpBooking;
-use App\Model\MxpPI;
+use App\Model\MxpPi;
 
 class PiController extends Controller
 {
@@ -53,7 +53,7 @@ class PiController extends Controller
 			}
 		}
 
-	    $buyerDetails = DB::table('mxp_bookingBuyer_details')
+	    $buyerDetails = DB::table('mxp_bookingbuyer_details')
 	    	->where('booking_order_id',$pi_details[0]->booking_order_id)
 	    	// ->select('C_sort_name')
 	    	->first();
@@ -102,7 +102,7 @@ class PiController extends Controller
 			])
 			->get();
 		$companyInfo = DB::table('mxp_header')->where('header_type', 11)->get();
-		$footerData = DB::select("select * from mxp_reportFooter");
+		$footerData = DB::select("select * from mxp_reportfooter");
 
 		// $this->print_me($bookingDetails);
 

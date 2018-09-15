@@ -12,6 +12,7 @@ use App\MxpProductsColors;
 use App\MxpSupplierPrice;
 use App\Supplier;
 use App\VendorPrice;
+use App\Model\MxpItemDescription;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -75,8 +76,9 @@ class ProductController extends Controller
         $supplierList = Supplier::where('status', 1)
                         ->where('is_delete', 0)
                         ->get();
+        $itemList = MxpItemDescription::where('is_active', '1')->get();
 
-       return view('product_management.add_product',compact('brands', 'colors', 'sizes', 'vendorCompanyList', 'supplierList'));
+       return view('product_management.add_product',compact('brands', 'colors', 'sizes', 'vendorCompanyList', 'supplierList','itemList'));
     }
 
     Public function updateProductView(Request $request){
@@ -104,10 +106,6 @@ class ProductController extends Controller
             }
         }
 
-
-
-
-
         $vendorCompanyListPrice = VendorPrice::with('party')->where('product_id', $request->product_id)->get();
         $supplierPrices = MxpSupplierPrice::with('supplier')->where('product_id', $request->product_id)->get();
 
@@ -132,12 +130,15 @@ class ProductController extends Controller
                         ->where('suppliers.is_delete', '=', 0)
                         ->where('mxp_supplier_prices.supplier_id', null)
                         ->get();
+
+        $itemList = MxpItemDescription::where('is_active', '1')->get();
+
         if(count($supplierPrices) == 0){
             $supplierList = Supplier::get()->sortBy('name');
         }
 
 //        return $product;
-       return view('product_management.update_product', compact('product', 'vendorCompanyListPrice', 'supplierPrices', 'supplierList', 'vendorCompanyList',  'colors', 'sizes', 'colorsJs', 'sizesJs'))->with('brands',$brands);
+       return view('product_management.update_product', compact('product', 'vendorCompanyListPrice', 'supplierPrices', 'supplierList', 'vendorCompanyList',  'colors', 'sizes', 'colorsJs', 'sizesJs'))->with('brands',$brands)->with('itemList',$itemList);
     }
 
     Public function addProduct(Request $request){
@@ -269,10 +270,11 @@ class ProductController extends Controller
     	$updateProduct->product_code = $request->p_code;
     	$updateProduct->product_name = $request->p_name;
         $updateProduct->product_type = $request->product_type;
-    	$updateProduct->product_description = $request->p_description;
+//    	$updateProduct->product_description = $request->p_description;
     	$updateProduct->brand = $request->p_brand;
     	$updateProduct->erp_code = $request->p_erp_code;
         $updateProduct->item_inc_percentage = $request->item_inc_percentage;
+        $updateProduct->item_description_id = $request->p_description;
     	$updateProduct->unit_price = $request->p_unit_price;
     	$updateProduct->weight_qty = $request->p_weight_qty;
     	$updateProduct->weight_amt = $request->p_weight_amt;

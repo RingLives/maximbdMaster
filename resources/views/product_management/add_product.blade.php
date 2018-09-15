@@ -83,43 +83,27 @@
 		                                {{--</div>--}}
 		                            {{--</div>--}}
 
-                         
 
-		                            <div class="form-group">
-		                                <label class="col-md-4 control-label">{{ trans('others.product_description_label') }}</label>
-		                                <div class="col-md-6">
-		                                    <input type="text" class="form-control" name="p_description" value="{{old('p_description')}}" placeholder="Description">
-		                                </div>
-		                            </div>
 
-		                            {{--Add Product Brand Select Box--}}
+									<div class="form-group">
+										<label class="col-md-4 control-label">{{ trans('others.product_description_label') }}</label>
 
-		                            <div class="form-group">
-		                                <label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>
-		                               <div class="col-md-6">
+										<div class="col-md-6">
+										<!--  <input type="text" class="form-control" name="p_description" value="{{old('p_description')}}" placeholder="Description"> -->
+											<select name="p_description" class="form-control" id="p_description">
+												<option value="">Item Description</option>
+                                                <?php
+                                                if (isset($itemList) && !empty($itemList)) {
+                                                    foreach ($itemList as $item) {
+                                                        print '<option value="' . $item->name . '">' . ucwords($item->name) . '</option>';
+                                                    }
+                                                }
+                                                ?>
+											</select>
 
-									   		<div class="product-brand-list" style="width:80%; float: left;">
-												<select class="form-control brand-list" name="p_brand" value="" style="width: 95% !important;">
-													 <option value="{{old('p_brand')}}">{{(!empty(old('p_brand'))) ? old('p_brand') :"Choose Brand"}}</option>
+										</div>
+									</div>
 
-													 @foreach($brands as $brand)
-													 <option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>
-													 @endforeach
-												</select>
-											</div>
-
-											   <div class="add-brand-btn" style="width:20%; float: left; padding-top: 5px;">
-												   <a class="hand-cursor"  data-toggle="modal" data-target="#addBrandModal">
-													   <i class="material-icons">
-														   add_circle_outline
-													   </i>
-												   </a>
-
-											   </div>
-		                                </div>
-		                            </div>
-
-		                            {{--End Add Product Brand Select Box--}}
 
 
 									{{--Add Color MultiSelect Box--}}
@@ -267,12 +251,6 @@
 
                             	</div>
                             </div>
-
-
-
-
-
-
 
 
 							<!-- Add Vendor Company Price-->

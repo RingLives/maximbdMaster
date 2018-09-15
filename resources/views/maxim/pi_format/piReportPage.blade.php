@@ -91,7 +91,7 @@
 						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
 						<td width="50%">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;">FSC-C121666</p>
+								<p style="padding-left :5px;">Licence Code: FSC-C121666</p>
 							</div>
 						</td>
 					</tr>
@@ -158,7 +158,7 @@
 	    	@endif
 			<td>{{ $detailsValue->gmts_color }}</td>
 			<td>{{ $detailsValue->item_description }}</td>
-			<td>
+			<td style="width: 10%;">
 				{{ $detailsValue->style }}
 				<br>
 				{{ ($is_type == 'fsc')? '( FSC-MIX )':'' }}
