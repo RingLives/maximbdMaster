@@ -94,7 +94,7 @@
         $gmtsColor = explode(',', $details->gmtsColor);
         $itemSize = explode(',', $details->itemSize);
         $quantity = explode(',', $details->quantity);
-        $idstrcount = (8 - strlen($details->id));
+        $job_no = explode(',', $details->job_id);
     ?>
 	<table class="table table-bordered">
 	    <thead>
@@ -115,13 +115,15 @@
 	    </thead>
 	    <tbody>
 	    	<?php $rowspanValue = 0; ?>
-
 		    @foreach($quantity as $key => $qtyValue)
-
-		    	<?php $TotalBookingQty += $qtyValue; $rowspanValue += $rowspanValue +1; ?>
+		    	<?php 
+		    		$TotalBookingQty += $qtyValue; 
+		    		$rowspanValue += $rowspanValue +1; 
+		    		$jobId = (8 - strlen($job_no[$key]));
+		    	?>
 
 		    	<tr>
-			    	<td>{{ str_repeat('0',$idstrcount) }}{{ $details->id }}</td>
+			    	<td>{{ str_repeat('0',$jobId) }}{{ $job_no[$key] }}</td>
 			    	<!-- <td width="15%">{{$details->erp_code}}</td> -->
 			    	@if($itemcodestatus != $details->item_code)
 				    	<td width="15%" rowspan="{{count($quantity)}}">
