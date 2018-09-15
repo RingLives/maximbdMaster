@@ -45,23 +45,24 @@ trans('others.update_product_label'))
                                         </div>
                                     </div>
 
-                                    {{--<div class="form-group">--}}
-                                        {{--<label class="col-md-4 control-label">{{ trans('others.product_name_label') }}</label>--}}
-                                        {{--<div class="col-md-6">--}}
-                                            {{--<input type="text" class="form-control" name="p_name" value="{{$data->product_name}}">--}}
-                                        {{--</div>--}}
-                                    {{--</div>                         --}}
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">{{ trans('others.product_description_label') }}</label>
+
                                         <div class="col-md-6">
-                                            <input type="text" class="form-control" name="p_description" value="{{$data->product_description}}">
+                                            <select class="form-control " name="p_description" required value="">
+
+                                                    @foreach($itemList as $item)
+
+                                                        <option value="{{$item->id}}" {{ ( $item->id == $data->item_description_id) ? 'selected' : '' }}>{{$item->name}}</option>
+                                                    @endforeach
+                                            </select>
+
+                                            </div>
                                         </div>
-                                    </div>
 
 
-
-                                    {{--Add Color MultiSelect Box--}}
+{{--Add Color MultiSelect Box--}}
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">Color</label>
                                         <div class="col-md-6">
@@ -70,7 +71,7 @@ trans('others.update_product_label'))
                                                 <select class="select-color-list" name="colors[]" multiple="multiple">
                                                     <option value="">Choose Color</option>
                                                     @foreach($colors as $color)
-                                                        <option value="{{$color->id}},{{$color->color_name}}">{{$color->color_name}}</option>
+                                                        <option value="{{$color->id}},{{$color->color_name}}" >{{$color->color_name}}</option>
                                                     @endforeach
                                                 </select>
 

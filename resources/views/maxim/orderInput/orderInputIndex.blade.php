@@ -279,7 +279,7 @@
 
 
 
-    <div class="form-group button_add pull-right">
+    <div class="form-group button_add pull-left" style="margin-top: 10px ">
       <button type="submit" class="btn btn-success" id="add"><i class="fa fa-copy" style="padding-right: 5px;"></i>Copy Item</button>
       <button type="submit" class="btn btn-success" id="order_copy"><i class="fa fa-plus" style="padding-right: 5px;"></i>Add New Item</button>
       <button type="submit" class="btn btn-primary">Submit</button>
