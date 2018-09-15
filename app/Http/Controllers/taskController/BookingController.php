@@ -16,6 +16,8 @@ use App\MxpItemsQntyByBookingChallan;
 use Validator;
 use Auth;
 use DB;
+use App\Http\Controllers\taskController\BookingListController;
+
 
 class BookingController extends Controller
 {
@@ -49,7 +51,7 @@ class BookingController extends Controller
       }
       print json_encode($results);
     }
-    public function addBooking(Request $request){
+    public function addBooking(Request $request,BookingListController $BookingListController){
       // $this->print_me($request->all());
 
       $roleManage = new RoleManagement();
@@ -197,7 +199,8 @@ class BookingController extends Controller
 
       $companyInfo = DB::table('mxp_header')->where('header_type',11)->get();
 
-      $bookingReport = DB::select('call getBookinAndBuyerDeatils("'.$customid.'")');
+      // $bookingReport = DB::select('call getBookinAndBuyerDeatils("'.$customid.'")');
+      $bookingReport = $BookingListController->getBookingDetailsValue($customid);
       
       // $bookingReport = DB::table('mxp_booking as mb')
       //     ->join('mxp_bookingbuyer_details as mbd','mb.booking_order_id','mbd.booking_order_id')
@@ -208,6 +211,7 @@ class BookingController extends Controller
 
       $gmtsOrSizeGroup = DB::select("SELECT gmts_color,GROUP_CONCAT(item_size) as itemSize,GROUP_CONCAT(item_quantity) as quantity from mxp_booking WHERE booking_order_id = '".$customid."' GROUP BY gmts_color");
       $footerData = DB::select("select * from mxp_reportfooter");
+
       return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','footerData','is_type'));
     }
 
