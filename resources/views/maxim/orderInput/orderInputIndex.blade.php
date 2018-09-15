@@ -236,7 +236,7 @@
             </div>
           </td>
           <td>
-            <div class="form-group">
+            <div class="form-group" style="    width: 200px !important;">
               {{--<input type="text" name="item_size[]" class="form-control">--}}
 
               <select name="item_size[]" class="form-control itemSize" id="itemSize" disabled = "true" >
