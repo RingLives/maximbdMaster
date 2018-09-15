@@ -157,12 +157,12 @@
 			    	<td>{{$itemSize[$key]}}</td>
 			        <td>{{$details->sku}}</td>
 			        <td>{{$qtyValue}}</td>
-			        <!-- <td>PCS</td> -->
-			        @if($itemcodestatus != $details->item_code)
-				    	<td rowspan="{{count($quantity)}}">
-				    		<div>PSC</div>
-				    	</td>
-			    	@endif
+			        <td>PCS</td> 
+			        {{--@if($itemcodestatus != $details->item_code)--}}
+				    	{{--<td rowspan="{{count($quantity)}}">--}}
+				    		{{--<div>PCS</div>--}}
+				    	{{--</td>--}}
+			    	{{--@endif--}}
 		        </tr>
 
 		        <?php $itemcodestatus = $details->item_code; ?>
