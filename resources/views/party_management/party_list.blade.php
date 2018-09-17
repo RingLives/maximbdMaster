@@ -53,7 +53,7 @@ trans('others.party_list_label'))
                     <tr>
                         <th class="">Vendor ID</th>
                         <th class="">Company Name</th>
-                        <th class="">Buyer</th>
+                        <th class="">Brand</th>
                         <th class="">Address -1 (Invoice)</th>
                         <th class="">Address -2 (Invoice)</th>
                         <th class="">Attention (Invoice)</th>

@@ -235,7 +235,7 @@ $('.add-product-brand').on('click', function(){
      $.ajax({
          type: "POST",
          url: "/add/brand/action",
-        data: 'request_type=ajax&brand_name='+$('input[name=brand_name]').val()+'&isActive='+$('select[name=isActive]').val()+'&_token='+$('input[name=_token]').val(),
+        data: 'request_type=ajax&brand_name='+encodeURIComponent($('input[name=brand_name]').val())+'&isActive='+$('select[name=isActive]').val()+'&_token='+$('input[name=_token]').val(),
         cache: false,
         async: false,
         success: function(result) {

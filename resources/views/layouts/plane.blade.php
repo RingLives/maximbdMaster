@@ -30,7 +30,8 @@
 	<?php $languages = App\Http\Controllers\Trans\TranslationController::getLanguageList();?>
 	@yield('body')
 
-	
+
+	<script src="{{ asset('assets/scripts/moment.min.js') }}"></script>
 	<script src="{{ asset('assets/scripts/bootstrap-datepicker.js') }}" type="text/javascript"></script>
 	<script src="{{ asset('assets/scripts/bootstrap-datetimepicker.min.js') }}"></script>
 	<script src="{{ asset('assets/scripts/frontend.js') }}" type="text/javascript"></script>
@@ -39,26 +40,26 @@
 	<script type="text/javascript" src="{{ asset('js/all_product_table.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/journal.js') }}"></script>
 	<script src="{{ asset('assets/scripts/json-2.4.js') }}"></script>
-	<script src="{{ asset('assets/scripts/moment.min.js') }}"></script>
-	<!-- <script src="{{ asset('assets/scripts/bootstrap-datetimepicker.min.js') }}"></script> -->
+	{{--<!-- <script src="{{ asset('assets/scripts/bootstrap-datetimepicker.min.js') }}"></script> -->--}}
 	<script src="{{ asset('assets/scripts/multipleTable.js') }}"></script>
 	<script src="{{ asset('assets/scripts/task/buyer.js') }}"></script>
 	<script src="{{ asset('assets/scripts/task/taskTpye.js') }}"></script>
+	<script src="{{ asset('assets/scripts/item/apend_unit_price.js') }}"></script>
 	<script src="{{ asset('assets/scripts/jquery.easy-autocomplete.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/production.js') }}"></script>
 
-	<script>
-	    $(document).ready(function(){
-	      var date_input=$('#datePickerDate'); //our date input has the name "date"
-	      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        });
-        });
-	</script>
+	{{--<script>--}}
+	    {{--$(document).ready(function(){--}}
+	      {{--var date_input=$('#datePickerDate'); //our date input has the name "date"--}}
+	      {{--var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";--}}
+        {{--date_input.datepicker({--}}
+            {{--format: 'mm/dd/yyyy',--}}
+            {{--container: container,--}}
+            {{--todayHighlight: true,--}}
+            {{--autoclose: true,--}}
+        {{--});--}}
+        {{--});--}}
+	{{--</script>--}}
 	@yield('LoadScript')
 </body>
 </html>
