@@ -144,6 +144,7 @@
 
 			$totalQtyAmt = $detailsValue->item_quantity * $detailsValue->item_price;
 			$totalUsdAmount += $totalQtyAmt;
+			$totalAllqnty += $detailsValue->item_quantity;
 		?>
 		<tr>
 			<td>{{ str_repeat('0',$jobId) }}{{ $detailsValue->job_no}}</td>
@@ -179,7 +180,9 @@
 			<?php $itemcodestatus = $detailsValue->item_code; ?>
 		@endforeach		
 			<tr>
-				<td colspan="9"> <center><span style="font-weight: bold; font-size: 18px;">TOTAL QTY:</span></center></td>
+				<td colspan="9">
+					<span style="font-weight: bold; font-size: 18px; float: right;">Total Quantity:</span>
+				</td>
 				<td>{{$totalAllqnty}}</td>
 				<td></td>
 				<td>{{(!empty($totalUsdAmount)? '$'.$totalUsdAmount: '')}}</td>

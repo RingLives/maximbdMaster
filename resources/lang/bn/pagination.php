@@ -285,6 +285,7 @@ return [
 'mxp_menu_booking_view_details' => 'Booking Details',
 'mxp_menu_permission_task_assign' => 'টাস্ক অ্যাসাইন',
 'mxp_menu_vendor_list' => 'বিক্রেতা',
-'mxp_menu_production_pi_list_view' => 'পিআই তালিকা',
+'mxp_menu_tracking_list_report' => 'Tracking List Report',
+'mxp_menu_production_pi_list_view' => 'PI List',
 
 ];

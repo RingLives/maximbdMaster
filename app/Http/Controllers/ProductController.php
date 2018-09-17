@@ -143,7 +143,8 @@ class ProductController extends Controller
 
     Public function addProduct(Request $request){
 
-
+        $item_size_width_height = $request->item_size_width.'-'.$request->item_size_height;
+        // $this->print_me($item_size_width_height);
     	$roleManage = new RoleManagement();
 
         $validMessages = [
@@ -183,7 +184,7 @@ class ProductController extends Controller
     	$createProduct->product_name = $request->p_name;
         $createProduct->product_type = $request->product_type;
     	$createProduct->product_description = $request->p_description;
-    	$createProduct->brand = $request->p_brand;
+    	$createProduct->brand = htmlspecialchars($request->p_brand);
     	$createProduct->erp_code = $request->p_erp_code;
     	$createProduct->item_inc_percentage = $request->item_inc_percentage;
     	$createProduct->unit_price = $request->p_unit_price;
@@ -192,6 +193,7 @@ class ProductController extends Controller
         $createProduct->user_id = Auth::user()->user_id;
         $createProduct->status = $request->is_active;
         $createProduct->others_color = $request->others_color;
+        $createProduct->item_size_width_height = $item_size_width_height;
     	$createProduct->action = self::CREATE_PRODUCT;
     	$createProduct->save();
 
@@ -237,7 +239,7 @@ class ProductController extends Controller
     }
     public function updateProduct(Request $request){
 
-
+        $item_size_width_height = $request->item_size_width.'-'.$request->item_size_height;
 //        VendorPrice::where('product_id', $request->product_id)->delete();
         $this->addVendorPrice($request, $request->product_id);
 
@@ -284,7 +286,8 @@ class ProductController extends Controller
         // $updateProduct->description_4 = $request->p_description4;
         $updateProduct->user_id = Auth::user()->user_id;
         $updateProduct->status = $request->is_active;
-    	$updateProduct->others_color = $request->others_color;
+        $updateProduct->others_color = $request->others_color;
+    	$updateProduct->item_size_width_height = $item_size_width_height;
         $updateProduct->action = self::CREATE_PRODUCT;
     	$updateProduct->save();
         $lastProductID = $updateProduct->product_id;

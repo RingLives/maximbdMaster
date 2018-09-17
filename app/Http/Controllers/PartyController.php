@@ -38,7 +38,7 @@ class PartyController extends Controller
             'party_id.unique' => 'Vendor id is already entered.',            
             'name.required' => 'Company Name is required',
             'sort_name.required' => 'Company sort name is required',
-            'name_buyer.required' => 'Buyer name is required',
+            'name_buyer.required' => 'Brand name is required',
             'name.unique' => 'Vendor name already entered',
             
         ];

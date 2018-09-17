@@ -90,12 +90,12 @@ trans('others.update_product_label'))
 
                                     {{--Add Size MultiSelect Box--}}
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">Size</label>
+                                        <label class="col-md-4 control-label">Size Range</label>
                                         <div class="col-md-6">
                                             <div class="product-size-list" style="width:80%; float: left;">
 
                                                 <select class="select-size-list" name="sizes[]" multiple="multiple">
-                                                    <option value="">Choose Size</option>
+                                                    <option value="">Choose Size Range</option>
                                                     @foreach($sizes as $size)
                                                         <option value="{{$size->proSize_id}},{{$size->product_size}}">{{$size->product_size}}</option>
                                                     @endforeach
@@ -111,6 +111,36 @@ trans('others.update_product_label'))
                                         </div>
                                     </div>
                                     {{--End Add Size MultiSelect Box--}}
+
+                                    {{--Item  Size  Box--}}
+                                    <?php 
+                                        $valuess = explode('-', $data->item_size_width_height);
+                                    ?>
+                                    <div class="itemSize">
+                                        <label class="col-md-4 control-label">Item Size</label>
+                                        
+                                            <div class="col-md-3">
+                                                <div id="custom-search-input">
+                                                    <div class="input-group col-md-3">
+                                                        <input type="text" class="form-control input-sm" name="item_size_width" placeholder="width" style="width: 60px !important;" value="{{$valuess[0]}}" />
+                                                        <span class="input-group-btn" style=" color: #555;font-size: 18px; padding: 0px 5px; border: 1px solid #ddd; border-left:none ;" >
+                                                            mm
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div id="custom-search-input">
+                                                    
+                                                    <div class="input-group col-md-3">
+                                                        <input type="text" class="form-control input-sm" name="item_size_height" placeholder="height" style="width: 60px !important;" value="{{$valuess[1]}}"/>
+                                                        <span class="input-group-btn" style="color: #555;font-size: 18px;padding: 0px 5px; border: 1px solid #ddd; border-left:none ;">
+                                                            mm
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
 
                                  
 
@@ -137,7 +167,7 @@ trans('others.update_product_label'))
                                         <label class="col-md-4 control-label">{{ trans('others.product_unit_price_label') }}</label>
                                         <div class="col-md-6">
                                             <div style="width:100%; float: left;">
-                                                <input type="text" class="form-control" name="p_unit_price" value="{{ $data->unit_price}}">
+                                                <input type="text" class="form-control " name="p_unit_price" value="{{ $data->unit_price}}">
                                             </div>
                                             <div class="add-vendor-com-price-btn" style=" width:100%; float: left; padding-top: 5px;">
                                                 <a style="float:left;" class="hand-cursor" data-toggle="modal" data-target="#addVendorComPrice">
@@ -286,7 +316,7 @@ trans('others.update_product_label'))
 
 														<div class="col-md-3">
 															{{--<label class="control-label">Size Name</label>--}}
-															<input type="text" class="form-control" name="v_com_price[]" value="{{$vCom->vendor_com_price}}" placeholder="Enter Price">
+															<input type="text" class="form-control v_com_price" name="v_com_price[]" value="{{$vCom->vendor_com_price}}" placeholder="Enter Price">
 														</div>
 													@endforeach
 
@@ -362,7 +392,7 @@ trans('others.update_product_label'))
                                                         </div>
 
                                                         <div class="col-md-4">
-                                                            <input type="text" class="form-control" name="supplier_price[]" value="{{ $supplierPrice->supplier_price}}" placeholder="Enter Price">
+                                                            <input type="text" class="form-control supplier_price" name="supplier_price[]" value="{{ $supplierPrice->supplier_price}}" placeholder="Enter Price">
                                                         </div>
                                                     @endforeach
 
