@@ -66,13 +66,13 @@
 					<tr>
 						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;"> PI No: {{$details->booking_order_id}} </p>
+								<p style="padding-left :5px;"> PI No: {{$details->p_id}} </p>
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
-						<td width="50%">
+						<!-- <td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td> -->
+						<td colspan="2">
 							<div style="text-align: right;">
 								<p style="padding-left :5px;"> Date: {{Carbon\Carbon::parse($details->created_at)->format('Y-m-d')}}</p>
 							</div>
@@ -88,13 +88,21 @@
 						</td>
 					</tr> -->
 					<tr>
-						<td width="50%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td>
-						<td width="50%">
+						<td colspan="2">
 							<div style="text-align: right;">
-								<p style="padding-left :5px;">Licence Code: FSC-C121666</p>
+								<p>Certificate Code: CU-COC-828568</p>
 							</div>
 						</td>
 					</tr>
+					<tr>
+						<!-- <td width="0%" style="border-bottom-style:hidden;border-left-style:hidden;"> </td> -->
+						<td colspan="2">
+							<div style="text-align: right;">
+								<p>Licence Code: FSC-C121666</p>
+							</div>
+						</td>
+					</tr>
+					
 					@endif
 				</table>
 			@endfor

@@ -72,7 +72,7 @@ class PiController extends Controller
 				$piDetails = new MxpPi();
 				$piDetails->p_id = $customid;
 				$piDetails->job_no = $piValues->id;
-				$piDetails->user_id = $piValues->user_id;
+				$piDetails->user_id = Auth::user()->user_id;
 				$piDetails->booking_order_id = $piValues->booking_order_id;
 				$piDetails->erp_code = $piValues->erp_code;
 				$piDetails->item_code = $piValues->item_code;
@@ -106,6 +106,6 @@ class PiController extends Controller
 
 		// $this->print_me($bookingDetails);
 
-		return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails', 'footerData', 'formatTypes','buyerDetails','is_type'));
+		return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails','footerData','buyerDetails','is_type'));
 	}
 }
