@@ -72,6 +72,11 @@
 						</li>
 					</ul>
 				@endif
+                    <ul>
+                        <li>
+                            <span>Prepared By: {{ $getBookingUserDetails[0]->first_name }} {{ $getBookingUserDetails[0]->last_name }} </span>
+                        </li>
+                    </ul>
 				</div>
 			</div>
 			@endfor

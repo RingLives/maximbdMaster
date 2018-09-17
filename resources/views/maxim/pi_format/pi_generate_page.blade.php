@@ -82,7 +82,8 @@
 			</table>
 			<div class="form-group ">
 				<div class="col-md-2 pull-right">
-					<button type="submit" class="btn btn-primary" id="rbutton">
+					{{--id="rbutton"--}}
+					<button type="submit" class="btn btn-primary" >
 						Generate
 					</button>
 				</div>

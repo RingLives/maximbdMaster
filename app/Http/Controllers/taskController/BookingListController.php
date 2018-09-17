@@ -5,6 +5,7 @@ namespace App\Http\Controllers\taskController;
 use  App\Http\Controllers\dataget\ListGetController;
 use App\Http\Controllers\Message\StatusMessage;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\taskController\BookingController;
 use App\Http\Controllers\RoleManagement;
 use App\Model\BookingFile;
 use App\Model\MxpBooking;
@@ -68,6 +69,9 @@ class BookingListController extends Controller
                 $booking->itemLists = $this->getBookingItemLists($booking->booking_order_id);
             }
         }
+
+
+
         return view('maxim.booking_list.booking_list_report',compact('bookingList'));
     }
 
@@ -119,7 +123,12 @@ class BookingListController extends Controller
 
         $gmtsOrSizeGroup = DB::select("SELECT gmts_color,GROUP_CONCAT(item_size) as itemSize,GROUP_CONCAT(item_quantity) as quantity from mxp_booking WHERE booking_order_id = '".$request->bid."' GROUP BY gmts_color");
 
-        return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup'));
+        $user = new BookingController();
+
+        $getBookingUserDetails = $user::getUserDetails( $request->bid );
+
+
+        return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','getBookingUserDetails'));
     }
 
     public function getBookingReportListByBookingId(Request $request){
