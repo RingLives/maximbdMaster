@@ -33,6 +33,7 @@ class PartyController extends Controller
     public function store(Request $request)
     {   
         $roleManage = new RoleManagement();
+
         $validMassage = [
             'party_id.required' => 'Vendor id is required',
             'party_id.unique' => 'Vendor id is already entered.',            
@@ -42,15 +43,15 @@ class PartyController extends Controller
             'name.unique' => 'Vendor name already entered',
             
         ];
-         $validator = Validator::make($request->all(), [
-            'party_id'               => 'required|unique:mxp_party,party_id',
-            'name'                   => 'required||unique:mxp_party,name',
-            'sort_name'              =>'required',
-            'name_buyer'             => 'required',
-            
-        ],
-        $validMassage
-    );
+
+        $validator = Validator::make($request->all(), [
+                'party_id'               => 'required|unique:mxp_party,party_id',
+                'name'                   => 'required||unique:mxp_party,name',
+                'sort_name'              =>'required',
+                'name_buyer'             => 'required',
+            ],
+            $validMassage
+        );
 
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->input())->withErrors($validator->messages());
