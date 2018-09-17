@@ -51,6 +51,16 @@ class BookingController extends Controller
       }
       print json_encode($results);
     }
+    public function getUserDetails( $bookingId ){
+
+        $getBookingUserDetails = DB::table('mxp_booking as mb')
+            ->join('mxp_users as ms','mb.user_id','=','ms.user_id')
+            ->select('ms.*')
+            ->where('mb.booking_order_id',$bookingId)
+            ->get();
+        return $getBookingUserDetails;
+    }
+
     public function addBooking(Request $request,BookingListController $BookingListController){
       // $this->print_me($request->all());
 
@@ -212,7 +222,9 @@ class BookingController extends Controller
       $gmtsOrSizeGroup = DB::select("SELECT gmts_color,GROUP_CONCAT(item_size) as itemSize,GROUP_CONCAT(item_quantity) as quantity from mxp_booking WHERE booking_order_id = '".$customid."' GROUP BY gmts_color");
       $footerData = DB::select("select * from mxp_reportfooter");
 
-      return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','footerData','is_type'));
+        $getBookingUserDetails =  $this->getUserDetails( $customid );
+
+      return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','footerData','is_type','getBookingUserDetails'));
     }
 
 
