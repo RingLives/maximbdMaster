@@ -16,11 +16,8 @@ trans('others.add_party_label'))
                 <div class="panel panel-default">
                     <div class="panel-heading">{{ trans('others.add_party_label') }}</div>
                     <div class="panel-body">
-
-                   
                         <form class="form-horizontal" action="{{ Route('party_save_action') }}" role="form" method="POST" >
                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                            
                             <div class="row">
                                 <div style="" class="col-md-12 col-sm-12 ">
                                     <div class="form-group">
