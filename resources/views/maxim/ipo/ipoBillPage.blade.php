@@ -247,7 +247,7 @@
 		</tr>
 	</tbody>
 </table>
-
+ 
 <script type="text/javascript">
 	function myFunction() {
 		$('.colspan-td table').css('font-family','arial, sans-serif');
