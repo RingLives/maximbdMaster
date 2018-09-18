@@ -43,9 +43,24 @@ trans('others.add_party_label'))
                                     <div class="form-group">
                                         <label class="col-md-5 col-sm-5 control-label">{{ trans('others.name_buyer_label') }}</label>
                                         <div class="col-md-6 col-sm-6">
-                                            <input type="text" class="form-control  input_required" name="name_buyer" value="{{ old('name_buyer') }}">
+                                            {{-- <input type="text" class="form-control  input_required" name="name_buyer" value="{{ old('name_buyer') }}"> --}}
+                                            <select class ="form-control" name="name_buyer" id="name_buyer">
+                                                @foreach($buyers as $buyer)     
+                                                    <option data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->buyer_name }}">{{ $buyer->buyer_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" id="id_buyer" name="id_buyer" value="">
                                         </div>
                                     </div>
+                                    @section("LoadScript")
+                                        <script>
+                                            $(document).ready(function(){
+                                                $("#name_buyer").on('change',function(){
+                                                    $("#id_buyer").val($(this).find(':selected').attr('data-id'));
+                                                });
+                                            });
+                                        </script>
+                                    @endsection
 
                                     <div class="form-group">
                                       <label class="col-md-5 col-sm-5 control-label">{{ trans('others.header_status_label') }}</label>
