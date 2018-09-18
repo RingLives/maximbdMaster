@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('page_heading','PI List' )
+@section('page_heading','Ipo List' )
 @section('section')
 
 <!-- <button class="btn btn-warning" type="button" id="mrf_reset_btn">Reset</button>
@@ -57,28 +57,27 @@
 </div>
 <br>
 <div class="row">
-	<div class="col-md-12 col-md-offset-0">
+	<div class="col-md-10 col-md-offset-1">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
 					<th>Serial No.</th>
 					<th>Booking No.</th>
-					<th>Pi No.</th>
+					<th>Ipo No.</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody>
-			@php($j=1 + $piDetails->perPage() * ($piDetails->currentPage() - 1))
-			@foreach($piDetails as $value)
+			@php($j=1 + $ipoDetails->perPage() * ($ipoDetails->currentPage() - 1))
+			@foreach($ipoDetails as $value)
 				<tr id="mrf_list_table">
 					<td>{{$j++}}</td>
 					<td>{{$value->booking_order_id}}</td>
-					<td>{{$value->p_id}}</td>
+					<td>{{$value->ipo_id}}</td>
 					<td>
-						<form action="{{ Route('pi_list_report_view') }}" role="form" target="_blank">
+						<form action="{{ Route('ipo_list_report_view') }}" role="form" target="_blank">
 							{{ csrf_field() }}
-							<input type="hidden" name="pid" value="{{$value->p_id}}">
-							<input type="hidden" name="is_type" value="{{$value->is_type}}">
+							<input type="hidden" name="ipoid" value="{{$value->ipo_id}}">
 							<input type="hidden" name="bid" value="{{$value->booking_order_id}}">
 							<button class="btn btn-success">Report</button>
 						</form>
@@ -87,7 +86,7 @@
 			@endforeach
 			</tbody>
 		</table>
-		<div id="">{{$piDetails->links()}}</div>
+		<div id="">{{$ipoDetails->links()}}</div>
 		<div class="pagination-container">
 			<nav>
 				<ul class="pagination"></ul>

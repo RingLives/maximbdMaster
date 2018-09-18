@@ -1,72 +1,95 @@
 @extends('maxim.layouts.layouts')
 @section('title','IPO Maxim')
 @section('print-body')
+<center>
+	<a href="#" onclick="myFunction()" class="print">Print & Preview</a>
+</center>
 
-	<center>
-		<a href="#" onclick="myFunction()" class="print">Print & Preview</a>
-	</center>
+{{--@foreach($buyerDetails as $details)
+	<div class="row header-top-a">
+		<div class="col-md-2 col-sm-2">
 
-
-	@foreach($buyerDetails as $details)
-		<div class="row header-top-a">
-			<div class="col-md-2 col-sm-2">
-
-			</div>
-			<div class="col-md-8 col-sm-8 buyerName">
-				<h2 align="center">{{$details->buyer_name}}</h2>
-			</div>
-			<div class="col-md-2 col-sm-2"></div>
 		</div>
-	@endforeach
-	<div class="row header-bottom">
-		<div class="col-md-12 col-sm-12 header-bottom-b">
-			<span>Internal Purchase Order</span>
+		<div class="col-md-8 col-sm-8 buyerName">
+			<h2 align="center">{{$details->buyer_name}}</h2>
 		</div>
-		<hr>
+		<div class="col-md-2 col-sm-2"></div>
 	</div>
+@endforeach --}}
 
-	<div class="row body-top">
-		<div class="col-md-6 col-sm-6 col-xs-7 body-list">
-			@foreach($buyerDetails as $details)
-				<ul>
-					<li><strong>Booking ID: {{$details->booking_order_id}}</strong></li>
-					<li><strong>Company Name: {{$details->buyer_name}}</strong></li>
-					<li><h5>Date : {{Carbon\Carbon::now()->format('Y-m-d')}}</h5></li>
-				</ul>
-			@endforeach
+@foreach($headerValue as $value)
+	<div class="row">
+		<div class="col-md-2 col-sm-12 col-xs-12">
+			@if($value->logo_allignment === "left")
+				@if(!empty($value->logo))
+					<div class="pull-left">
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
+					</div>
+				@endif
+			@endif
 		</div>
-
-		<div class="col-md-6 col-sm-6 col-xs-5 valueGenarate">
-			@php ($i=0)
-			@foreach ($sentBillId as $billdata)
-				@for($i;$i <= 0;$i++)
-				<table class="tables table-bordered">
-					<tr>
-						<td colspan="2">
-							<div>
-								<p>MAY PORTION</p>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<div>
-								<p>Booking No : {{$billdata->ipo_id}}</p>
-							</div>
-						</td>
-					</tr>
-				</table>
-			@endfor
-			@endforeach
-
+		<div class="col-md-8 col-sm-12 col-xs-12" style="padding-left: 40px;">
+			<h2 align="center">{{ $value->header_title}}</h2>
+			<div align="center">
+				<p>OFFICE ADDRESS :  {{$value->address1}} {{$value->address2}} {{$value->address3}}</p>
+			</div>
+		</div>
+		<div class="col-md-2 col-sm-12 col-xs-12">
+			@if($value->logo_allignment === "right")
+				@if(!empty($value->logo))
+					<div class="pull-right">
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
+					</div>
+				@endif
+			@endif
 		</div>
 	</div>
-	<?php 
-		foreach ($sentBillId as $key => $item){
-			$increaseValue = explode(',', $item->initial_increase);
-		}
-	?>
-<table class="table table-bordered mainBody">
+@endforeach
+
+<div class="row header-bottom">
+	<div class="col-md-12 col-sm-12 header-bottom-b">
+		<span>Internal Purchase Order</span>
+	</div>
+	<hr>
+</div>
+
+<div class="row body-top" style="margin-top: 10px;">
+	<div class="col-md-6 col-sm-6 col-xs-7 body-list">
+		{{--@foreach($buyerDetails as $details)--}}
+			<ul>
+				<li><strong>Booking ID: {{$details[0]->booking_order_id}}</strong></li>
+				<li><strong>Company Name: {{$details[0]->buyer_name}}</strong></li>
+				<li><h5>Date : {{Carbon\Carbon::now()->format('Y-m-d')}}</h5></li>
+			</ul>
+		{{--@endforeach--}}
+	</div>
+
+	<div class="col-md-6 col-sm-6 col-xs-5 valueGenarate">
+		<table class="tables table-bordered">
+			<tr>
+				<td colspan="2">
+					<div>
+						<p>MAY PORTION</p>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<div>
+						<p>Ipo No : {{$sentBillId[0]->ipo_id}}</p>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<?php 
+	foreach ($sentBillId as $key => $item){
+		$increaseValue = explode(',', $item->initial_increase);
+	}
+?>
+
+<table class="table table-bordered mainBody" style="margin-top: 20px;">
     <thead>
     	<tr>
         	<th width="5%">SI</th>
@@ -224,7 +247,7 @@
 		</tr>
 	</tbody>
 </table>
-
+ 
 <script type="text/javascript">
 	function myFunction() {
 		$('.colspan-td table').css('font-family','arial, sans-serif');
