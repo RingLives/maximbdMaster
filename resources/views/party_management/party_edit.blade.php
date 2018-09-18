@@ -47,7 +47,15 @@ trans('others.update_party_label'))
                                     <div class="form-group">
                                         <label class="col-sm-5 control-label">{{ trans('others.name_buyer_label') }}</label>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control  input_required" name="name_buyer" value="{{ $party_edit->name_buyer }}">
+                                            {{-- <input type="text" class="form-control  input_required" name="name_buyer" value="{{ $party_edit->name_buyer }}"> --}}
+                                            <select class ="form-control" name="name_buyer" id="name_buyer">
+                                                @foreach($buyers as $buyer)   
+                                                    <option @if($buyer->id_mxp_buyer == $party_edit->id_buyer)
+                                                          selected="selected" 
+                                                    @endif data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->buyer_name }}">{{ $buyer->buyer_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <input type="hidden" id="id_buyer" name="id_buyer" value="{{ $party_edit->id_buyer }}">
                                         </div>
                                     </div>
 
