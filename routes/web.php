@@ -1028,6 +1028,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 include('pi_route.php');
+include('ipo_route.php');
+
+
 //INSERT INTO `maxpronewerp`.`mxp_menu` (`name`, `route_name`, `description`, `parent_id`, `is_active`, `order_id`) VALUES ('Purchase Order', 'generate_purchase_order', 'purchase order list', '97', '1', '3');
 //INSERT INTO `maxpronewerp`.`mxp_user_role_menu` (`role_id`, `menu_id`, `company_id`, `is_active`) VALUES ('1', '108', '0', '1');
 
