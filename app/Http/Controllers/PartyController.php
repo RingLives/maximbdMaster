@@ -9,6 +9,7 @@ use Validator;
 use App\Http\Controllers\Message\StatusMessage;
 use DB;
 use Auth;
+use App\buyer;
 
 class PartyController extends Controller
 {
@@ -20,14 +21,15 @@ class PartyController extends Controller
 
     public function create()
     {
-        return view('party_management.party_create');
+        $buyers = buyer::all();
+        return view('party_management.party_create', compact('buyers'));
     } 
 
     public function updateView(Request $request)
     {
         $party_edits = MaxParty::Where('id',$request->id )->get();
-
-        return view('party_management.party_edit', compact('party_edits'));
+        $buyers = buyer::all();
+        return view('party_management.party_edit', compact('party_edits','buyers'));
     }
 
     public function store(Request $request)
@@ -79,6 +81,7 @@ class PartyController extends Controller
         $party->description_2          = $request->description_2;
         $party->description_3          = $request->description_3;
         $party->status                 = $request->status;
+        $party->id_buyer                 = $request->id_buyer;
         $party->save();
         StatusMessage::create('party_added', $request->name.' Party Added Successfully');
         return Redirect()->Route('party_list_view');
