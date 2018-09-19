@@ -42,6 +42,8 @@ class RouteServiceProvider extends ServiceProvider {
 		$this->mapWebRoutes();
 
 		$this->mapWebNewRoutes();
+		
+		$this->mapWebBuyerRoutes();
 
 		//
 	}
@@ -72,6 +74,18 @@ class RouteServiceProvider extends ServiceProvider {
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web2.php'));
+    }
+    /**
+     * Define the "web" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapWebBuyerRoutes() {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/buyer.php'));
     }
 
 	/**
