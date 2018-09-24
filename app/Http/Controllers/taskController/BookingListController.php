@@ -39,6 +39,7 @@ class BookingListController extends Controller
     }
 
     public function getBookingItemLists($booking_id = null){
+
         if($booking_id == null)
             return false;
         $bookingList = DB::table('mxp_booking')
@@ -64,12 +65,17 @@ class BookingListController extends Controller
             ->groupBy('booking_order_id')
             ->orderBy('id','DESC')
             ->paginate(150);
+
         if(isset($bookingList) && !empty($bookingList)){
             foreach ($bookingList as &$booking) {
                 $booking->itemLists = $this->getBookingItemLists($booking->booking_order_id);
+                $booking->ipo_Mrf_challan_list = MxpBookingBuyerDetails::with('pi','challan','ipo', 'mrf')
+                          ->where('booking_order_id', $booking->booking_order_id)
+                          ->first();
             }
         }
 
+        // $this->print_me($bookingList);
 
 
         return view('maxim.booking_list.booking_list_report',compact('bookingList'));

@@ -19,7 +19,7 @@ class TaskController extends Controller {
 	CONST UPDATE_IPO = "update";
 
 	public function getBuyerCompany(Request $request) {
-		return json_encode(DB::table('mxp_party')->where([['name_buyer', $request->buyerName], ['user_id', Auth::user()->user_id]])->get());
+		return json_encode(DB::table('mxp_party')->where('name_buyer', $request->buyerName)->get());
 	}
 
 	public function getItemCode() {

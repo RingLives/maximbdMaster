@@ -17,13 +17,14 @@ use Validator;
 use Auth;
 use DB;
 use App\Http\Controllers\taskController\BookingListController;
-
+use App\userbuyer;
 
 class BookingController extends Controller
 {
     public function orderInputDetails(Request $request){
-
       return json_encode(DB::select('Call getProductSizeQuantityWithConcat("'.$request->item.'")'));
+
+      // return json_encode($this->abc_test($request->item));
     }
 
     public function getVendorPrice(Request $request){
@@ -256,5 +257,26 @@ class BookingController extends Controller
             $i++;
         }
         return ture;
+    }
+
+
+    public function abc_test($item_size){
+            $userbuyer = userbuyer::where("id_user",Auth::user()->user_id)->get();
+            $buyerList = [];
+            if(isset($userbuyer) && !empty($userbuyer)){
+                foreach ($userbuyer as $buyerusr) {
+                    $buyerList[] = $buyerusr->id_buyer;
+                }
+            }
+
+            $value = DB::table('mxp_product as mp')
+              ->join('mxp_productsize as mps','mps.product_code', '=','mp.product_code')
+              ->join('mxp_gmts_color as mgs','mgs.item_code', '=', 'mps.product_code')
+              ->select('mp.erp_code','mp.product_id','mp.unit_price','mp.product_name','mp.others_color','mp.product_description','GROUP_CONCAT(mps.product_size order by product_size) as size','GROUP_CONCAT(mgs.color_name) as color')
+              ->where('mp.product_code',$item_size)
+              ->whereIn('id_buyer',$buyerList)
+              ->get();
+
+          return $value;
     }
 }

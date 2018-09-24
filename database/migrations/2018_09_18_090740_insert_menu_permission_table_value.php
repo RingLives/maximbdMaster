@@ -13,21 +13,21 @@ class InsertMenuPermissionTableValue extends Migration
      */
     public function up()
     {
-        DB::table('mxp_menu')->insert(
-            [
-                [
-                    'role_id' => 1,
-                    'menu_id' => 170,
-                    'is_active' => 1
-                ],
-                [
-                    'role_id' => ,
-                    'menu_id' => ,
-                    'is_active' => 
-                ]
-            ]
+        // DB::table('mxp_menu')->insert(
+        //     [
+        //         [
+        //             'role_id' => 1,
+        //             'menu_id' => 170,
+        //             'is_active' => 1
+        //         ],
+        //         [
+        //             'role_id' => ,
+        //             'menu_id' => ,
+        //             'is_active' => 
+        //         ]
+        //     ]
                 
-        );
+        // );
     }
 
     /**

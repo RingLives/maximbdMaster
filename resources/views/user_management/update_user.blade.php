@@ -37,6 +37,19 @@
                 </div>
 
                 <div class="form-group">
+                    <select class ="selections form-control" name="id_buyer[]" placeholder="Select Buyer" id="id_buyer" multiple="multiple">
+                        @foreach($buyers as $buyer)     
+                            <option @if($buyerSelectedList)
+                    @if(in_array($buyer->id_mxp_buyer,$buyerSelectedList))
+                        selected = "selected"
+                    @endif
+                @endif data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="form-group">
                     <input class="form-control input_required" type="text" name="personal_name" value="{{ $selectedUser->first_name }}" placeholder="{{ trans('others.employee_name_label') }}">
                 </div>
                 <div class="form-group">
@@ -79,6 +92,8 @@
         </div>
     </div>
 </div>
-            
+      <script type="text/javascript">
+          $(".selections").select2();
+      </script>      
 @stop
 

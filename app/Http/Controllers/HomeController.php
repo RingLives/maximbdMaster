@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use App\MxpTaskRole;
+use App\userbuyer;
 
 class HomeController extends Controller {
 	/**
@@ -84,7 +85,6 @@ class HomeController extends Controller {
 						$menus_array[$i]['subMenu'][$j]['route_name'] = $cm->route_name;
 						$menus_array[$i]['subMenu'][$j]['order_id'] = $cm->order_id;
 						$menus_array[$i]['subMenu'][$j]['menu_id'] = $cm->menu_id;
-
 						$j++;
 					}
 				} 
@@ -94,8 +94,22 @@ class HomeController extends Controller {
 		}
 		session()->put('UserMenus', $menus_array);
 
+		$userbuyer = userbuyer::where("id_user",Auth::user()->user_id)->get();
+		$buyerList = [];
+		if(isset($userbuyer) && !empty($userbuyer)){
+			foreach ($userbuyer as $buyerusr) {
+				$buyerList[] = $buyerusr->id_buyer;
+			}
+		}
 
-		$selectBuyer = DB::table('mxp_party')->where('user_id',Auth::user()->user_id)->get();
+		if(isset($buyerList) && !empty($buyerList)){
+			$selectBuyer = DB::table('mxp_party')->where('status',1)->whereIn('id_buyer',$buyerList)->get();
+		}else if(Auth::user()->type == 'super_admin'){
+			$selectBuyer = DB::table('mxp_party')->where('status',1)->get();
+		}else{
+			$selectBuyer = [];
+		}
+
 		return view('dashboard',compact('selectBuyer','taskAccessList'));
 	}
 }

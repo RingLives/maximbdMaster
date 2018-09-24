@@ -45,6 +45,7 @@ trans('others.add_party_label'))
                                         <div class="col-md-6 col-sm-6">
                                             {{-- <input type="text" class="form-control  input_required" name="name_buyer" value="{{ old('name_buyer') }}"> --}}
                                             <select class ="form-control" name="name_buyer" id="name_buyer">
+                                                <option value="">Choose a Option</option>
                                                 @foreach($buyers as $buyer)     
                                                     <option data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->buyer_name }}">{{ $buyer->buyer_name }}</option>
                                                 @endforeach

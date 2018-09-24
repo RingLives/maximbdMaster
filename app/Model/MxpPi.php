@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MxpPI extends Model
+class MxpPi extends Model
 {
     protected $table = 'mxp_pi';
 }
