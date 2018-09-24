@@ -112,6 +112,9 @@ $(document).ready(function(){
           $(".tr_clone_"+incre+" .item_sku").val('');
           $(".tr_clone_"+incre+" .item_qty").val('');
           $(".tr_clone_"+incre+" .item_price").val('');
+          
+          // $(".tr_clone_"+incre+" .item_po_cat_no").val('');
+          // $(".tr_clone_"+incre+" .item_oos_number").val('');
 
           // $(".tr_clone_"+incre+" .erpNo").find("option").remove();
           $(".tr_clone_"+incre+" .erpNo").val('');
