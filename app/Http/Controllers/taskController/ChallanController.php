@@ -360,7 +360,8 @@ class ChallanController extends Controller
         $headerValue = DB::table("mxp_header")->where('header_type',11)->get();
         $multipleChallan = DB::select(" select * from mxp_multiplechallan where challan_id ='".$MultipleChallanUniqueID."'");
         $buyerDetails = DB::table("mxp_bookingbuyer_details")->where('booking_order_id',$booking_order_id)->get();
-        $footerData = DB::select("select * from mxp_reportfooter");
+//        $footerData = DB::select("select * from mxp_reportfooter");
+        $footerData = DB::table('mxp_reportfooter')->where('status', 1)->get();
 
         return view('maxim.challan.challanBoxingPage',
             [

@@ -209,65 +209,106 @@ inform us in 3days. After this period, you concern about this goods shall not be
 
 
 
-@foreach ($footerData as $value)
-@if(!empty($value->siginingPerson_1))
-<div class="row">
-	<div class="col-md-12 col-xs-12" style="padding-bottom: 20px;">
-		
-		
-		<div class="col-md-8 col-xs-8" style="padding: 5px; padding-left: 50px;">
-			@if(!empty($value->siginingPersonSeal_1))
-				<img src="/upload/{{$value->siginingPersonSeal_1}}" height="100px" width="150px" />
-			@endif
-		</div>
-		
-		<div class="col-md-4 col-xs-4"  style="">
-			<div align="center">
-				@if(!empty($value->siginingSignature_1))
-				<img src="/upload/{{$value->siginingSignature_1}}" height="100px" width="150px" />
-				@endif
-			</div>
-			<div align="center" style="margin:auto;
-		    	border: 2px solid black;
-		    	padding: 5px;margin-top:30px;">
-				{{$value->siginingPerson_1}}
-			</div>
-		</div>
-		
-	</div>
-</div>
-@endif
-@endforeach
+{{--@foreach ($footerData as $value)--}}
+{{--@if(!empty($value->siginingPerson_1))--}}
+{{--<div class="row">--}}
+	{{--<div class="col-md-12 col-xs-12" style="padding-bottom: 20px;">--}}
+		{{----}}
+		{{----}}
+		{{--<div class="col-md-8 col-xs-8" style="padding: 5px; padding-left: 50px;">--}}
+			{{--@if(!empty($value->siginingPersonSeal_1))--}}
+				{{--<img src="/upload/{{$value->siginingPersonSeal_1}}" height="100px" width="150px" />--}}
+			{{--@endif--}}
+		{{--</div>--}}
+		{{----}}
+		{{--<div class="col-md-4 col-xs-4"  style="">--}}
+			{{--<div align="center">--}}
+				{{--@if(!empty($value->siginingSignature_1))--}}
+				{{--<img src="/upload/{{$value->siginingSignature_1}}" height="100px" width="150px" />--}}
+				{{--@endif--}}
+			{{--</div>--}}
+			{{--<div align="center" style="margin:auto;--}}
+		    	{{--border: 2px solid black;--}}
+		    	{{--padding: 5px;margin-top:30px;">--}}
+				{{--{{$value->siginingPerson_1}}--}}
+			{{--</div>--}}
+		{{--</div>--}}
+		{{----}}
+	{{--</div>--}}
+{{--</div>--}}
+{{--@endif--}}
+{{--@endforeach--}}
 
-@foreach ($footerData as $value)
-@if(!empty($value->siginingPerson_2))
-<div class="row">
-	<div class="col-md-12 col-xs-12" style="padding-bottom: 20px;">
-		
-		
-		<div class="col-md-8 col-xs-8" style="padding: 5px; padding-left: 50px;">
-			@if(!empty($value->siginingPersonSeal_2))
-				<img src="/upload/{{$value->siginingPersonSeal_2}}" height="100px" width="150px" />
-			@endif
-		</div>
-		
-		<div class="col-md-4 col-xs-4"  style="">
-			<div align="center">
-				@if(!empty($value->siginingSignature_2))
-					<img src="/upload/{{$value->siginingSignature_2}}" height="100px" width="150px" />
-				@endif
-			</div>
-			<div align="center" style="margin:auto;
-		    	border: 2px solid black;
-		    	padding: 5px;margin-top:30px;">
-				{{$value->siginingPerson_2}}
-			</div>
-		</div>
-	</div>
-</div>
-@endif
-@endforeach
+{{--@foreach ($footerData as $value)--}}
+{{--@if(!empty($value->siginingPerson_2))--}}
 
+
+{{--<div class="row">--}}
+	{{--<div class="col-md-12 col-xs-12" style="padding-bottom: 20px;">--}}
+		{{----}}
+		{{----}}
+		{{--<div class="col-md-8 col-xs-8" style="padding: 5px; padding-left: 50px;">--}}
+			{{--@if(!empty($value->siginingPersonSeal_2))--}}
+				{{--<img src="/upload/{{$value->siginingPersonSeal_2}}" height="100px" width="150px" />--}}
+			{{--@endif--}}
+		{{--</div>--}}
+		{{----}}
+		{{--<div class="col-md-4 col-xs-4"  style="">--}}
+			{{--<div align="center">--}}
+				{{--@if(!empty($value->siginingSignature_2))--}}
+					{{--<img src="/upload/{{$value->siginingSignature_2}}" height="100px" width="150px" />--}}
+				{{--@endif--}}
+			{{--</div>--}}
+			{{--<div align="center" style="margin:auto;--}}
+		    	{{--border: 2px solid black;--}}
+		    	{{--padding: 5px;margin-top:30px;">--}}
+				{{--{{$value->siginingPerson_2}}--}}
+			{{--</div>--}}
+		{{--</div>--}}
+	{{--</div>--}}
+{{--</div>--}}
+{{--@endif--}}
+{{--@endforeach--}}
+
+	@foreach ($footerData as $value)
+		@if(!empty($value->siginingPerson_2))
+
+			<section class="report-footer">
+				<div class="container">
+					<div class="row">
+
+
+						<div class="col-md-4">
+							<div class="authorized pull-left">
+								{{--<h4 style="margin-bottom: 0px">For Maxim</h4></br>--}}
+								<div class="col-md-12" style="margin-bottom: 10px;">
+									@if(!empty($value->siginingSignature_2))
+										<img src="/upload/{{$value->siginingSignature_2}}" height="80px" width="180px" style="display: block;margin-left: auto;margin-right: auto;"/>
+									@endif
+								</div>
+								<div></div>
+								<div class="col-md-12" style="border-top: 2px solid #000;">
+									<h4>Authorized Signature</h4>
+									<h4>Preapred By: <b>A</b></h4>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4"></div>
+						<div class="col-md-4 pull-right">
+							<div class="col-md-8" style="margin-bottom: 10px; height: 86px;">
+								@if(!empty($value->siginingPersonSeal_2))
+									{{--<img src="/upload/{{$value->siginingPersonSeal_2}}" height="150px" width="160px" style="display: block;margin-left: auto;margin-right: auto;"/>--}}
+								@endif
+							</div>
+							<div class="col-md-8" style="border-top: 2px solid #000;">
+								<h4 style="text-align: center">Receiver's Signature</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		@endif
+	@endforeach
 
 <script type="text/javascript">
 		function myFunction() {
