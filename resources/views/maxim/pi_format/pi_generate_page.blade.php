@@ -56,17 +56,20 @@
 								<td>{{ str_repeat('0',$idstrcount) }}{{ $id[$key] }}</td>
 								<td>{{$detailsValue->poCatNo}}</td>
 								<td>{{$detailsValue->oos_number}}</td>
-								@if($itemcodestatus != $detailsValue->item_code)
+								<td>{{$detailsValue->item_code}}</td>
+								<td>{{$detailsValue->erp_code}}</td>
+
+								{{--<!-- @if($itemcodestatus != $detailsValue->item_code)
 							    	<td rowspan="{{count($quantity)}}">
 							    		<div>{{$detailsValue->item_code}}</div>
 							    	</td>
-						    	@endif
+						    	@endif -->
 
-						    	@if($itemcodestatus != $detailsValue->item_code)
+						    	<!-- @if($itemcodestatus != $detailsValue->item_code)
 							    	<td rowspan="{{count($quantity)}}">
 							    		<div>{{$detailsValue->erp_code}}</div>
 							    	</td>
-						    	@endif
+						    	@endif -->--}}
 
 								<td>{{$detailsValue->item_description}}</td>
 								<td>{{$gmtsColor[$key]}}</td>

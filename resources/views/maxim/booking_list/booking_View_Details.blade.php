@@ -35,7 +35,7 @@
                         <th>Item Size</th>
                         <th>Item Color</th>
                         <th>Quantity</th>
-                        <th>Price</th>
+                        <!-- <th>Price</th> -->
                     </thead>
                 </tr>
                 @php
@@ -52,7 +52,7 @@
                     <td> {{ $bookedItem->item_size }} </td>
                     <td> {{ $bookedItem->gmts_color  }} </td>
                     <td> {{ $bookedItem->item_quantity }} </td>
-                    <td> {{ $bookedItem->item_price }} </td>
+                    <!-- <td> {{ $bookedItem->item_price }} </td> -->
                 </tr>
                 @endforeach
                 </tbody>

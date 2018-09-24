@@ -50,7 +50,7 @@
                         <th class="">ERP Code</th>
                         <th class="">Item Code</th>
                         {{--<th class="">Item Name</th>--}}
-                        <!-- <th class="">Description</th> -->
+                        <th class="">Description</th>
                         <th class="">Brand</th>                        
                         <th class="">Unit Price</th>
                         <th class="">Sizes</th>
@@ -68,8 +68,8 @@
                           <!-- <td>{{$i++}}</td> -->
                           <td>{{$product->erp_code}}</td>
                           <td>{{$product->product_code}}</td>
-{{--                          <td>{{$product->product_name}} </td>--}}
-                          <!-- <td>{{$product->product_description}}</td> -->
+                      {{--<td>{{$product->product_name}} </td>--}}
+                          <td>{{$product->product_description}}</td>
                           <td>{{$product->brand}}</td>
                           
                           <td>{{$product->unit_price}}</td>

@@ -7,6 +7,8 @@ use App\Http\Controllers\Message\StatusMessage;
 use App\Http\Controllers\RoleManagement;
 use App\MxpCompany;
 use App\MxpCompanyUser;
+use App\buyer;
+use App\userbuyer;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
@@ -28,8 +30,8 @@ class UserController extends Controller {
 		} else {
 			$companyList = MxpCompany::get()->where('group_id', $group_id);
 		}
-
-		return view('user_management.create_user', compact('companyList'));
+		$buyers = buyer::all();
+		return view('user_management.create_user', compact('companyList','buyers'));
 
 	}
 	public function createUser(Request $request) {
@@ -74,6 +76,17 @@ class UserController extends Controller {
 		$createUser->is_active = $request->is_active;
 		$createUser->user_role_id = $request->role_id;
 		$createUser->save();
+		if(isset($createUser->user_id) && !empty($createUser->user_id)){
+			userbuyer::where("id_user",$createUser->user_id)->delete();
+			if(isset($request->id_buyer) && !empty($request->id_buyer)){
+				foreach ($request->id_buyer as $idbuyer) {
+					$userbuyer = new userbuyer();
+					$userbuyer->id_buyer = $idbuyer;
+					$userbuyer->id_user = $createUser->user_id;
+					$userbuyer->save();
+				}
+			}
+		}
 
 		StatusMessage::create('new_user_create', 'New User Created Successfully');
 
@@ -96,8 +109,15 @@ class UserController extends Controller {
 		$companyUser = ListGetController::companyUser($request, $request->id);
 
 		$selectedUser = $companyUser;
-
-		return view('user_management.update_user', compact('selectedUser', 'roleList'));
+		$buyers = buyer::all();
+		$userbuyerlist = userbuyer::where("id_user",$request->id)->get();
+		$buyerSelectedList = [];
+		if(isset($userbuyerlist) & !empty($userbuyerlist)){
+			foreach ($userbuyerlist as $usrlist) {
+			$buyerSelectedList[] = $usrlist->id_buyer;
+			}
+		}
+		return view('user_management.update_user', compact('selectedUser', 'roleList', 'buyers', 'buyerSelectedList'));
 	}
 	public function updateUser(Request $request) {
 		$messages = [
@@ -142,7 +162,17 @@ class UserController extends Controller {
 		$user_update->is_active = $request->is_active;
 		$user_update->user_role_id = $request->roleId;
 		$user_update->save();
-
+		if(isset($request->user_id) && !empty($request->user_id)){
+			userbuyer::where("id_user",$request->user_id)->delete();
+			if(isset($request->id_buyer) && !empty($request->id_buyer)){
+				foreach ($request->id_buyer as $idbuyer) {
+					$userbuyer = new userbuyer();
+					$userbuyer->id_buyer = $idbuyer;
+					$userbuyer->id_user = $request->user_id;
+					$userbuyer->save();
+				}
+			}
+		}
 		return redirect()->Route('user_list_view');
 	}
 	public function deleteUser(Request $request) {

@@ -49,6 +49,7 @@ trans('others.update_party_label'))
                                         <div class="col-sm-6">
                                             {{-- <input type="text" class="form-control  input_required" name="name_buyer" value="{{ $party_edit->name_buyer }}"> --}}
                                             <select class ="form-control" name="name_buyer" id="name_buyer">
+                                                <option value="">Choose a Option</option>
                                                 @foreach($buyers as $buyer)   
                                                     <option @if($buyer->id_mxp_buyer == $party_edit->id_buyer)
                                                           selected="selected" 

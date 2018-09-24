@@ -12,6 +12,7 @@ use App\MxpProductsColors;
 use App\MxpSupplierPrice;
 use App\Supplier;
 use App\VendorPrice;
+use App\buyer;
 use App\Model\MxpItemDescription;
 use Auth;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ use App\MxpProductSize;
 use App\MxpProductsSizes;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Supplier\SupplierController;
+use App\userbuyer;
 
 class ProductController extends Controller
 {
@@ -29,20 +31,30 @@ class ProductController extends Controller
 	const ACTIVE_BRAND = 1;
 
     Public function productList(){
-
-
         $products = $this->allProducts();
     	return view('product_management.product_list',compact('products'));
     }
 
     public function allProducts($productId = null){
+        // $userbuyer = userbuyer::where("id_user",Auth::user()->user_id)->get();
+        // $buyerList = [];
+        // if(isset($userbuyer) && !empty($userbuyer)){
+        //     foreach ($userbuyer as $buyerusr) {
+        //         $buyerList[] = $buyerusr->id_buyer;
+        //     }
+        // }
+        // if($productId == null ){
+        //     $proWithSizeColors = MxpProduct::with('colors', 'sizes')->whereIn('id_buyer',$buyerList)->paginate(20);
+        // }else{
+        //     $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->whereIn('id_buyer',$buyerList)->paginate(20);
+        // }
+        // $this->print_me($proWithSizeColors);
 
         if($productId == null ){
             $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('user_id',Auth::user()->user_id)->paginate(20);
         }else{
             $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->where('user_id',Auth::user()->user_id)->paginate(20);
         }
-
 
 
         $i=0;
@@ -77,8 +89,8 @@ class ProductController extends Controller
                         ->where('is_delete', 0)
                         ->get();
         $itemList = MxpItemDescription::where('is_active', '1')->get();
-
-       return view('product_management.add_product',compact('brands', 'colors', 'sizes', 'vendorCompanyList', 'supplierList','itemList'));
+        $buyers = buyer::all();
+       return view('product_management.add_product',compact('brands', 'colors', 'sizes', 'vendorCompanyList', 'supplierList','itemList','buyers'));
     }
 
     Public function updateProductView(Request $request){
@@ -136,9 +148,9 @@ class ProductController extends Controller
         if(count($supplierPrices) == 0){
             $supplierList = Supplier::get()->sortBy('name');
         }
-
+        $buyers = buyer::all();
 //        return $product;
-       return view('product_management.update_product', compact('product', 'vendorCompanyListPrice', 'supplierPrices', 'supplierList', 'vendorCompanyList',  'colors', 'sizes', 'colorsJs', 'sizesJs'))->with('brands',$brands)->with('itemList',$itemList);
+       return view('product_management.update_product', compact('product', 'vendorCompanyListPrice', 'supplierPrices', 'supplierList', 'vendorCompanyList',  'colors', 'sizes', 'colorsJs', 'sizesJs', 'buyers'))->with('brands',$brands)->with('itemList',$itemList);
     }
 
     Public function addProduct(Request $request){
@@ -192,6 +204,7 @@ class ProductController extends Controller
     	$createProduct->weight_amt = $request->p_weight_amt;
         $createProduct->user_id = Auth::user()->user_id;
         $createProduct->status = $request->is_active;
+        $createProduct->id_buyer = $request->id_buyer;
         $createProduct->others_color = $request->others_color;
         $createProduct->item_size_width_height = $item_size_width_height;
     	$createProduct->action = self::CREATE_PRODUCT;
@@ -286,6 +299,7 @@ class ProductController extends Controller
         // $updateProduct->description_4 = $request->p_description4;
         $updateProduct->user_id = Auth::user()->user_id;
         $updateProduct->status = $request->is_active;
+        $updateProduct->id_buyer = $request->id_buyer;
         $updateProduct->others_color = $request->others_color;
     	$updateProduct->item_size_width_height = $item_size_width_height;
         $updateProduct->action = self::CREATE_PRODUCT;

@@ -5,8 +5,10 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use  App\Model\MxpBookingBuyerDetails;
 use App\MxpIpo;
+use App\Model\MxpPi;
 use App\Model\MxpMrf;
 use App\Model\MxpBooking;
+use App\Model\MxpMultipleChallan;
 
 class MxpBookingBuyerDetails extends Model
 {
@@ -35,11 +37,19 @@ class MxpBookingBuyerDetails extends Model
         return $this->hasMany(MxpBooking::class, 'booking_order_id','booking_order_id');
     }
 
+    function pi(){
+        return $this->hasMany(MxpPi::class, 'booking_order_id','booking_order_id');
+    }
+
     function ipo(){
         return $this->hasMany(MxpIpo::class, 'booking_order_id','booking_order_id');
     }
 
     function mrf(){
         return $this->hasMany(MxpMrf::class, 'booking_order_id','booking_order_id');
+    }
+
+    function challan(){
+        return $this->hasMany(MxpMultipleChallan::class, 'checking_id','booking_order_id');
     }
 }

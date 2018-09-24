@@ -10,12 +10,32 @@ use App\Http\Controllers\Message\StatusMessage;
 use DB;
 use Auth;
 use App\buyer;
+use App\userbuyer;
 
 class PartyController extends Controller
 {
     public function index()
     {
-        $party_list = MaxParty::where('user_id',Auth::user()->user_id)->paginate(10);
+
+        $userbuyer = userbuyer::where("id_user",Auth::user()->user_id)->get();
+        $buyerList = [];
+        if(isset($userbuyer) && !empty($userbuyer)){
+            foreach ($userbuyer as $buyerusr) {
+                $buyerList[] = $buyerusr->id_buyer;
+            }
+        }
+
+        if(isset($buyerList) && !empty($buyerList)){
+            // $party_list = MaxParty::where('user_id',Auth::user()->user_id)->paginate(10);
+
+            $party_list = DB::table('mxp_party')->whereIn('id_buyer',$buyerList)->paginate(10);
+        }else if(Auth::user()->type == 'super_admin'){
+            $party_list = DB::table('mxp_party')->orderBy('id','DESC')->paginate(10);
+        }else{
+            $party_list = DB::table('mxp_party')->whereIn('id_buyer',$buyerList)->paginate(10);
+            // $party_list = [];
+        }
+
         return view('party_management.party_list', compact('party_list'));
     }
 
@@ -37,8 +57,8 @@ class PartyController extends Controller
         $roleManage = new RoleManagement();
 
         $validMassage = [
-            'party_id.required' => 'Vendor id is required',
-            'party_id.unique' => 'Vendor id is already entered.',            
+            // 'party_id.required' => 'Vendor id is required',
+            // 'party_id.unique' => 'Vendor id is already entered.',            
             'name.required' => 'Company Name is required',
             'sort_name.required' => 'Company sort name is required',
             'name_buyer.required' => 'Brand name is required',
@@ -47,8 +67,9 @@ class PartyController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-                'party_id'               => 'required|unique:mxp_party,party_id',
-                'name'                   => 'required||unique:mxp_party,name',
+                // 'party_id'               => 'required|unique:mxp_party,party_id',
+                // 'name'                   => 'required||unique:mxp_party,name',
+                'name'                   => 'required',
                 'sort_name'              =>'required',
                 'name_buyer'             => 'required',
             ],
@@ -92,14 +113,14 @@ class PartyController extends Controller
         $roleManage = new RoleManagement();
 
         $validMassage = [
-            'party_id.required' => 'Vendor id is required',
+            // 'party_id.required' => 'Vendor id is required',
             'name.required' => 'Company Name is required',
             'sort_name.required' => 'Company sort name is required',
             'name_buyer.required' => 'Buyer name is required',
         ];
 
         $validator = Validator::make($request->all(), [
-            'party_id'               => 'required',
+            // 'party_id'               => 'required',
             'name'                   => 'required',
             'sort_name'              => 'required',
             'name_buyer'             => 'required',

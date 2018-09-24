@@ -60,7 +60,19 @@ trans('others.update_product_label'))
 
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Select Buyer</label>
+                                            <div class="col-md-6">
+                                                <select class ="form-control" name="id_buyer" id="id_buyer">
+                                                    @foreach($buyers as $buyer)     
+                                                        <option @if($buyer->id_mxp_buyer == $data->id_buyer)
+                                                          selected="selected" 
+                                                    @endif data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
 
 {{--Add Color MultiSelect Box--}}
                                     <div class="form-group">

@@ -113,7 +113,7 @@
 <div class="row">
 	<div class="col-md-12 col-xs-12 col-sm-12">
 		<h4>Dear Sir</h4>
-		<p>We take the Plasure in issuing PROFORM INVOICE for the following article (s) on the terms and conditions set forth here under :</p>
+		<p>We take the Plasure in issuing PROFORMA INVOICE for the following article (s) on the terms and conditions set forth here under :</p>
 	</div>
 </div>
 <table class="table table-bordered">
@@ -150,27 +150,31 @@
 			<td>{{ str_repeat('0',$jobId) }}{{ $detailsValue->job_no}}</td>
 			<td>{{ $detailsValue->poCatNo }}</td>
 			<td>{{ $detailsValue->oos_number }}</td>
-			@if($itemcodestatus != $detailsValue->item_code)
+			<td>{{ $detailsValue->item_code }}
+				<br>
+				{{ ($is_type == 'fsc')? '( FSC-MIX )':'' }}
+			</td>
+			<td>{{ $detailsValue->erp_code }}</td>
+			<!-- @if($itemcodestatus != $detailsValue->item_code)
 		    	<td width="10%" rowspan="">
 		    		<div>{{$detailsValue->item_code}}</div>
 		    	</td>
 		    @else
 		    <td></td>
-	    	@endif
+	    	@endif -->
 
-	    	@if($itemcodestatus != $detailsValue->item_code)
+	    	<!-- @if($itemcodestatus != $detailsValue->item_code)
 		    	<td width="18%" rowspan="">
 		    		{{ $detailsValue->erp_code }}
 		    	</td>
 		    @else
 		    <td></td>
-	    	@endif
+	    	@endif -->
 			<td>{{ $detailsValue->gmts_color }}</td>
 			<td>{{ $detailsValue->item_description }}</td>
 			<td style="width: 10%;">
 				{{ $detailsValue->style }}
-				<br>
-				{{ ($is_type == 'fsc')? '( FSC-MIX )':'' }}
+				
 			</td>
 			<td>{{ $detailsValue->item_size }}</td>
 			<td>{{ $detailsValue->item_quantity}}</td>
@@ -280,13 +284,17 @@
 					@endif
 
 					@if(!empty($value->siginingPerson_1))
-						<div class="col-md-7 col-xs-7"  style="">
+						<!-- <div class="col-md-7 col-xs-7"  style="">
 							<div align="center" style="margin:auto;
 						    	border: 2px solid black;
-						    	padding: 5px;margin-top:30px;">
-								{{$value->siginingPerson_1}}
-							</div>
-						</div>
+						    	padding: 5px;margin-top:30px;"> -->
+								<!-- {{$value->siginingPerson_1}} -->
+							<!-- </div>
+						</div> -->
+
+						<div class="pull-right" style="font-weight: bold;">
+							{{$value->siginingPerson_2}}
+						</div><br>
 					@endif
 				</div>
 				
@@ -298,10 +306,17 @@
 					</div>
 
 					@if(!empty($value->siginingPerson_2))
-						<div align="center" style="margin:auto;
+						<!-- <div align="center" style="margin:auto;
 					    	border: 2px solid black;
-					    	padding: 5px;margin-top:30px;">
+					    	padding: 5px;margin-top:30px;"> -->
+							<!-- {{$value->siginingPerson_2}} -->
+						<!-- </div> -->
+
+						<div class="pull-right" style="font-weight: bold;">
 							{{$value->siginingPerson_2}}
+						</div><br>
+						<div class="pull-right" style="font-weight: bold;">
+							Authorized Signature
 						</div>
 					@endif
 				</div>

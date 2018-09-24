@@ -1,6 +1,11 @@
 @extends('layouts.dashboard')
 @section('page_heading', "Tracking List")
 @section('section')
+<?php 
+	// print_r("<pre>");
+	// print_r($bookingList);
+	// print_r("</pre>");
+?>
 <style type="text/css">
 	.b1{
 		border-bottom-left-radius: 4px;
@@ -108,6 +113,7 @@
 							<th>PI No.</th>
 							<th>Order Date</th>
 							<th>Shipment Date</th>
+							<th>Challan No.</th>
 							<th>Item Code</th>
 							<th>ERP Code</th>
 							<th>Size</th>
@@ -121,6 +127,7 @@
 						$fullTotalAmount = 0;
 					?>
 					@php($j=1)
+					@php($ccc=0)
 					<tbody id="booking_list_tbody">
 					@foreach($bookingList as $value)
 						<?php
@@ -138,9 +145,10 @@
 							<td>{{$value->Company_name}}</td>
 							<td>{{$value->attention_invoice}}</td>
 							<td>{{$value->booking_order_id}}</td>
-							<td>{{$value->booking_order_id}}</td>
+							<td>{{$value->ipo_Mrf_challan_list->pi[$ccc]->p_id}}</td>
 							<td>{{Carbon\Carbon::parse($value->created_at)}}</td>
 							<td></td>
+							<td>{{$value->ipo_Mrf_challan_list->challan[$ccc]->challan_id}}</td>
 						<?php
 						}else if(count($value->itemLists) > 1){
 							if($ilc == 1){
@@ -151,9 +159,10 @@
 									<td>{{$value->Company_name}}</td>
 									<td>{{$value->attention_invoice}}</td>
 									<td>{{$value->booking_order_id}}</td>
-									<td>{{$value->booking_order_id}}</td>
+									<td>{{$value->ipo_Mrf_challan_list->pi[$ccc]->p_id}}</td>
 									<td>{{Carbon\Carbon::parse($value->created_at)}}</td>
 									<td></td>
+									<td>{{$value->ipo_Mrf_challan_list->challan[$ccc]->challan_id}}</td>
 								<?php
 							}else{
 								?>
@@ -177,8 +186,15 @@
 								<?php
 							}else{
 								?>
+								<!-- <td>{{ str_repeat('0',$idstrcount) }}{{ $valuelist->id }}</td> -->
+								<!-- <td colspan="7"></td> -->
 								<td>{{ str_repeat('0',$idstrcount) }}{{ $valuelist->id }}</td>
-								<td colspan="7"></td>
+								<td>{{$value->buyer_name}}</td>
+								<td>{{$value->Company_name}}</td>
+								<td>{{$value->attention_invoice}}</td>
+								<td>{{$value->booking_order_id}}</td>
+								<td>{{$value->ipo_Mrf_challan_list->pi[$ccc]->p_id}}</td>
+								<td>{{$value->ipo_Mrf_challan_list->challan[$ccc]->challan_id}}</td>
 								<?php
 							}
 						}
@@ -220,6 +236,7 @@
 							$ilc = $ilc+1;
 							?>
 						@endforeach
+							<?php $ccc++; ?>
 					@endforeach
 						<tr>
 							<td colspan="13"></td>

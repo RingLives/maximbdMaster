@@ -106,13 +106,13 @@
 	        <tr>
 	        	<th>Job No.</th>
 	        	<th width="15%">ERP Code</th>
-	        	<th width="15%">Item / Code No.</th>
-	        	<th>Season Code</th>
+	        	<th width="20%">Item / Code No.</th>
+	        	<th width="5%">Season Code</th>
 	        	<th>OOS No.</th>
 	        	<th>Style</th>
 	        	<th>PO/Cat No.</th>
 	        	<th>GMTS Color</th>
-	        	<th>Size</th>
+	        	<th width="15%">Size</th>
 	        	<th>Sku</th>
 	        	<th>Order Qty</th>
 	        	<th>Unit</th>
@@ -131,7 +131,7 @@
 			    	<td>{{ str_repeat('0',$jobId) }}{{ $job_no[$key] }}</td>
 			    	<!-- <td width="15%">{{$details->erp_code}}</td> -->
 			    	@if($itemcodestatus != $details->item_code)
-				    	<td width="15%" rowspan="{{count($quantity)}}">
+				    	<td width="20%" rowspan="{{count($quantity)}}">
 				    		<div>{{$details->erp_code}}</div>
 				    	</td>
 			    	@endif
@@ -145,7 +145,7 @@
 
                 <!-- <td width="15%">{{$details->item_code}}</td> -->
 			    	{{--<td width="15%">{{$details->item_code}}</td>--}}
-			    	<td width="15%">{{$details->season_code}}</td>
+			    	<td width="5%">{{$details->season_code}}</td>
 			    	<td width="15%">{{$details->oos_number}}</td>
 			    	<td width="15%">{{$details->style}}</td>
 			    	{{--@if($itemcodestatus != $details->item_code)--}}
@@ -161,7 +161,7 @@
 				    	</td>
 			    	@endif
 			    	<td>{{$gmtsColor[$key]}}</td>
-			    	<td>{{$itemSize[$key]}}</td>
+			    	<td width="15%">{{$itemSize[$key]}}</td>
 			        <td>{{$details->sku}}</td>
 			        <td>{{$qtyValue}}</td>
 			        <td>PCS</td> 
@@ -190,7 +190,7 @@
 		<td style="width: 4%;"></td>
 	</tr>	
 </table>
-@foreach ($footerData as $value)
+<!-- @foreach ($footerData as $value)
 	@if(!empty($value->siginingPerson_2))
 		<div class="row">
 			<div class="col-md-12 col-xs-12" style="padding-bottom: 20px;">
@@ -228,7 +228,7 @@
 			</div>
 		</div>
 	@endif
-@endforeach
+@endforeach -->
 
 	<script type="text/javascript">
 		function myFunction() {
