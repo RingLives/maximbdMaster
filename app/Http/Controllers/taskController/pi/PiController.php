@@ -101,8 +101,13 @@ class PiController extends Controller
 				['is_type',$is_type],
 			])
 			->get();
-		$companyInfo = DB::table('mxp_header')->where('header_type', 11)->get();
-		$footerData = DB::select("select * from mxp_reportfooter");
+		$companyInfo = DB::table('mxp_header')->where([
+            ['header_type', 11 ]
+        ])
+            ->get();
+
+        $footerData = DB::table('mxp_reportfooter')->where('status', 1)->get();
+//		$footerData = DB::select("select * from mxp_reportfooter where ");
 
 		// $this->print_me($bookingDetails);
 
