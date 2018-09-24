@@ -272,8 +272,15 @@ function addbookingRow(results, start)
             }else if(itemListse > 1){
                 if(ij == 0){
                 }else{
-                     book_html += '<td>'+jobnumber+'</td>';
-                     book_html += '<td colspan="7"></td>';
+                    book_html += '<td>'+jobnumber+'</td>';
+                     // book_html += '<td colspan="7"></td>';
+                    book_html += '<td>'+rows[i].buyer_name+'</td>';
+                    book_html += '<td>'+rows[i].Company_name+'</td>';
+                    book_html += '<td>'+rows[i].attention_invoice+'</td>';
+                    book_html += '<td>'+rows[i].booking_order_id+'</td>';
+                    book_html += '<td>'+rows[i].booking_order_id+'</td>';
+                    book_html += '<td>'+rows[i].created_at+'</td>';
+                    book_html += '<td></td>';
                 }
             }
             book_html += '<td>'+itemLists[ij].item_code+'</td>';

@@ -97,9 +97,9 @@
 						<th>Buyer Name</th>
 						<th>Company Name</th>
 						<th>Attention</th>
-						<th>booking id</th>
-						<th>Order Date</th>
-						<th>Shipment Date</th>
+						<th>booking No.</th>
+						<th width="10%">Order Date</th>
+						<th width="10%">Requested Date</th>
 						<th>Status</th>
 						<th width="">Action</th>
 					</tr>
@@ -114,8 +114,8 @@
 						<td>{{$value->Company_name}}</td>
 						<td>{{$value->attention_invoice}}</td>
 						<td>{{$value->booking_order_id}}</td>
-						<td>{{Carbon\Carbon::parse($value->created_at)}}</td>
-						<td></td>
+						<td>{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
+						<td>{{Carbon\Carbon::parse($value->shipmentDate)->format('d-m-Y')}}</td>
 						<td>{{$value->booking_status}}</td>
 						<td width="12%">
 							<div class="btn-group">
@@ -133,12 +133,12 @@
 									    <li>
 									    	<a href="{{ Route('booking_list_details_view', $value->booking_order_id) }}">Views</a>
 									    </li>
-									    <li>
+									    <!-- <li>
 									    	<a href="{{ Route('booking_list_create_ipo', $value->booking_order_id) }}">IPO</a>
 									    </li>
 									    <li>
 									    	<a href="{{ Route('booking_list_create_mrf', $value->booking_order_id) }}">MRF</a>
-									    </li>
+									    </li> -->
 										<li>
 											<a href="{{ Route('booking_files_download', $value->id) }}" class="btn btn-info">Download Files</a>
 										</li>

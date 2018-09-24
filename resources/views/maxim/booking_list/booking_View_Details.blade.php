@@ -3,7 +3,7 @@
 @section('section')
     <?php 
         // print_r("<pre>");
-        // print_r($bookingDetails->ipo);
+        // print_r($bookingDetails->bookings);
         // print_r("</pre>");
     ?>
     <div class="panel panel-default">
@@ -29,12 +29,17 @@
             <table class="table table-bordered">
                 <tr>
                     <thead>
-                        <th>Serial no</th>
-                        <th>ERP code</th>
-                        <th>Item Code</th>
-                        <th>Item Size</th>
-                        <th>Item Color</th>
-                        <th>Quantity</th>
+                        <th>Job No.</th>
+                        <th width="15%">ERP Code</th>
+                        <th width="20%">Item / Code No.</th>
+                        <th width="5%">Season Code</th>
+                        <th>OOS No.</th>
+                        <th>Style</th>
+                        <th>PO/Cat No.</th>
+                        <th>GMTS Color</th>
+                        <th width="15%">Size</th>
+                        <th>Sku</th>
+                        <th>Order Qty</th>
                         <!-- <th>Price</th> -->
                     </thead>
                 </tr>
@@ -43,15 +48,19 @@
                 @endphp
                 <tbody>
                 @foreach($bookingDetails->bookings as $bookedItem)
+                <?php $jobId = (8 - strlen($bookedItem->id)); ?>
                 <tr>
-                    <td> {{$j++}} </td>
-                    <td>
-                        {{ $bookedItem->erp_code }}
-                    </td>
-                    <td> {{ $bookedItem->item_code }} </td>
-                    <td> {{ $bookedItem->item_size }} </td>
-                    <td> {{ $bookedItem->gmts_color  }} </td>
-                    <td> {{ $bookedItem->item_quantity }} </td>
+                    <td>{{ str_repeat('0',$jobId) }}{{ $bookedItem->id }}</td>                
+                    <td>{{$bookedItem->erp_code}}</td>
+                    <td>{{$bookedItem->item_code}}</td>
+                    <td>{{$bookedItem->season_code}}</td>
+                    <td>{{$bookedItem->oos_number}}</td>
+                    <td>{{$bookedItem->style}}</td>
+                    <td>{{$bookedItem->poCatNo}}</td>
+                    <td>{{$bookedItem->gmts_color }}</td>
+                    <td>{{$bookedItem->item_size}}</td>
+                    <td>{{$bookedItem->sku}}</td>
+                    <td>{{$bookedItem->item_quantity}}</td>
                     <!-- <td> {{ $bookedItem->item_price }} </td> -->
                 </tr>
                 @endforeach

@@ -63,7 +63,12 @@ class PiController extends Controller
 		$cc = MxpPI::count();
 		$count = str_pad($cc + 1, 4, 0, STR_PAD_LEFT);
 		$date = date('dmY') ;
-		$customid = $date."-".$buyerDetails->C_sort_name."-".$count;
+
+		if($request->is_type === 'fsc'){
+			$customid = "fsc-".$date."-".$buyerDetails->C_sort_name."-".$count;
+		}else{
+			$customid = $date."-".$buyerDetails->C_sort_name."-".$count;
+		}
 
 		// $this->print_me($customid);/
 		if(isset($pi_details) && !empty($pi_details)) {

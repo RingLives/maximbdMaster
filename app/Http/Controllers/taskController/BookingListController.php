@@ -69,7 +69,7 @@ class BookingListController extends Controller
         if(isset($bookingList) && !empty($bookingList)){
             foreach ($bookingList as &$booking) {
                 $booking->itemLists = $this->getBookingItemLists($booking->booking_order_id);
-                $booking->ipo_Mrf_challan_list = MxpBookingBuyerDetails::with('pi','challan','ipo', 'mrf')
+                $booking->pi_ipo_Mrf_challan_list = MxpBookingBuyerDetails::with('pi','challan','ipo', 'mrf')
                           ->where('booking_order_id', $booking->booking_order_id)
                           ->first();
             }
@@ -146,6 +146,9 @@ class BookingListController extends Controller
         if(isset($bookingList) && !empty($bookingList)){
             foreach ($bookingList as &$booking) {
                 $booking->itemLists = $this->getBookingItemLists($booking->booking_order_id);
+                $booking->pi_ipo_Mrf_challan_list = MxpBookingBuyerDetails::with('pi','challan','ipo', 'mrf')
+                          ->where('booking_order_id', $booking->booking_order_id)
+                          ->first();
             }
         }
         // print '<pre>';

@@ -37,7 +37,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-4">
-					<label class="col-sm-12 label-control">Booking Id</label>
+					<label class="col-sm-12 label-control">Booking No.</label>
 					<input type="text" name="booking_id_search" class="form-control" placeholder="Booking Id search" id="booking_id_search">
 				</div>
 				<div class="col-sm-4">
@@ -63,8 +63,8 @@
 				<tr>
 					<thead>
 					<th>Serial no</th>
-					<th>booking id</th>
-					<th>MRF Id</th>
+					<th>booking No.</th>
+					<th>MRF No.</th>
 					<th>MRF Create Date</th>
 					<th>MRF Shipment Date</th>
 					<th>Action</th>
