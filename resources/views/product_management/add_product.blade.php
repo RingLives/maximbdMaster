@@ -91,17 +91,26 @@
 
 										<div class="col-md-6">
 										<!--  <input type="text" class="form-control" name="p_description" value="{{old('p_description')}}" placeholder="Description"> -->
-											<select name="p_description" class="form-control" id="p_description">
-												<option value="">Item Description</option>
-                                                <?php
-                                                if (isset($itemList) && !empty($itemList)) {
-                                                    foreach ($itemList as $item) {
-                                                        print '<option value="' . $item->name . '">' . ucwords($item->name) . '</option>';
-                                                    }
-                                                }
-                                                ?>
-											</select>
 
+                                            <div class="product-description-list" style="width:80%; float: left;">
+                                                <select class="form-control description-list" name="p_description" id="p_description" value="" style="width: 95% !important;">
+                                                    <option value="{{old('p_description')}}">{{(!empty(old('p_description'))) ? old('p_description') :"Choose Description"}}</option>
+
+                                                    @foreach($itemList as $itemList)
+                                                        <option value="{{ $itemList->id }}">{{ $itemList->name }}</option>
+                                                    @endforeach
+
+                                                </select>
+                                            </div>
+
+                                            <div class="add-brand-btn" style="width:20%; float: left; padding-top: 5px;">
+                                                <a class="hand-cursor"  data-toggle="modal" data-target="#addDescriptionModal">
+                                                    <i class="material-icons">
+                                                        add_circle_outline
+                                                    </i>
+                                                </a>
+
+                                            </div>
 										</div>
 									</div>
 									{{--<div class="form-group">--}}
