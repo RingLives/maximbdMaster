@@ -2,17 +2,12 @@
 @section('title','Booking Maxim')
 @section('print-body')
 <?php
+	$mn = 1;
 	$getBuyerName = '';
+	$TotalBookingQty = 0;
 	foreach($bookingReport as $details){
 		$getBuyerName = $details->buyer_name;
 	}
-// 
-	// print_r("<pre>");
-	// print_r($bookingReport);
-	// print_r("</pre>");
-
-	$mn = 1;
-	$TotalBookingQty = 0;
 ?>
 	<center>
 		<div class="topPreviews">
@@ -25,7 +20,7 @@
 			@if($value->logo_allignment == "left")
 				@if(!empty($value->logo))
 					<div class="pull-left">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/58906.png" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
@@ -40,366 +35,163 @@
 			@if($value->logo_allignment == "right")
 				@if(!empty($value->logo))
 					<div class="pull-right">
-						<img src="/upload/{{$value->logo}}" height="100px" width="150px" />
+						<img src="/upload/{{$value->logo}}" height="40px" width="150px" style="margin-top:  15px;" />
 					</div>
 				@endif
 			@endif
 		</div>
 	</div>
 @endforeach
-	<div class="row">
-		<!-- <div class="col-md-12 col-sm-12 col-xs-12" style="padding-left: 40px;"> -->
-			<!-- @php($i=0) -->
-			<!-- @foreach($bookingReport as $details) -->
-				<!-- @for($i;$i <= 0;$i++) -->
-				<div style="background-color: #000;">
-					<h3 align="center" style="color:#fff; padding:8px; font-weight: bold;">BOOKING FORM</h3>
+<div class="row">
+	<div style="background-color: #000;">
+		<h3 align="center" style="color:#fff; padding:8px; font-weight: bold;">BOOKING FORM</h3>
+	</div>
+
+	<div style="padding-top: 10px;">
+		@php ($k =0)
+		@foreach ($bookingReport as $details)
+			@for ($k;$k <= 0; $k++)
+			<div class="col-xs-6 col-md-6" style="padding-left: -40px">
+				<!-- <div class="pull-left"> -->
+					<span >Booking Date: {{Carbon\Carbon::parse($details->created_at)->format('d-m-Y')}}</span>
+				<!-- </div> -->
+			</div>
+			<div class="col-xs-6 col-md-6">
+				<div class="pull-right">
+					<ul>
+						<li>Booking No: {{$details->booking_order_id}}</li>
+						<li>Requested Delivery Date: {{Carbon\Carbon::parse($details->shipmentDate)->format('d-m-Y')}}</li>
+					</ul>
+				@if($details->is_type == 'fsc')
+					<ul style="border: 1px solid #ddd;padding: 5px; width:90%;float: right;">
+						<li>
+							<span style="padding-left: 5px; font-weight: bold;">FSC-MIX</span>
+						</li>
+						<li>
+							<span style="padding-left: 5px; font-weight: bold;">License Code: FSC-C121666</span>
+						</li>
+					</ul>
+				@endif
+                    <ul>
+                        <li>
+                            <span>Prepared By: {{ $getBookingUserDetails[0]->first_name }} {{ $getBookingUserDetails[0]->last_name }} </span>
+                        </li>
+                    </ul>
 				</div>
-				<!-- @endfor -->
-			<!-- @endforeach -->
-			<!-- <div align="center">
-					<p>NWP - AW18 BOOKING ( JUNE )</p>
-			</div> -->
-		<!-- </div> -->
-
-		<!-- <div class="col-md-12 col-xs-12"> -->
-		<div style="padding-top: 10px;">
-			@php ($k =0)
-			@foreach ($bookingReport as $details)
-				@for ($k;$k <= 0; $k++)
-				<div class="col-xs-6 col-md-6" style="padding-left: -40px">
-					<!-- <div class="pull-left"> -->
-						<span >Booking Date: {{Carbon\Carbon::parse($details->created_at)->format('d-m-Y')}}</span>
-					<!-- </div> -->
-				</div>
-				<div class="col-xs-6 col-md-6">
-					<div class="pull-right">
-						<ul>
-							<li>Booking No: {{$details->booking_order_id}}</li>
-							<li>Delivery Date: {{Carbon\Carbon::parse($details->shipmentDate)->format('d-m-Y')}}</li>
-						</ul>
-					</div>
-				</div>
-				@endfor
-			@endforeach
-
-		<!-- </div> -->
-		</div>
+			</div>
+			@endfor
+		@endforeach
 	</div>
+</div>
 
-	{{--<div class="row body-top">
-		<div class="col-md-8 col-sm-8 col-xs-7 body-list">
-			<ul>
-				@foreach ($companyInfo as $details)
-				<li>To : {{$details->header_title}}</li>
-				<li><p> {{$details->address1}} {{(!empty($details->address2) ? ',' : '')}} {{$details->address2}} {{(!empty($details->address3) ? ',' : '')}} {{$details->address3}}</p></li>
-
-				<li>CELL : {{$details->cell_number}}</li>
-				<li>Attn : {{$details->attention}}</li>
-				@endforeach
-			</ul>
-		</div>
-
-		<div class="col-md-4 col-sm-4 col-xs-5">
-		</div>
+<div class="row body-top">
+	<div class="col-md-8 col-sm-8 col-xs-7 body-list">
+		<ul>
+			<li style="font-weight: bold;">Buyer: {{$getBuyerName}}</li>
+		</ul>
 	</div>
-
-	<div class="row">
-		<div class="col-md-12">
-			<center>
-				<h4>Re : PURCHASE ORDER of ACCESSORIES against {{$getBuyerName}}</h4>
-			</center>
-		</div>
+	<div class="col-md-4 col-sm-4 col-xs-5">
 	</div>
-	<div class="row">
-		<div class="col-md-12">
-			<h4>Dear Sir's</h4>
-			<p>Please issue P/I and supply the flowing goods favoring Importer's Factory as under :</p>
-		</div>
-	</div>--}}
+</div>
+<?php $itemcodestatus = ''; ?>
+@foreach ($bookingReport as $key => $details)
+   	<?php
+        $gmtsColor = explode(',', $details->gmtsColor);
+        $itemSize = explode(',', $details->itemSize);
+        $quantity = explode(',', $details->quantity);
+        $job_no = explode(',', $details->job_id);
+    ?>
+	<table class="table table-bordered">
+	    <thead>
+	        <tr>
+	        	<th>Job No.</th>
+	        	<th width="15%">ERP Code</th>
+	        	<th width="20%">Item / Code No.</th>
+	        	<th width="5%">Season Code</th>
+	        	<th>OOS No.</th>
+	        	<th>Style</th>
+	        	<th>PO/Cat No.</th>
+	        	<th>GMTS Color</th>
+	        	<th width="15%">Size</th>
+	        	<th>Sku</th>
+	        	<th>Order Qty</th>
+	        	<th>Unit</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    	<?php $rowspanValue = 0; ?>
+		    @foreach($quantity as $key => $qtyValue)
+		    	<?php 
+		    		$TotalBookingQty += $qtyValue; 
+		    		$rowspanValue += $rowspanValue +1; 
+		    		$jobId = (8 - strlen($job_no[$key]));
+		    	?>
 
-	<div class="row body-top">
-		<div class="col-md-8 col-sm-8 col-xs-7 body-list">
-					@php($i=0)
-					@foreach($bookingReport as $details)
-					@for($i;$i <= 0;$i++)
-						<ul>
-							<li style="font-weight: bold;">Buyer : {{$details->buyer_name}}</li>
-						</ul>
-					@endfor
-					@endforeach
-		</div>
+		    	<tr>
+			    	<td>{{ str_repeat('0',$jobId) }}{{ $job_no[$key] }}</td>
+			    	<!-- <td width="15%">{{$details->erp_code}}</td> -->
+			    	{{--@if($itemcodestatus != $details->item_code)--}}
+				    	<td width="20%">
+				    		<div>{{$details->erp_code}}</div>
+				    	</td>
+			    	{{--@endif--}}
 
-		<div class="col-md-4 col-sm-4 col-xs-5">
-		</div>
-	</div>
-
-    @foreach ($bookingReport as $details)
-		<table class="table table-bordered">
-	        <?php
-
-	        	$gmtsColor = [];
-	        	$gmtsItemSize = [];
-	        	$gmtsquantity = '';
-	        	$gmtsItemQtyValue = [];
-	        	foreach ($gmtsOrSizeGroup as $gmtsValue) {
-	        		$gmtsColor[] = $gmtsValue->gmts_color;
-	        		$gmtsItemSize = explode(',', $gmtsValue->itemSize);
-	        		$gmtsquantity = explode(',', $gmtsValue->quantity);
-	        		$gmtsItemQtyValue[] = array_combine($gmtsItemSize, $gmtsquantity);
-	        	}
-	        	$count = count($gmtsColor) - 1;
-	        	$gmtscolorAllValues = array();
-	        	for ($i=0; $i <= $count ; $i++) {
-	        		$gmtscolorAllValues[$i][] =$gmtsColor[$i];
-	        		$gmtscolorAllValues[$i][] =$gmtsItemQtyValue[$i];
-	        	}
-
-
-	        	$itemsize = explode(',', $details->itemSize);
-	        	$qty = explode(',', $details->quantity);
-	        	$itemQtyValue = array_combine($itemsize, $qty);
-
-	        	$itemName = [];
-	        	foreach ($itemQtyValue as $key => $value) {
-	        		$itemName[$key] = $key;
-	        	}
-
-	        	// colspan count values
-
-	        	$array1 =[
-	        		'0' => 's','1' => 'S','2' => 'm','3' => 'M','4' => 'xl','5' => 'XL',
-	        		'6' => 'xxl','7' => 'XXL','8' => '4xl','9' => '4XL','10' => '5xl',
-	        		'11' => '5XL'
-	        	];
-	        	$countValue = array_intersect($array1, $itemName);
-	        	$colspanValue = 2 + count($countValue);
+                   {{-- @if($itemcodestatus != $details->item_code)
+                        <td width="15%" rowspan="{{count($quantity)}}">--}}
+                        <td width="15%" >
+                            <div>{{$details->item_code}}</div>
+                        </td>
+                   {{-- @endif--}}
 
 
-	        	// print_r("<pre>");
-	        	// print_r($colspanValue);
+                <!-- <td width="15%">{{$details->item_code}}</td> -->
+			    	{{--<td width="15%">{{$details->item_code}}</td>--}}
+			    	<td width="5%">{{$details->season_code}}</td>
+			    	<td width="15%">{{$details->oos_number}}</td>
+			    	<td width="15%">{{$details->style}}</td>
+			    	{{--@if($itemcodestatus != $details->item_code)--}}
+				    	{{--<td width="15%" rowspan="{{count($quantity)}}">--}}
+				    		{{--<div>{{$details->style}}</div>--}}
+				    	{{--</td>--}}
+			    	{{--@endif--}}
 
-	        ?>
-
-
-	        <!-- table head section -->
-
-		    <thead>
-		        <tr>
-		        	<th>Job No.</th>
-		        	<th width="18%">ERP Code</th>
-		        	<th width="18%">Item / Code No.</th>
-		        	<th width="18%">PO/Cat No.</th>
-
-		        	{{--@if(!empty($details->gmtsColor))--}}
-		        		<th width="10%">GMTS Color</th>
-		        	{{--@endif--}}
-
-		        	@php($s = 0)
-		        		@for($s;$s<=0;$s++)
-		        			@if(
-		        			'S' === array_search('S',$itemName) ||
-		        			's' === array_search('s',$itemName) ||
-		        			'M' === array_search('M',$itemName) ||
-		        			'm' === array_search('m',$itemName) ||
-		        			'xl' === array_search('xl',$itemName) ||
-		        			'XL' === array_search('XL',$itemName) ||
-		        			'xxl' === array_search('xxl',$itemName) ||
-		        			'XXL' === array_search('XXL',$itemName) ||
-		        			'4xl' === array_search('4xl',$itemName) ||
-		        			'4XL' === array_search('4XL',$itemName) ||
-		        			'5xl' === array_search('5xl',$itemName) ||
-		        			'5XL' === array_search('5XL',$itemName)
-		        			)
-		        				@foreach ($itemQtyValue as $keys =>$itemFormat)
-			        				@if(sizeof($itemQtyValue) === 1)
-			        					<th width="">{{$keys}}</th>
-			        				@else
-						        		<th>{{$keys}}</th>
-						        	@endif
-					        	@endforeach
-
-					        @elseif (empty($details->others_color))
-		        				<th width="31.2%">Size</th>
-		        			@elseif ($details->others_color)
-		        				<th>{{$details->others_color}}</th>
-		        			@else
-		        				<th>Something Wrong</th>
-		        			@endif
-		        		@endfor
-
-		        	<th width="20%">Order Qty</th>
-		        	<th width="21%">Sku</th>
-
-		        	<th>Unit</th>
+			    	<!-- <td>{{$details->poCatNo}}</td> -->
+			    		{{--@if($itemcodestatus != $details->item_code)--}}
+				    	<td>
+				    		<div>{{$details->poCatNo}}</div>
+				    	</td>
+			    		{{--@endif--}}
+			    	<td>{{$gmtsColor[$key]}}</td>
+			    	<td width="15%">{{$itemSize[$key]}}</td>
+			        <td>{{$details->sku}}</td>
+			        <td>{{$qtyValue}}</td>
+			        <td>PCS</td> 
+			        {{--@if($itemcodestatus != $details->item_code)--}}
+				    	{{--<td rowspan="{{count($quantity)}}">--}}
+				    		{{--<div>PCS</div>--}}
+				    	{{--</td>--}}
+			    	{{--@endif--}}
 		        </tr>
-		    </thead>
 
-		    <!-- End table head section -->
+		        <?php $itemcodestatus = $details->item_code; ?>
 
-		    <!-- table tbody Section -->
+		    @endforeach
 
-		    <tbody>
-		    	<td>1000000{{$mn++}}</td>
-		    	<td>{{$details->erp_code}}</td>
-		    	<td>{{$details->item_code}}</td>
-		    	<td>{{$details->item_code}}</td>
+	    </tbody>
+	</table>
 
-		    	@if(!empty($details->gmtsColor))
-		    		@if(
-		    			'S' === array_search('S',$itemName) ||
-				        's' === array_search('s',$itemName) ||
-		    			'M' === array_search('M',$itemName) ||
-		    			'm' === array_search('m',$itemName) ||
-		    			'xl' === array_search('xl',$itemName) ||
-		    			'XL' === array_search('XL',$itemName) ||
-		    			'xxl' === array_search('xxl',$itemName) ||
-		    			'XXL' === array_search('XXL',$itemName) ||
-		    			'4xl' === array_search('4xl',$itemName) ||
-		    			'4XL' === array_search('4XL',$itemName) ||
-		    			'5xl' === array_search('5xl',$itemName) ||
-		    			'5XL' === array_search('5XL',$itemName)
-		    		)
-			    		<td class="colspan-td" colspan="{{$colspanValue}}">
-			    			<table>
-			    				@foreach ($gmtscolorAllValues as $values)
-			    					@foreach ($values[1] as $keys => $aaa)
-			    					<?php $totalQnty = 0; $gmtscolorAllValuesKeys = [];$gmtscolorAllValuesKeys[$keys] = $keys; ?>
-					    			@endforeach
-
-				    					@if(
-							    			'S' === array_search('S',$gmtscolorAllValuesKeys) ||
-									        's' === array_search('s',$gmtscolorAllValuesKeys) ||
-							    			'M' === array_search('M',$gmtscolorAllValuesKeys) ||
-							    			'm' === array_search('m',$gmtscolorAllValuesKeys) ||
-							    			'xl' === array_search('xl',$gmtscolorAllValuesKeys) ||
-							    			'XL' === array_search('XL',$gmtscolorAllValuesKeys) ||
-							    			'xxl' === array_search('xxl',$gmtscolorAllValuesKeys) ||
-							    			'XXL' === array_search('XXL',$gmtscolorAllValuesKeys) ||
-							    			'4xl' === array_search('4xl',$gmtscolorAllValuesKeys) ||
-							    			'4XL' === array_search('4XL',$gmtscolorAllValuesKeys) ||
-							    			'5xl' === array_search('5xl',$gmtscolorAllValuesKeys) ||
-							    			'5XL' === array_search('5XL',$gmtscolorAllValuesKeys)
-							    		)
-					    					<tr>
-						    					@if(!empty($values[0]))
-							    					<td>{{$values[0]}}</td>
-							    				@endif
-
-							    				@if(!empty($values[1]))
-							    					@foreach ($values[1] as $keyss => $values)
-							    					<?php
-							    						$totalQnty = $totalQnty + $values;
-							    					?>
-							    						<td>{{$values}}</td>
-							    					@endforeach
-							    				@endif
-
-							    				<td>{{$totalQnty}}</td>
-							    			</tr>
-							    		@else
-							    		@endif
-					    		@endforeach
-			    			</table>
-			    		</td>
-		    		@else
-				    	<td class="colspan-td" colspan="3">
-			    			<table>
-			    				<tbody>
-			    					@foreach ($gmtscolorAllValues as $keys => $values)
-			    						@foreach ($values[1] as $keys => $aaa)
-				    					<?php $gmtscolorAllValuesKeys = [];$gmtscolorAllValuesKeys[$keys] = $keys; ?>
-						    			@endforeach
-
-					    					@if(
-								    			'S' === array_search('S',$gmtscolorAllValuesKeys) ||
-										        's' === array_search('s',$gmtscolorAllValuesKeys) ||
-								    			'M' === array_search('M',$gmtscolorAllValuesKeys) ||
-								    			'm' === array_search('m',$gmtscolorAllValuesKeys) ||
-								    			'xl' === array_search('xl',$gmtscolorAllValuesKeys) ||
-								    			'XL' === array_search('XL',$gmtscolorAllValuesKeys) ||
-								    			'xxl' === array_search('xxl',$gmtscolorAllValuesKeys) ||
-								    			'XXL' === array_search('XXL',$gmtscolorAllValuesKeys) ||
-								    			'4xl' === array_search('4xl',$gmtscolorAllValuesKeys) ||
-								    			'4XL' === array_search('4XL',$gmtscolorAllValuesKeys) ||
-								    			'5xl' === array_search('5xl',$gmtscolorAllValuesKeys) ||
-								    			'5XL' === array_search('5XL',$gmtscolorAllValuesKeys)
-								    		)
-								    		@else
-						    					<tr>
-						    						@if(!empty($values[0]))
-							    					<td>{{$values[0]}}</td>
-							    					<td colspan="2">
-							    					 	@foreach ($values[1] as $size => $qty)
-							    					 	<?php $TotalBookingQty += $qty; ?>
-							    					 	<div class="middel-table">
-								    					 	<table>
-								    					 		<tr>
-								    					 			<td>{{$size}}</td>
-								    					 			<td>{{$qty}}</td>
-								    					 		</tr>
-								    					 	</table>
-								    					</div>
-							    					 	@endforeach
-							    					</td>
-							    					@endif
-						    					</tr>
-						    				@endif
-			    					@endforeach
-			    				</tbody>
-			    			</table>
-			    		</td>
-		        	@endif
-		        @else
-		        	<td></td>
-		        @endif
-
-		        @if(
-		        'S' === array_search('S',$itemName) ||
-		        's' === array_search('s',$itemName) ||
-    			'M' === array_search('M',$itemName) ||
-    			'm' === array_search('m',$itemName) ||
-    			'xl' === array_search('xl',$itemName) ||
-    			'XL' === array_search('XL',$itemName) ||
-    			'xxl' === array_search('xxl',$itemName) ||
-    			'XXL' === array_search('XXL',$itemName) ||
-    			'4xl' === array_search('4xl',$itemName) ||
-    			'4XL' === array_search('4XL',$itemName) ||
-    			'5xl' === array_search('5xl',$itemName) ||
-    			'5XL' === array_search('5XL',$itemName)
-    			)
-
-		        @elseif (empty($details->gmtsColor))
-		        	<td class="colspan-td" colspan="2">
-		        		<table>
-		        			@foreach ($itemQtyValue as $sizeValue => $qtyValue)
-		        				 
-		        				<?php $TotalBookingQty += $qtyValue; ?>
-
-		        				<tr>
-		        					<td width="68.7%">{{$sizeValue}}</td>
-	    							<td width="37.3%">{{$qtyValue}}</td>
-		        				</tr>
-		        			@endforeach
-		        		</table>
-		        	</td>
-    			@else
-    			@endif
-
-		        <td>{{$details->sku}}</td>
-		        <td>PCS</td>
-		    </tbody>
-
-		    <!-- End table tbody Section -->
-		</table>
-    @endforeach
-   <table class="table table-bordered">
-		<tr>
-   			<td><span class="pull-right" style="font-weight: bold;">Total Qty : {{$TotalBookingQty}}</span></td>
-		</tr>	
-
-   </table>
-@foreach ($footerData as $value)
+	
+@endforeach
+<table class="table table-bordered">
+	<tr>
+		<td>
+			<span class="pull-right" style="font-weight: bold; font-size:18px;">Booking Total Qty: {{$TotalBookingQty}}
+			</span>
+		</td>
+		<td style="width: 4%;"></td>
+	</tr>	
+</table>
+<!-- @foreach ($footerData as $value)
 	@if(!empty($value->siginingPerson_2))
 		<div class="row">
 			<div class="col-md-12 col-xs-12" style="padding-bottom: 20px;">
@@ -437,7 +229,7 @@
 			</div>
 		</div>
 	@endif
-@endforeach
+@endforeach -->
 
 	<script type="text/javascript">
 		function myFunction() {

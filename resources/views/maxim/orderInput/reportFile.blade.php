@@ -4,9 +4,11 @@
 <?php
 	$mn = 1;
 	$getBuyerName = '';
+	$Company_name = '';
 	$TotalBookingQty = 0;
-	foreach($bookingReport as $details){
+	foreach($bookingBuyer as $details){
 		$getBuyerName = $details->buyer_name;
+		$Company_name = $details->Company_name;
 	}
 ?>
 	<center>
@@ -52,9 +54,8 @@
 		@foreach ($bookingReport as $details)
 			@for ($k;$k <= 0; $k++)
 			<div class="col-xs-6 col-md-6" style="padding-left: -40px">
-				<!-- <div class="pull-left"> -->
-					<span >Booking Date: {{Carbon\Carbon::parse($details->created_at)->format('d-m-Y')}}</span>
-				<!-- </div> -->
+				<span >Booking Date: {{Carbon\Carbon::parse($details->created_at)->format('d-m-Y')}}</span><br>
+				<span>Vendor Name: {{$Company_name}}</span>
 			</div>
 			<div class="col-xs-6 col-md-6">
 				<div class="pull-right">
@@ -93,14 +94,7 @@
 	<div class="col-md-4 col-sm-4 col-xs-5">
 	</div>
 </div>
-<?php $itemcodestatus = ''; ?>
-@foreach ($bookingReport as $key => $details)
-   	<?php
-        $gmtsColor = explode(',', $details->gmtsColor);
-        $itemSize = explode(',', $details->itemSize);
-        $quantity = explode(',', $details->quantity);
-        $job_no = explode(',', $details->job_id);
-    ?>
+
 	<table class="table table-bordered">
 	    <thead>
 	        <tr>
@@ -111,6 +105,7 @@
 	        	<th>OOS No.</th>
 	        	<th>Style</th>
 	        	<th>PO/Cat No.</th>
+	        	<th>Description</th>
 	        	<th>GMTS Color</th>
 	        	<th width="15%">Size</th>
 	        	<th>Sku</th>
@@ -119,57 +114,30 @@
 	        </tr>
 	    </thead>
 	    <tbody>
-	    	<?php $rowspanValue = 0; ?>
-		    @foreach($quantity as $key => $qtyValue)
+	    	<?php 
+	    		$rowspanValue = 0;
+	    		$itemcodestatus = '';
+	    	 ?>
+		    @foreach($bookingReport as $key => $details)
 		    	<?php 
-		    		$TotalBookingQty += $qtyValue; 
-		    		$rowspanValue += $rowspanValue +1; 
-		    		$jobId = (8 - strlen($job_no[$key]));
+		    		$TotalBookingQty += $details->item_quantity; 
+		    		$jobId = (8 - strlen($details->id));
 		    	?>
 
 		    	<tr>
-			    	<td>{{ str_repeat('0',$jobId) }}{{ $job_no[$key] }}</td>
-			    	<!-- <td width="15%">{{$details->erp_code}}</td> -->
-			    	@if($itemcodestatus != $details->item_code)
-				    	<td width="20%" rowspan="{{count($quantity)}}">
-				    		<div>{{$details->erp_code}}</div>
-				    	</td>
-			    	@endif
-
-                    @if($itemcodestatus != $details->item_code)
-                        <td width="15%" rowspan="{{count($quantity)}}">
-                            <div>{{$details->item_code}}</div>
-                        </td>
-                    @endif
-
-
-                <!-- <td width="15%">{{$details->item_code}}</td> -->
-			    	{{--<td width="15%">{{$details->item_code}}</td>--}}
+			    	<td>{{ str_repeat('0',$jobId) }}{{ $details->id }}</td>
+			    	<td width="20%">{{$details->erp_code}}</td>
+                	<td width="10%">{{$details->item_code}}</td>
 			    	<td width="5%">{{$details->season_code}}</td>
-			    	<td width="15%">{{$details->oos_number}}</td>
-			    	<td width="15%">{{$details->style}}</td>
-			    	{{--@if($itemcodestatus != $details->item_code)--}}
-				    	{{--<td width="15%" rowspan="{{count($quantity)}}">--}}
-				    		{{--<div>{{$details->style}}</div>--}}
-				    	{{--</td>--}}
-			    	{{--@endif--}}
-
-			    	<!-- <td>{{$details->poCatNo}}</td> -->
-			    	@if($itemcodestatus != $details->item_code)
-				    	<td rowspan="{{count($quantity)}}">
-				    		<div>{{$details->poCatNo}}</div>
-				    	</td>
-			    	@endif
-			    	<td>{{$gmtsColor[$key]}}</td>
-			    	<td width="15%">{{$itemSize[$key]}}</td>
+			    	<td width="5%">{{$details->oos_number}}</td>
+			    	<td width="5%">{{$details->style}}</td>
+			    	<td>{{$details->poCatNo}}</td>
+			    	<td>{{$details->item_description}}</td>
+			    	<td width="17%">{{$details->gmts_color}}</td>
+			    	<td width="17%">{{$details->item_size}}</td>
 			        <td>{{$details->sku}}</td>
-			        <td>{{$qtyValue}}</td>
-			        <td>PCS</td> 
-			        {{--@if($itemcodestatus != $details->item_code)--}}
-				    	{{--<td rowspan="{{count($quantity)}}">--}}
-				    		{{--<div>PCS</div>--}}
-				    	{{--</td>--}}
-			    	{{--@endif--}}
+			        <td>{{$details->item_quantity}}</td>
+			        <td>PCS</td>
 		        </tr>
 
 		        <?php $itemcodestatus = $details->item_code; ?>
@@ -178,9 +146,7 @@
 
 	    </tbody>
 	</table>
-
 	
-@endforeach
 <table class="table table-bordered">
 	<tr>
 		<td>

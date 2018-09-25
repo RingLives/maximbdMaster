@@ -21,7 +21,8 @@ class ColorController extends Controller
 
     public function listView(){
     	$roleManage = new RoleManagement();
-    	$gmtsColor = MxpGmtsColor::where('user_id',Auth::user()->user_id)->where('item_code', NULL)->paginate(10);
+        // $gmtsColor = MxpGmtsColor::where('user_id',Auth::user()->user_id)->where('item_code', NULL)->paginate(10);
+    	$gmtsColor = MxpGmtsColor::where('item_code', NULL)->paginate(10);
         return view('color_management.color_list',compact('gmtsColor'));
     }
 

@@ -122,12 +122,12 @@
 	    	<th>Job No</th>
 	    	<th>PO/Cat No. </th>
 	    	<th>OOS No. </th>
-	    	<th>Item code</th>
-	    	<th>ERP Code</th>
+	    	<th width="10%">Item code</th>
+	    	<th width="18%">ERP Code</th>
 	    	<th>GMTS/Item Color</th>
 	        <th>Item Descreption</th>
 	        <th>Style</th>
-	        <th>Item Size</th>
+	        <th width="10%">Item Size</th>
 	        <th>Qty / Pcs</th>
 	        <th>Unit Price / Pcs</th>
 	        <th>USD Amount / USD</th>
@@ -282,7 +282,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 ">
-						<div class="col-md-8" style="margin-bottom: 10px;">
+						<div class="col-md-8" style="margin-bottom: 20px; height: 90px;">
 							@if(!empty($value->siginingPersonSeal_2))
 								<img src="/upload/{{$value->siginingPersonSeal_2}}" height="150px" width="160px" style="display: block;margin-left: auto;margin-right: auto;"/>
 							@endif
@@ -290,12 +290,15 @@
 						<div class="col-md-8" style="border-top: 2px solid #000;">
 							<h4 style="text-align: center">Accepted</h4>
 						</div>
+						<div class="col-md-8">
+							<h4 style="text-align: center; margin-top: 0px;">Seal & Signature of Buyer</h4>
+						</div>
 					</div>
 					<div class="col-md-4"></div>
 					<div class="col-md-4">
 						<div class="authorized pull-right">
 							<h4 style="margin-bottom: 0px">For Maxim</h4></br>
-							<div class="col-md-12" style="margin-bottom: 10px;">
+							<div class="col-md-12" style="margin-bottom: 10px; height: 50px;">
 								@if(!empty($value->siginingSignature_2))
 									<img src="/upload/{{$value->siginingSignature_2}}" height="80px" width="180px" style="display: block;margin-left: auto;margin-right: auto;"/>
 								@endif
@@ -303,7 +306,7 @@
 							<div></div>
 							<div class="col-md-12" style="border-top: 2px solid #000;">
 								<h4>Authorized Signature</h4>
-								<h4>Preapred By: <b>A</b></h4>
+								<h4>Preapred By: <b>{{$getUserDetails[0]->first_name}}</b></h4>
 							</div>
 						</div>
 					</div>

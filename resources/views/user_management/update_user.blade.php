@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-{{-- @section('page_heading','Add Role') --}}
+@section('page_heading','User Update')
 @section('section')
            
 <div class="col-sm-12">
@@ -67,12 +67,8 @@
                 </div>
 
                 <div class="form-group">
-                        <input type="password" class="form-control input_required" name="password" value="" placeholder="Password{{ trans('others.enter_password') }}">
-                </div>
-
-                
-
-                
+                        <input type="password" class="form-control input_required" name="password" value="" placeholder="{{ trans('others.enter_password') }}">
+                </div>               
 
                 <div class="form-group">
                     <select class="form-control input_required" name="is_active">
@@ -81,12 +77,8 @@
                         <option @if($selectedUser->active_user == 1) {{ 'selected' }} @endif value="1">{{ trans('others.action_active_label') }}</option>
                     </select>
                 </div>
-
-                
-
-
                 <div class="form-group">
-                    <input class="form-control  btn btn-primary btn-outline" type="submit" value="Update User{{ trans('others.ss') }}" >
+                    <input class="form-control  btn btn-primary btn-outline" type="submit" value="Update User" >
                 </div>
             </form>
         </div>

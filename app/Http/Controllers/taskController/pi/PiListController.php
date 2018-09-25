@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\MxpPi;
 use DB;
+use App\Http\Controllers\taskController\pi\PiController;
 
 class PiListController extends Controller
 {
@@ -31,7 +32,9 @@ class PiListController extends Controller
 		// $this->print_me($bookingDetails);
 		$companyInfo = DB::table('mxp_header')->where('header_type', 11)->get();
 		$footerData = DB::select("select * from mxp_reportfooter");
+		$getUserDetails = PiController::getUserDetails($bookingDetails[0]->user_id);
+		// $this->print_me($getUserDetails);
 
-		return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails', 'footerData','buyerDetails','is_type'));
+		return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails', 'footerData','buyerDetails','is_type','getUserDetails'));
 	}
 }
