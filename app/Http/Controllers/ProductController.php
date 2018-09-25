@@ -28,6 +28,8 @@ use App\Http\Controllers\Source\User\UserAccessBuyerList;
 
 class ProductController extends Controller
 {
+    use UserAccessBuyerList;
+    
     const CREATE_PRODUCT = "create";
     const UPDATE_PRODUCT = "update";
 	const ACTIVE_BRAND = 1;
@@ -38,25 +40,28 @@ class ProductController extends Controller
     }
 
     public function allProducts($productId = null){
-        // $userbuyer = userbuyer::where("id_user",Auth::user()->user_id)->get();
-        // $buyerList = [];
-        // if(isset($userbuyer) && !empty($userbuyer)){
-        //     foreach ($userbuyer as $buyerusr) {
-        //         $buyerList[] = $buyerusr->id_buyer;
-        //     }
-        // }
-        // if($productId == null ){
-        //     $proWithSizeColors = MxpProduct::with('colors', 'sizes')->whereIn('id_buyer',$buyerList)->paginate(20);
-        // }else{
-        //     $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->whereIn('id_buyer',$buyerList)->paginate(20);
-        // }
+        $buyerList = $this->getUserByerList();
+
+        if(isset($buyerList) && !empty($buyerList)){
+            if($productId == null ){
+                $proWithSizeColors = MxpProduct::with('colors', 'sizes')->whereIn('id_buyer',$buyerList)->paginate(20);
+            }else{
+                $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->whereIn('id_buyer',$buyerList)->paginate(20);
+            }
+        }else if(Auth::user()->type == 'super_admin'){
+            if($productId == null ){
+                $proWithSizeColors = MxpProduct::with('colors', 'sizes')->paginate(20);
+            }else{
+                $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->paginate(20);
+            }
+        }
         // $this->print_me($proWithSizeColors);
 
-        if($productId == null ){
-            $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('user_id',Auth::user()->user_id)->paginate(20);
-        }else{
-            $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->where('user_id',Auth::user()->user_id)->paginate(20);
-        }
+        // if($productId == null ){
+        //     $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('user_id',Auth::user()->user_id)->paginate(20);
+        // }else{
+        //     $proWithSizeColors = MxpProduct::with('colors', 'sizes')->where('product_id', $productId)->where('user_id',Auth::user()->user_id)->paginate(20);
+        // }
 
 
         $i=0;
