@@ -43,21 +43,22 @@
 									{{--Add Product Brand Select Box--}}
 
 									<div class="form-group">
-										<label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>
+										<label class="col-md-4 control-label">{{--{{ trans('others.product_brand_label') }}--}}Select Buyer</label>
 										<div class="col-md-6">
 
-											<div class="product-brand-list" style="width:80%; float: left;">
-												<select class="form-control brand-list" name="p_brand" value="" style="width: 95% !important;">
-													<option value="{{old('p_brand')}}">{{(!empty(old('p_brand'))) ? old('p_brand') :"Choose Brand"}}</option>
+											<div class="product-buyer-list" style="width:80%; float: left;">
+												<select class="form-control buyer-list" name="id_buyer" id="id_buyer" value="" style="width: 95% !important;">
+													<option value="{{old('id_buyer')}}">{{(!empty(old('id_buyer'))) ? old('id_buyer') :"Choose Buyer"}}</option>
 
-													@foreach($brands as $brand)
-														<option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>
+													@foreach($buyers as $buyer)
+														<option value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>
 													@endforeach
+
 												</select>
 											</div>
 
 											<div class="add-brand-btn" style="width:20%; float: left; padding-top: 5px;">
-												<a class="hand-cursor"  data-toggle="modal" data-target="#addBrandModal">
+												<a class="hand-cursor"  data-toggle="modal" data-target="#addBuyerModal">
 													<i class="material-icons">
 														add_circle_outline
 													</i>
@@ -103,16 +104,16 @@
 
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="col-md-4 control-label">Select Buyer</label>
-										<div class="col-md-6">
-											<select class ="form-control" name="id_buyer" id="id_buyer">
-											    @foreach($buyers as $buyer)     
-											        <option data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>
-											    @endforeach
-											</select>
-										</div>
-									</div>
+									{{--<div class="form-group">--}}
+										{{--<label class="col-md-4 control-label">Select Buyer</label>--}}
+										{{--<div class="col-md-6">--}}
+											{{--<select class ="form-control" name="id_buyer" id="id_buyer">--}}
+											    {{--@foreach($buyers as $buyer)--}}
+											        {{--<option data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>--}}
+											    {{--@endforeach--}}
+											{{--</select>--}}
+										{{--</div>--}}
+									{{--</div>--}}
 
 									{{--Add Color MultiSelect Box--}}
 									<div class="form-group">
@@ -240,7 +241,7 @@
 													</i>
 												</a>
 												<small style="float: left; padding-top: 4px;">
-													Supplier Price
+													Cost Price
 												</small>
 											</div>
 		                                </div>
