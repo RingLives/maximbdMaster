@@ -111,7 +111,7 @@
 							<th>Attention</th>
 							<th>Booking No.</th>
 							<th>PI No.</th>
-							<th width="10%">Order Date</th>
+							<th width="50%">Order Date</th>
 							<th width="10%">Requested Date</th>
 							<th>Challan No.</th>
 							<th>Item Code</th>
@@ -161,8 +161,11 @@
 							@else
 								<td></td>
 							@endif
-							<td width="10%">{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
-							<td></td>
+							<td>
+								{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
+							<td>
+								{{Carbon\Carbon::parse($value->shipmentDate)->format('d-m-Y')}}
+							</td>
 							<!-- <td>{{$value->pi_ipo_Mrf_challan_list->challan[$ccc]->challan_id}}</td> 
 							-->
 							<td></td>
@@ -192,8 +195,10 @@
 									@else
 									<td></td>
 									@endif
-									<td width="10%">{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
-									<td></td>
+									<td>{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
+									<td>
+										{{Carbon\Carbon::parse($value->shipmentDate)->format('d-m-Y')}}
+									</td>
 									<!-- <td>{{$value->pi_ipo_Mrf_challan_list->challan[$ccc]->challan_id}}</td> -->
 
 									<td></td>
@@ -242,8 +247,10 @@
 								@else
 								<td></td>
 								@endif
-								<td width="10%">{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
-								<td></td>
+								<td>{{Carbon\Carbon::parse($value->created_at)->format('d-m-Y')}}</td>
+								<td>
+									{{Carbon\Carbon::parse($value->shipmentDate)->format('d-m-Y')}}
+								</td>
 								<!-- <td>{{$value->pi_ipo_Mrf_challan_list->challan[$ccc]->challan_id}}</td> -->
 								<td></td>
 								<?php
@@ -265,22 +272,22 @@
 								<?php
 								if(count($value->itemLists) == 1){
 								?>
-								<tr>
+								<!-- <tr>
 									<td colspan="13"></td>
 									<td><strong>Total :</strong></td>
 									<td><strong>${{ round($TotalAmount,2) }}</strong></td>
 									<td></td>
-								</tr>
+								</tr> -->
 								<?php
 								}else if(count($value->itemLists) > 1){
 									if($ilc == count($value->itemLists)){
 										?>
-										<tr>
+										<!-- <tr>
 											<td colspan="13"></td>
 											<td><strong>Total :</strong></td>
 											<td><strong>${{ round($TotalAmount,2) }}</strong></td>
 											<td></td>
-										</tr>
+										</tr> -->
 										<?php
 									}
 								}

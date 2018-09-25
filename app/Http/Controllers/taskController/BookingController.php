@@ -18,13 +18,17 @@ use Auth;
 use DB;
 use App\Http\Controllers\taskController\BookingListController;
 use App\userbuyer;
+use App\Http\Controllers\Source\User\UserAccessBuyerList;
+use App\Http\Controllers\Message\ActionMessage;
 
 class BookingController extends Controller
-{
-    public function orderInputDetails(Request $request){
-      return json_encode(DB::select('Call getProductSizeQuantityWithConcat("'.$request->item.'")'));
+{ 
+    use UserAccessBuyerList;
 
-      // return json_encode($this->abc_test($request->item));
+    public function orderInputDetails(Request $request){
+      // return json_encode(DB::select('Call getProductSizeQuantityWithConcat("'.$request->item.'")'));
+
+      return json_encode($this->getItemDetails($request->item));
     }
 
     public function getVendorPrice(Request $request){
@@ -254,22 +258,35 @@ class BookingController extends Controller
     }
 
 
-    public function abc_test($item_size){
-            $userbuyer = userbuyer::where("id_user",Auth::user()->user_id)->get();
-            $buyerList = [];
-            if(isset($userbuyer) && !empty($userbuyer)){
-                foreach ($userbuyer as $buyerusr) {
-                    $buyerList[] = $buyerusr->id_buyer;
-                }
-            }
+    public function getItemDetails($item_size){
+            $buyerList = $this->getUserByerList();
 
-            $value = DB::table('mxp_product as mp')
-              ->join('mxp_productsize as mps','mps.product_code', '=','mp.product_code')
-              ->join('mxp_gmts_color as mgs','mgs.item_code', '=', 'mps.product_code')
-              ->select('mp.erp_code','mp.product_id','mp.unit_price','mp.product_name','mp.others_color','mp.product_description','GROUP_CONCAT(mps.product_size order by product_size) as size','GROUP_CONCAT(mgs.color_name) as color')
-              ->where('mp.product_code',$item_size)
-              ->whereIn('id_buyer',$buyerList)
-              ->get();
+            if(isset($buyerList) && !empty($buyerList)){
+              $value = DB::table('mxp_product as mp')
+                ->leftJoin('mxp_productsize as mps','mps.product_code', '=','mp.product_code')
+                ->leftJoin('mxp_gmts_color as mgs','mgs.item_code', '=', 'mps.product_code')
+                ->select('mp.erp_code','mp.product_id','mp.unit_price','mp.product_name','mp.others_color','mp.product_description',DB::raw('GROUP_CONCAT(mps.product_size) as size'),DB::raw('GROUP_CONCAT(mgs.color_name) as color'))
+                ->where([
+                    ['mp.product_code',$item_size],
+                    ['mp.status',ActionMessage::ACTIVE]
+                  ])
+                ->whereIn('id_buyer',$buyerList)
+                ->get();
+                
+            }else if(Auth::user()->type == 'super_admin'){
+              $value = DB::table('mxp_product as mp')
+                ->leftJoin('mxp_productsize as mps','mp.product_code','mps.product_code')
+                ->leftJoin('mxp_gmts_color as mgs','mp.product_code','mgs.item_code')
+                ->select('mp.erp_code','mp.product_id','mp.unit_price','mp.product_name','mp.others_color','mp.product_description',DB::raw('GROUP_CONCAT(mps.product_size) as size'),DB::raw('GROUP_CONCAT(mgs.color_name) as color'))
+                ->where([
+                    ['mp.product_code',$item_size],
+                    ['mp.status',ActionMessage::ACTIVE]
+                  ])
+                ->get();
+            }else{
+                  $value = [];
+            }
+            
 
           return $value;
     }

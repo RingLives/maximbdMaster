@@ -8,7 +8,7 @@
     ?>
     <div class="panel panel-default">
         <div class="panel-heading">
-            <div class="col-sm-3" style="font-size: 120%">Booking Details</div>
+            <div style="font-size: 120%">Booking Details</div>
             <!-- <div class="col-sm--3 col-sm-offset-9 "><a href="" class="btn btn-success">Generate Purchase Invoice</a></div> -->
         </div>
         <div class="panel-body aaa">
