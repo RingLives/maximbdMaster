@@ -220,7 +220,13 @@ $(document).ready(function(){
 
 $('#addBrandModal .close').on('click', function(){
      $('#addBrandModal').modal('toggle');
- });
+});
+$('#addBuyerModal .close').on('click', function(){
+    $('#addBuyerModal').modal('toggle');
+});
+$('#addDescriptionModal .close').on('click', function(){
+    $('#addDescriptionModal').modal('toggle');
+});
  
 $('#addColorModal .close').on('click', function(){
     $('#addColorModal').modal('toggle');
@@ -278,6 +284,31 @@ $('.add-product-buyer').on('click', function(){
 
     $('#addBuyerModal').modal('toggle');
 });
+
+$('.add-product-description').on('click', function(){
+    $.ajax({
+        type: "POST",
+        url: "/add/description/action",
+        data: 'request_type=ajax&description_name='+encodeURIComponent($('input[name=description_name]').val())+'&isActive='+$('select[name=isActive]').val()+'&_token='+$('input[name=_token]').val(),
+        cache: false,
+        async: false,
+        success: function(result) {
+
+            $('.description-list').append($('<option>', {
+                value: result['id'],
+                text: result['name']
+            }));
+
+        },
+        error: function(data) {
+            result('Product description Error: '+ data);
+        },
+
+    });
+
+    $('#addDescriptionModal').modal('toggle');
+});
+
 
 
 $('.add-color-brand').on('click', function(){

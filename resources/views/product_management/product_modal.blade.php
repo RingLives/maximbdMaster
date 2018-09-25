@@ -244,6 +244,65 @@
     </div>
 </div>
 
+<!-- Add Description Modal -->
+<div class="modal fade" id="addDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> {{--{{trans('others.add_brand_label')}}--}} Add Description
+                        <button type="button" class="close" data-dismiss="addDescriptionModal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="panel-body">
+
+                        {{--<form class="form-horizontal" role="form" method="POST" action="{{ Route('create_brand_action') }}">--}}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">{{--{{trans('others.brand_name_label')}}--}}Description</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control  input_required" name="description_name" value="{{ old('description_name')  }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3 col-md-offset-4">
+                                <div class="select">
+                                    <select class="form-control" type="select" name="isActive" >
+                                        <option  value="1" name="isActive" >{{ trans("others.action_active_label") }}</option>
+                                        <option value="0" name="isActive" >{{ trans("others.action_inactive_label") }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button class="btn btn-primary add-product-description" style="margin-right: 15px;">
+                                    {{trans('others.save_button')}}
+                                </button>
+                            </div>
+                        </div>
+                        {{--</form>--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
