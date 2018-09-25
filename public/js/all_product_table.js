@@ -255,6 +255,30 @@ $('.add-product-brand').on('click', function(){
     $('#addBrandModal').modal('toggle');
 });
 
+$('.add-product-buyer').on('click', function(){
+    $.ajax({
+        type: "POST",
+        url: "/add/buyer/action",
+        data: 'request_type=ajax&buyer_name='+encodeURIComponent($('input[name=buyer_name]').val())+'&isActive='+$('select[name=isActive]').val()+'&_token='+$('input[name=_token]').val(),
+        cache: false,
+        async: false,
+        success: function(result) {
+
+            $('.buyer-list').append($('<option>', {
+                value: result['buyer_id'],
+                text: result['buyer_name']
+            }));
+
+        },
+        error: function(data) {
+            result('Product buyer Error: '+ data);
+        },
+
+    });
+
+    $('#addBuyerModal').modal('toggle');
+});
+
 
 $('.add-color-brand').on('click', function(){
     $.ajax({

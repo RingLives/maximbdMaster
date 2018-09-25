@@ -27,13 +27,25 @@ trans('others.update_product_label'))
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
+                                    {{--<div class="form-group">--}}
+                                        {{--<label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>--}}
+                                        {{--<div class="col-md-6">--}}
+                                            {{--<select class="form-control " name="p_brand" required value="">--}}
+                                                {{--<option value="{{$data->brand}}">{{$data->brand}}</option>--}}
+                                                {{--@foreach($brands as $brand)--}}
+                                                    {{--<option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>--}}
+                                                {{--@endforeach--}}
+                                            {{--</select>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label">{{ trans('others.product_brand_label') }}</label>
+                                        <label class="col-md-4 control-label">Select Buyer</label>
                                         <div class="col-md-6">
-                                            <select class="form-control " name="p_brand" required value="">
-                                                <option value="{{$data->brand}}">{{$data->brand}}</option>
-                                                @foreach($brands as $brand)
-                                                    <option value="{{$brand->brand_name}}">{{$brand->brand_name}}</option>
+                                            <select class ="form-control" name="id_buyer" id="id_buyer">
+                                                @foreach($buyers as $buyer)
+                                                    <option @if($buyer->id_mxp_buyer == $data->id_buyer)
+                                                            selected="selected"
+                                                            @endif data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -44,7 +56,6 @@ trans('others.update_product_label'))
                                             <input type="text" class="form-control  input_required" name="p_code" value="{{$data->product_code}}">
                                         </div>
                                     </div>
-
 
                                     <div class="form-group">
                                         <label class="col-md-4 control-label">{{ trans('others.product_description_label') }}</label>
@@ -60,18 +71,7 @@ trans('others.update_product_label'))
 
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Select Buyer</label>
-                                            <div class="col-md-6">
-                                                <select class ="form-control" name="id_buyer" id="id_buyer">
-                                                    @foreach($buyers as $buyer)     
-                                                        <option @if($buyer->id_mxp_buyer == $data->id_buyer)
-                                                          selected="selected" 
-                                                    @endif data-id="{{ $buyer->id_mxp_buyer }}" value="{{ $buyer->id_mxp_buyer }}">{{ $buyer->buyer_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+
                                         
 
 {{--Add Color MultiSelect Box--}}
@@ -198,7 +198,7 @@ trans('others.update_product_label'))
                                                     </i>
                                                 </a>
                                                 <small style="float: left; padding-top: 4px;">
-                                                    Vendor Price
+                                                    Cost Price
                                                 </small>
                                             </div>
                                         </div>

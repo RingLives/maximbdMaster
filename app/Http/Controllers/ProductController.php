@@ -204,7 +204,7 @@ class ProductController extends Controller
     	$createProduct->weight_amt = $request->p_weight_amt;
         $createProduct->user_id = Auth::user()->user_id;
         $createProduct->status = $request->is_active;
-        $createProduct->id_buyer = $request->id_buyer;
+        $createProduct->id_buyer = $request->id_mxp_buyer;
         $createProduct->others_color = $request->others_color;
         $createProduct->item_size_width_height = $item_size_width_height;
     	$createProduct->action = self::CREATE_PRODUCT;
@@ -264,13 +264,13 @@ class ProductController extends Controller
         $validMessages = [
             'p_code.required' => 'The Product Code field is required.',
             'p_erp_code.required' => 'ERP Code field is required.',
-            'p_brand.required' => 'Brand field is required.'
+
             ];
     	$validator = Validator::make($request->all(), 
             [
 			'p_code' => 'required',
 			'p_erp_code' => 'required',
-            'p_brand' => 'required'
+
 		   ],
            $validMessages
         );
