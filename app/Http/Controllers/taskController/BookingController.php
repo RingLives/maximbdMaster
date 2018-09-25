@@ -150,9 +150,9 @@ class BookingController extends Controller
         $insertBooking->others_color      = (!empty($others_color[$i]) ? $others_color[$i] : 0);
         $insertBooking->item_description  = (!empty($item_description[$i]) ? $item_description[$i] : 0);
 
-        $insertBooking->oos_number  = (!empty($oos_number[$i]) ? $oos_number[$i] : 0);
-        $insertBooking->poCatNo  = (!empty($poCatNo[$i]) ? $poCatNo[$i] : 0);
-        $insertBooking->style  = (!empty($style[$i]) ? $style[$i] : 0);
+        $insertBooking->oos_number        = (!empty($oos_number[$i]) ? $oos_number[$i] : 0);
+        $insertBooking->poCatNo           = (!empty($poCatNo[$i]) ? $poCatNo[$i] : 0);
+        $insertBooking->style             = (!empty($style[$i]) ? $style[$i] : 0);
 
         $insertBooking->item_size         = (!empty($item_size[$i]) ? $item_size[$i] : 0);
         $insertBooking->item_quantity     = (!empty($item_qty[$i]) ? $item_qty[$i] : 0 );
@@ -170,7 +170,9 @@ class BookingController extends Controller
       $bookingValues = DB::select('SELECT erp_code,item_code,sku,others_color,item_description,item_price,orderDate,orderNo,shipmentDate,poCatNo, GROUP_CONCAT(gmts_color) as gmts_color,GROUP_CONCAT(item_size) as item_size, GROUP_CONCAT(item_quantity) as item_quantity FROM mxp_booking WHERE booking_order_id= "'.$customid.'" GROUP BY item_code');
 
       foreach ($bookingValues as $bookingValues) {
-        /** insert mxp_booking_challan table need to create multiple challan **/        
+
+        /** insert mxp_booking_challan table need to create multiple challan **/    
+            
         $insertBookingChallan = new MxpBookingChallan();
         $insertBookingChallan->user_id           = Auth::user()->user_id;
         $insertBookingChallan->booking_order_id  = $customid ;//'booking-abc-001';
@@ -212,20 +214,12 @@ class BookingController extends Controller
 
       // $bookingReport = DB::select('call getBookinAndBuyerDeatils("'.$customid.'")');
       $bookingReport = $BookingListController->getBookingDetailsValue($customid);
-      
-      // $bookingReport = DB::table('mxp_booking as mb')
-      //     ->join('mxp_bookingbuyer_details as mbd','mb.booking_order_id','mbd.booking_order_id')
-      //     ->where('booking_order_id',$customid)
-      //     ->get();
-
+      $bookingBuyer = $BookingListController->getBookingBuyerDetails($customid);
       $is_type = $request->is_type;
-
-      $gmtsOrSizeGroup = DB::select("SELECT gmts_color,GROUP_CONCAT(item_size) as itemSize,GROUP_CONCAT(item_quantity) as quantity from mxp_booking WHERE booking_order_id = '".$customid."' GROUP BY gmts_color");
       $footerData = DB::select("select * from mxp_reportfooter");
+      $getBookingUserDetails =  $this->getUserDetails( $customid );
 
-        $getBookingUserDetails =  $this->getUserDetails( $customid );
-
-      return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','footerData','is_type','getBookingUserDetails'));
+      return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','footerData','is_type','getBookingUserDetails','bookingBuyer'));
     }
 
 

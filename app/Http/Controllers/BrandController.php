@@ -16,7 +16,7 @@ class BrandController extends Controller
 	const UPDATE_BRAND = "update";
 
     public function brandView(){
-    	$brands = MxpBrand::where('user_id',Auth::user()->user_id)->paginate(20);
+    	$brands = MxpBrand::paginate(20);
     	return view('brand.brand_list',compact('brands'));
     }
 

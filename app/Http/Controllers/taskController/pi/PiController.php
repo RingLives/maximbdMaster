@@ -14,6 +14,8 @@ use DB;
 use App\Model\MxpBookingBuyerDetails;
 use App\Model\MxpBooking;
 use App\Model\MxpPi;
+use App\User;
+
 
 class PiController extends Controller
 {
@@ -114,8 +116,19 @@ class PiController extends Controller
         $footerData = DB::table('mxp_reportfooter')->where('status', 1)->get();
 //		$footerData = DB::select("select * from mxp_reportfooter where ");
 
-		// $this->print_me($bookingDetails);
 
-		return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails','footerData','buyerDetails','is_type'));
+		$getUserDetails = $this->getUserDetails($bookingDetails[0]->user_id);
+		// $this->print_me($getUserDetails);
+
+		return view('maxim.pi_format.piReportPage', compact('companyInfo', 'bookingDetails','footerData','buyerDetails','is_type','getUserDetails'));
 	}
+
+
+	public static function getUserDetails($userId){
+
+        $data = DB::table('mxp_users')
+            ->where('user_id',$userId)
+            ->get();
+        return $data;
+    }
 }

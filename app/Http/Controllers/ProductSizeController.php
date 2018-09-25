@@ -17,7 +17,7 @@ class ProductSizeController extends Controller
 	const UPDATE_SIZE = "update";
     
     public function sizeView(){
-    	$productSize = MxpProductSize::where('user_id',Auth::user()->user_id)->where('product_code', '')->paginate(15);
+    	$productSize = MxpProductSize::where('product_code', '')->paginate(15);
     	return view('product_management.product_size.product_size_view',compact('productSize'));
     }
 

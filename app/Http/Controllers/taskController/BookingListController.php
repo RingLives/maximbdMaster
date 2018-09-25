@@ -121,20 +121,15 @@ class BookingListController extends Controller
 
     public function showBookingReport(Request $request){
         // $bookingReport = DB::select("call getBookinAndBuyerDeatils('".$request->bid."')");
+
         $bookingReport = $this->getBookingDetailsValue($request->bid);
-
-        // $this->print_me($bookingReport);
-
+        $bookingBuyer = $this->getBookingBuyerDetails($request->bid);
         $companyInfo = DB::table('mxp_header')->where('header_type',11)->get();
-
-        $gmtsOrSizeGroup = DB::select("SELECT gmts_color,GROUP_CONCAT(item_size) as itemSize,GROUP_CONCAT(item_quantity) as quantity from mxp_booking WHERE booking_order_id = '".$request->bid."' GROUP BY gmts_color");
-
         $user = new BookingController();
-
         $getBookingUserDetails = $user::getUserDetails( $request->bid );
+        // $this->print_me($bookingBuyer);
 
-
-        return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','getBookingUserDetails'));
+        return view('maxim.orderInput.reportFile',compact('bookingReport','companyInfo','gmtsOrSizeGroup','getBookingUserDetails','bookingBuyer'));
     }
 
     public function getBookingReportListByBookingId(Request $request){
@@ -151,10 +146,6 @@ class BookingListController extends Controller
                           ->first();
             }
         }
-        // print '<pre>';
-        // print_r($bookingList);
-        // print '</pre>';
-        // die();
         return $bookingList;
     }
 
@@ -338,10 +329,19 @@ class BookingListController extends Controller
                     ]);
     }
 
+    public static function getBookingDetailsValue($booking_order_id){
+        // $bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as job_id,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = "' . $booking_order_id . '" GROUP BY mb.item_code ORDER BY mb.id ASC');
 
-    public function getBookingDetailsValue($booking_order_id){
-        $bookingDetails = DB::select('SELECT mb.oos_number,mb.season_code,mb.style,mb.is_type,GROUP_CONCAT(mb.id) as job_id,mb.sku,mb.erp_code,mb.item_code,mb.item_price,mb.item_description, mb.orderDate,mb.orderNo,mb.shipmentDate,mb.poCatNo,mb.others_color ,GROUP_CONCAT(mb.item_size) as itemSize,GROUP_CONCAT(mb.gmts_color) as gmtsColor,GROUP_CONCAT(mb.item_quantity) as quantity,mbd.buyer_name,mbd.Company_name,mbd.C_sort_name,mbd.address_part1_invoice,mbd.address_part2_invoice,mbd.attention_invoice,mbd.mobile_invoice,mbd.telephone_invoice,mbd.fax_invoice,mbd.address_part1_delivery,mbd.address_part2_delivery,mbd.attention_delivery,mbd.mobile_delivery,mbd.telephone_delivery,mbd.fax_delivery,mbd.is_complete,mbd.booking_status,mbd.shipmentDate,mbd.booking_order_id from mxp_booking mb INNER JOIN mxp_bookingbuyer_details mbd on(mbd.booking_order_id = mb.booking_order_id) WHERE mb.booking_order_id = "' . $booking_order_id . '" GROUP BY mb.item_code ORDER BY mb.id ASC');
+        $bookingDetails = MxpBooking::where('booking_order_id',$booking_order_id)
+                    ->orderBy('id','ASC')
+                    ->get();
 
         return $bookingDetails;
+    }
+
+    public static function getBookingBuyerDetails($booking_order_id){
+        $buyerDetails = MxpBookingBuyerDetails::where('booking_order_id',$booking_order_id)
+                    ->get();
+        return $buyerDetails;
     }
 }

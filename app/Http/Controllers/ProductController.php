@@ -23,6 +23,8 @@ use App\MxpProductsSizes;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\userbuyer;
+use App\Http\Controllers\Source\User\UserAccessBuyerList;
+
 
 class ProductController extends Controller
 {
